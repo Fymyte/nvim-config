@@ -10,9 +10,13 @@ let g:lightline = {
   \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'gitbranch#name'
+  \   'gitbranch': 'GitBranch'
   \ },
   \ }
+
+function! GitBranch()
+  return '⎇  '.FugitiveHead()
+endfunction
 
 """""""""""""""""""
 " Colorscheme
@@ -31,4 +35,9 @@ colorscheme material
 aug i3config_ft_detection
   au!
   au BufNewFile,BufRead ~/.config/i3/config set filetype=i3
+aug end
+
+aug md_ft_detection
+  au!
+  au BufNewFile,BufRead Scratch set filetype=markdown
 aug end
