@@ -13,4 +13,5 @@ endfun
 command! Config execute 'vs ~/.config/nvim/'
 " Easely source config without leaving vim
 command! SourceConfig execute 'source ~/.config/nvim/init.vim'
-
+" Easely open Dotfiles directory
+command! DotFiles execute 'vs ~/.config'
