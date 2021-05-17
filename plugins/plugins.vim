@@ -24,6 +24,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     Plug 'evanleck/vim-svelte'                                                      " svelte lang
     Plug 'HerringtonDarkholme/yats.vim'                                             " typescript lang
+    Plug 'Fymyte/hept.vim'                                                          " heptagon
 
 """"""""""""""""""""""""
 " Configs supports

@@ -80,6 +80,8 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
+set signcolumn=yes
+
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -92,3 +94,5 @@ try
     set undofile
 catch
 endtry
+
+
