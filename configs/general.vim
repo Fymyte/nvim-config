@@ -96,3 +96,25 @@ catch
 endtry
 
 
+""""""""""""""""""""""""""""""""""""""""""""
+" Enable Clipboard support
+""""""""""""""""""""""""""""""""""""""""""""
+function! ClipboardYank()
+  call system('xclip -i -selection clipboard', @@)
+endfunction
+function! ClipboardPaste()
+  let @@ = system('xclip -o -selection clipboard')
+endfunction
+
+vnoremap <leader>y y:call ClipboardYank()<cr>
+vnoremap <leader>d d:call ClipboardYank()<cr>d
+nnoremap <leader>p :call ClipboardPaste()<cr>p
+
+
+""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree support
+""""""""""""""""""""""""""""""""""""""""""""
+let NERDTreeIgnore=['\.o$', '\.epci$', '\.mls$', '\.d$'] " Ignore object files in NERDTree
+
+let g:cpp_member_variable_highlight=1
+let g:cpp_posix_standard=1

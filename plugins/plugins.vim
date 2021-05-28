@@ -14,11 +14,11 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 " Langage supports
 """"""""""""""""""""""""
     Plug 'octol/vim-cpp-enhanced-highlight'                                         " CPP lang
+    Plug 'jackguo380/vim-lsp-cxx-highlight'         
     Plug 'rust-lang/rust.vim'                                                       " Rust lang
     Plug 'arzg/vim-rust-syntax-ext'                                                 " Rust better syntax highlighting
     Plug 'sheerun/vim-polyglot'                                                     " Better Syntax Support
     Plug 'jiangmiao/auto-pairs'                                                     " Auto pairs for '(' '[' '{'
-    " Plug 'ycm-core/YouCompleteMe'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'w0rp/ale'                                                                 " ale linter
 
@@ -41,5 +41,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'itchyny/lightline.vim'                                                    " better status line
     Plug 'maximbaz/lightline-ale'                                                   " ale support for lightline
     Plug 'mhinz/vim-startify'                                                       " better vim startup screen    
+    Plug 'jacoborus/tender.vim'                                                     " Tender colorscheme
 
 call plug#end()
