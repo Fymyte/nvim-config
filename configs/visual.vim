@@ -10,12 +10,18 @@ let g:lightline = {
   \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
   \ },
   \ 'component_function': {
-  \   'gitbranch': 'GitBranch'
+  \   'gitbranch': 'GitBranch',
+  \   'filename': 'FullFileName'
   \ },
   \ }
 
 function! GitBranch()
   return '⎇  '.FugitiveHead()
+endfunction
+
+" Show full path of filename
+function! FullFileName()
+    return expand('%')
 endfunction
 
 """""""""""""""""""

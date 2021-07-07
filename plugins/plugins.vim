@@ -26,6 +26,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'HerringtonDarkholme/yats.vim'                                             " typescript lang
     Plug 'Fymyte/hept.vim'                                                          " heptagon
     Plug 'shirk/vim-gas'                         " GNU AS
+    Plug 'igankevich/mesonic'
 
 """"""""""""""""""""""""
 " Configs supports

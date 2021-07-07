@@ -13,4 +13,5 @@ source ~/.config/nvim/configs/functions.vim
 " General configs (nvim variables preferences)
 source ~/.config/nvim/configs/general.vim
 
+let g:lsp_cxx_hl_log_file = '/tmp/vim-lsp-cxx-hl.log'
 
