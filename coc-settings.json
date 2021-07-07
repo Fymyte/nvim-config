@@ -1,3 +1,5 @@
 {
-    "clangd.semanticHighlighting": true
+    "coc.preferences.colorSupport": true,
+    "clangd.semanticHighlighting": true,
+    "coc.preferences.semanticTokensHighlights":false,
 }
