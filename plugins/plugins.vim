@@ -9,12 +9,14 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'tpope/vim-fugitive'                                                       " git commands inside vim
     Plug 'mg979/vim-visual-multi', {'branch': 'master'}                             " multiple cursors
     Plug 'Shougo/context_filetype.vim'                                              " Handle multiple filetype in one file
+    Plug 'rhysd/vim-clang-format'                                                   " Format c/cpp using clang format
 
 """"""""""""""""""""""""
 " Langage supports
 """"""""""""""""""""""""
     Plug 'octol/vim-cpp-enhanced-highlight'                                         " CPP lang
-    Plug 'jackguo380/vim-lsp-cxx-highlight'         
+    Plug 'Fymyte/coc-c-lsp-highlight'                                                " Coc based highlight
+    " Plug 'jackguo380/vim-lsp-cxx-highlight'         
     Plug 'rust-lang/rust.vim'                                                       " Rust lang
     Plug 'arzg/vim-rust-syntax-ext'                                                 " Rust better syntax highlighting
     Plug 'sheerun/vim-polyglot'                                                     " Better Syntax Support

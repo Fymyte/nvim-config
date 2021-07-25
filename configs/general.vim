@@ -69,7 +69,7 @@ set ffs=unix,dos,mac
 set expandtab
 " Be smart when using tabs ;)
 set smarttab
-" 1 tab == 4 spaces
+" 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
 " Linebreak on 500 characters
