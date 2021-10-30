@@ -3,17 +3,38 @@
 """""""""""""""""""
 set laststatus=2
 set noshowmode
+
 let g:lightline = {
   \ 'colorscheme': 'material_vim',
   \ 'active': {
   \ 'left': [ [ 'mode', 'paste' ],
-  \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+  \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+  \ 'right': [ [ 'lineinfo' ],
+	\            [ 'percent' ],
+  \            [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+	\            [ 'fileformat', 'fileencoding', 'filetype'] ],
   \ },
   \ 'component_function': {
   \   'gitbranch': 'GitBranch',
   \   'filename': 'FullFileName'
   \ },
   \ }
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
+      \ }
 
 function! GitBranch()
   return '⎇  '.FugitiveHead()
@@ -24,6 +45,23 @@ function! FullFileName()
     return expand('%')
 endfunction
 
+""""""""""""""""""
+" Ale
+"""""""""""""""""""
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+" Check Python files with flake8 and pylint.
+let g:ale_linters = {
+      \   'python': ['flake8', 'pyright'],
+      \}
+" Fix Python files with autopep8 and yapf.
+let g:ale_fixers = {
+      \   'python': ['autopep8', 'yapf'],
+      \}
+" Disable warnings about trailing whitespace for Python files.
+let b:ale_warn_about_trailing_whitespace = 0
 """""""""""""""""""
 " Colorscheme
 """""""""""""""""""

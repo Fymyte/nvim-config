@@ -1,3 +1,4 @@
+" spellchecker: disable 
 call plug#begin('~/.config/nvim/autoload/plugged')
 """"""""""""""""""""""""
 " Utils
@@ -10,6 +11,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'rhysd/vim-clang-format'                                                   " Format c/cpp using clang format
     "Plug 'mg979/vim-visual-multi', {'branch': 'master'}                             " multiple cursors
     "Plug 'Shougo/context_filetype.vim'                                              " Handle multiple filetype in one file
+    Plug 'preservim/nerdcommenter'                                                  " Easier commenting using keybindings
 
 """"""""""""""""""""""""
 " Langage supports
@@ -19,7 +21,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     "Plug 'rust-lang/rust.vim'                                                       " Rust lang
     "Plug 'arzg/vim-rust-syntax-ext'                                                 " Rust better syntax highlighting
     "Plug 'sheerun/vim-polyglot'                                                     " Better Syntax Support
-    Plug 'jiangmiao/auto-pairs'                                                     " Auto pairs for '(' '[' '{'
+   Plug 'jiangmiao/auto-pairs'                                                     " Auto pairs for '(' '[' '{'
     "Plug 'neoclide/coc.nvim', {'branch': 'release'}
     "Plug 'w0rp/ale'                                                                 " ale linter
 
