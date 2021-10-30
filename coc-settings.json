@@ -1,4 +1,19 @@
 {
     "clangd.semanticHighlighting": true,
-    "coc.preferences.semanticTokensHighlights": true,
+    "diagnostic.displayByAle": true,
+    "languageserver": {
+    "ada": {
+      "settings": {
+        "ada": {
+          "projectFile": "ex1a.gpr"
+        }
+      },
+      "command": "ada_language_server",
+      "filetypes": [
+        "ads",
+        "adb",
+        "ada"
+      ]
+    }
+  }
 }

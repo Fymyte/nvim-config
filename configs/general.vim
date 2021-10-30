@@ -67,6 +67,7 @@ set ffs=unix,dos,mac
 
 " Use spaces instead of tabs
 set expandtab
+autocmd FileType c,c++,gas set expandtab|set smarttab|set sw=2|set ts=2
 " Be smart when using tabs ;)
 set smarttab
 " 1 tab == 2 spaces
@@ -115,6 +116,3 @@ nnoremap <leader>p :call ClipboardPaste()<cr>p
 " NERDTree support
 """"""""""""""""""""""""""""""""""""""""""""
 let NERDTreeIgnore=['\.o$', '\.epci$', '\.mls$', '\.d$'] " Ignore object files in NERDTree
-
-let g:cpp_member_variable_highlight=1
-let g:cpp_posix_standard=1
