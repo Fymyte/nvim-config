@@ -15,3 +15,8 @@ source ~/.config/nvim/configs/functions.vim
 " General configs (nvim variables preferences)
 source ~/.config/nvim/configs/general.vim
 
+" Fix colors for lsp errors and warnings
+highlight LspDiagnosticsDefaultError guifg=#e41b56
+highlight LspDiagnosticsDefaultWarning guifg=#e3641c
+
+
