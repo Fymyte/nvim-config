@@ -9,24 +9,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
     Plug 'tpope/vim-fugitive'                                                       " git commands inside vim
     Plug 'rhysd/vim-clang-format'                                                   " Format c/cpp using clang format
-    "Plug 'mg979/vim-visual-multi', {'branch': 'master'}                             " multiple cursors
-    "Plug 'Shougo/context_filetype.vim'                                              " Handle multiple filetype in one file
-    Plug 'preservim/nerdcommenter'                                                  " Easier commenting using keybindings
+   Plug 'preservim/nerdcommenter'                                                  " Easier commenting using keybindings
 
 """"""""""""""""""""""""
 " Langage supports
 """"""""""""""""""""""""
-   "Plug 'octol/vim-cpp-enhanced-highlight'                                         " CPP lang
-    "Plug 'jackguo380/vim-lsp-cxx-highlight'         
-    "Plug 'rust-lang/rust.vim'                                                       " Rust lang
-    "Plug 'arzg/vim-rust-syntax-ext'                                                 " Rust better syntax highlighting
-    "Plug 'sheerun/vim-polyglot'                                                     " Better Syntax Support
-   Plug 'jiangmiao/auto-pairs'                                                     " Auto pairs for '(' '[' '{'
-    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    "Plug 'w0rp/ale'                                                                 " ale linter
-
-    "Plug 'evanleck/vim-svelte'                                                      " svelte lang
-    "Plug 'HerringtonDarkholme/yats.vim'                                             " typescript lang
+    Plug 'jiangmiao/auto-pairs'                                                     " Auto pairs for '(' '[' '{'
     Plug 'Fymyte/hept.vim'                                                          " heptagon
     Plug 'shirk/vim-gas'                         " GNU AS
     Plug 'igankevich/mesonic'
@@ -34,6 +22,15 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                     " treesitter
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
+    Plug 'hrsh7th/cmp-nvim-lsp'                                                     " enable autocompletion
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+
+    " For vsnip users.
+    Plug 'hrsh7th/cmp-vsnip'                                                        " Snippets support
+    Plug 'hrsh7th/vim-vsnip'
 
 """"""""""""""""""""""""
 " Configs supports
@@ -48,7 +45,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'ap/vim-css-color'                                                         " color background for rbg, hex and anssi colors
     Plug 'kaicataldo/material.vim', { 'branch': 'main' }                            " Material colorscheme for vim 
     Plug 'itchyny/lightline.vim'                                                    " better status line
-    "Plug 'maximbaz/lightline-ale'                                                   " ale support for lightline
     Plug 'mhinz/vim-startify'                                                       " better vim startup screen    
     Plug 'jacoborus/tender.vim'                                                     " Tender colorscheme
 

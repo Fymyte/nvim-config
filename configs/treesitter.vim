@@ -1,7 +1,7 @@
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "rust", "python", "c", "cpp", "bash", "cuda", "cmake", "vim" },
+  ensure_installed = { "rust", "c", "cpp", "bash", "cuda", "cmake", "vim" },
   highlight = {
     enable = true,
     custom_captures = {
