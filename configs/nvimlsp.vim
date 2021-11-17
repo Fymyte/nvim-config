@@ -58,6 +58,11 @@ EOF
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+nmap gd :lua vim.lsp.buf.definition()<CR>
+nmap K :lua vim.lsp.buf.hover()<CR>
+nmap gr :lua vim.lsp.buf.references()<CR>
+nmap <leader>rn :lua vim.lsp.buf.rename()<CR>
+
 " Set completeopt to have a better completion experience
 set completeopt=menu,menuone,noselect
 
