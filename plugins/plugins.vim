@@ -3,49 +3,72 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 """"""""""""""""""""""""
 " Utils
 """"""""""""""""""""""""
-    Plug 'ryanoasis/vim-devicons'                                                   " add icons before files and folders
-    Plug 'scrooloose/nerdtree'                                                      " file explorer 
-    Plug 'dyng/ctrlsf.vim'                                                          " edit same text in multiple files (also subfolders)
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-    Plug 'tpope/vim-fugitive'                                                       " git commands inside vim
-    Plug 'rhysd/vim-clang-format'                                                   " Format c/cpp using clang format
-   Plug 'preservim/nerdcommenter'                                                  " Easier commenting using keybindings
+  " add icons before files and folders
+  Plug 'ryanoasis/vim-devicons'
+  " file explorer 
+  Plug 'scrooloose/nerdtree'
+  " edit same text in multiple files (also subfolders)
+  Plug 'dyng/ctrlsf.vim'
+  " git commands inside vim
+  Plug 'tpope/vim-fugitive'
+  " Format c/cpp using clang format
+  Plug 'rhysd/vim-clang-format'                  
+  " Easier commenting using keybindings
+  Plug 'preservim/nerdcommenter'
+  " Snippets support
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
+  " Fuzzy search
+  Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
 
 """"""""""""""""""""""""
-" Langage supports
+" Highlighting and LSP
 """"""""""""""""""""""""
-    Plug 'jiangmiao/auto-pairs'                                                     " Auto pairs for '(' '[' '{'
-    Plug 'Fymyte/hept.vim'                                                          " heptagon
-    Plug 'shirk/vim-gas'                         " GNU AS
-    Plug 'igankevich/mesonic'
-    "Plug 'thindil/Ada-Bundle's
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                     " treesitter
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'williamboman/nvim-lsp-installer'
-    Plug 'hrsh7th/cmp-nvim-lsp'                                                     " enable autocompletion
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/nvim-cmp'
-
-    " For vsnip users.
-    Plug 'hrsh7th/cmp-vsnip'                                                        " Snippets support
-    Plug 'hrsh7th/vim-vsnip'
+  " Highlighting with treesitter
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " Neovin integrated lsp client
+  Plug 'neovim/nvim-lspconfig'
+  " Install lsp sever for many language
+  Plug 'williamboman/nvim-lsp-installer'
+  " LSP based Autocompletion with more sources
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
 
 """"""""""""""""""""""""
-" Configs supports
+" Language supports
 """"""""""""""""""""""""
-    Plug 'moon-musick/vim-i3-config-syntax'                                         " i3 config
-    Plug 'cantoromc/vim-rasi'                                                       " rofi configs
-    Plug 'fladson/vim-kitty'                                                        " kitty config   
-    
+  " Auto pairs for '(' '[' '{'
+  Plug 'jiangmiao/auto-pairs'
+  "" heptagon
+  "Plug 'Fymyte/hept.vim'                                                          
+  " GNU AS
+  Plug 'shirk/vim-gas'
+  Plug 'igankevich/mesonic'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+  "Plug 'thindil/Ada-Bundle's
+  " i3 config
+  Plug 'moon-musick/vim-i3-config-syntax'
+  " rofi config
+  Plug 'cantoromc/vim-rasi'
+  " kitty config
+  Plug 'fladson/vim-kitty'   
+
 """"""""""""""""""""""""
 " Visual
 """"""""""""""""""""""""
-    Plug 'ap/vim-css-color'                                                         " color background for rbg, hex and anssi colors
-    Plug 'kaicataldo/material.vim', { 'branch': 'main' }                            " Material colorscheme for vim 
-    Plug 'itchyny/lightline.vim'                                                    " better status line
-    Plug 'mhinz/vim-startify'                                                       " better vim startup screen    
-    Plug 'jacoborus/tender.vim'                                                     " Tender colorscheme
+  " color background for rbg, hex and anssi colors
+  Plug 'ap/vim-css-color'                                                         
+  " Material colorscheme for vim
+  Plug 'kaicataldo/material.vim', { 'branch': 'main' }                             
+  " better status line
+  Plug 'itchyny/lightline.vim'
+  " better vim startup screen
+  Plug 'mhinz/vim-startify'
+  " Tender colorscheme
+  Plug 'jacoborus/tender.vim'
 
 call plug#end()
