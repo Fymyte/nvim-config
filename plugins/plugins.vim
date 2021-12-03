@@ -12,15 +12,16 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   " git commands inside vim
   Plug 'tpope/vim-fugitive'
   " Format c/cpp using clang format
-  Plug 'rhysd/vim-clang-format'                  
+"  Plug 'rhysd/vim-clang-format'                  
   " Easier commenting using keybindings
   Plug 'preservim/nerdcommenter'
   " Snippets support
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
   " Fuzzy search
-  Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-
+  " Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf.vim'
 
 """"""""""""""""""""""""
 " Highlighting and LSP
@@ -37,6 +38,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
+  " additional hint for rust
+  Plug 'simrat39/rust-tools.nvim' 
 
 """"""""""""""""""""""""
 " Language supports
@@ -44,18 +47,18 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   " Auto pairs for '(' '[' '{'
   Plug 'jiangmiao/auto-pairs'
   "" heptagon
-  "Plug 'Fymyte/hept.vim'                                                          
+"  Plug 'Fymyte/hept.vim'                                                          
   " GNU AS
-  Plug 'shirk/vim-gas'
+"  Plug 'shirk/vim-gas'
   Plug 'igankevich/mesonic'
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
   "Plug 'thindil/Ada-Bundle's
-  " i3 config
+"  i3 config
   Plug 'moon-musick/vim-i3-config-syntax'
   " rofi config
   Plug 'cantoromc/vim-rasi'
   " kitty config
-  Plug 'fladson/vim-kitty'   
+"  Plug 'fladson/vim-kitty'
 
 """"""""""""""""""""""""
 " Visual
@@ -68,7 +71,5 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'itchyny/lightline.vim'
   " better vim startup screen
   Plug 'mhinz/vim-startify'
-  " Tender colorscheme
-  Plug 'jacoborus/tender.vim'
 
 call plug#end()
