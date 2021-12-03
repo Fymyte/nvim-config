@@ -1,163 +1,106 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" File: general.vim
-" Author: Fymyte - @Fymyte
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
+lua << EOF
+-------------------------------------------------------------------------------
+-- File: general.vim
+-- Author: Fymyte - @Fymyte
+-------------------------------------------------------------------------------
+-- Enable plugins
+require('plugins')
 
-" Enable plugins
-source ~/.config/nvim/plugins/plugins.vim
+local opt = vim.opt
+local cmd = vim.cmd
+local fn = vim.fn
+local g = vim.g
+---------------------------------------------
+--  Global options
+---------------------------------------------
+-- General
+opt.mouse = 'a'           -- Enable mouse usage
+opt.autoread = true       -- Auto read when a file is changed from the outside
+opt.history = 500         -- Set how many commands to remember
+opt.foldcolumn = '1'      -- Set maximun unfolded column to 1
+opt.scrolloff = 4         -- Always show 4 lines of the buffer when moving up/down
+opt.number = true         -- Show line numbers
+opt.cmdheight = 1         -- Set command window height
+opt.wildignore = { '*.o', '*~', '*.pyc', '*/.git/*', '*/.hg/*', '*/.svn/*', '*/.DS_Store' }
+opt.backspace = { 'eol', 'start', 'indent' } -- Configure backspace so it acts as it should act
+opt.lazyredraw = true     -- Don't redraw while executing macros (good performance config)
+opt.magic = true          -- Turn magic on for regex
+opt.showmatch = true			-- Show matching brackets when text indicator is over them
+opt.mat = 2 							-- How many tenths of a second to blink when matching brackets
+opt.fileformats = { 'unix', 'dos', 'mac' }
+opt.listchars = { eol = '↲', tab = '▸ ', trail = '·' }
+opt.timeoutlen = 500			-- Time for a key map to complete
+-- Errors
+opt.errorbells = false
+opt.visualbell = false
+-- Linebreak
+opt.linebreak = true
+opt.textwidth = 120
+-- Tabs/Spaces
+opt.smartcase = true
+opt.shiftwidth = 2        -- 1 tab = 2 spaces
+opt.tabstop = 2
+-- Search
+opt.ignorecase = true     -- Ignore case when searching
+opt.smartcase = true
+opt.hlsearch = true       -- Highlight search results
+opt.incsearch = true      -- Makes search act like in modern browsers
+-- Persistent undo file
+opt.undodir = fn.getenv('HOME') .. '/.local/share/nvim/undodir' -- when using lua, create a directory `~` in current directory
+opt.undofile = true
+-- Indentation
+opt.autoindent = true
+opt.smartindent = true
+opt.wrap = true
+opt.signcolumn = 'yes'
+-- Status line
+opt.laststatus = 2 				-- Always show a status line
+opt.showmode = false			-- Don't show current mod (already displayed in status line)
+-- Copy content of the yanked text in keyboard
+cmd( [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]] )
+-- Resync file from disk when gaining focus
+cmd( [[au FocusGained,BufEnter * checktime]] )
+-- Return to last edit position when opening files
+cmd( [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]] )
 
-""""""""""""""""""""""""""""""""""""""""""""
-" Global options
-""""""""""""""""""""""""""""""""""""""""""""
-" Enable mouse usage
-set mouse=a
+-------------------
+-- Keymaps
+-------------------
+local function map(key)
+  -- get the extra options
+  local opts = { noremap = true, silent = true }
+  for i, v in pairs(key) do
+    if type(i) == 'string' then opts[i] = v end
+  end
+	local set_keymap = vim.api.nvim_set_keymap
+  set_keymap(key[1], key[2], key[3], opts)
+end
 
-" Enable syntax highlighting
-syntax enable
+g.mapleader = ';'			-- remap leader key to ';'
+map( { 'n', '<leader>w', '<cmd>w!<cr>' } ) -- save
+-- Move between windows
+map( { '', '<C-h>', '<cmd>wincmd h<cr>' } )
+map( { '', '<C-j>', '<cmd>wincmd j<cr>' } )
+map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
+map( { '', '<C-l>', '<cmd>wincmd l<cr>' } )
+-- Move lines
+map( { 'n', '<M-j>', [[mz:m+<cr>`z]] } )
+map( { 'n', '<M-k>', [[mz:m-2<cr>`z]] } )
+map( { 'v', '<M-j>', [[:m'>+<cr>`<my`>mzgv`yo`z]] } )
+map( { 'v', '<M-k>', [[:m'<-2<cr>`>my`<mzgv`yo`z]] } )
+-- Misc
+map( { '', '<leader>l', '<cmd>NERDTreeToggle<cr>' } )
+map( { '', '<leader><cr>', '<cmd>noh<cr>' } )
 
-" Set how many commands to remember
-set history=500
-
-" Enable filetype plugin
-filetype plugin on
-filetype indent on
-
-" Auto read when a file is changed from the outside
-set autoread
-au FocusGained,BufEnter * checktime
-
-" Set maximun unfolded column to 1
-set foldcolumn=1
-
-" Always show 7 lines of the buffer when moving up/down
-set so=7
-" Show line number
-set number
-" Ignore objects, swap and git files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-" Height of the command bar
-set cmdheight=1
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-" Ignore case when searching
-set ignorecase
-" When searching try to be smart about cases 
-set smartcase
-" Highlight search results
-set hlsearch
-" Makes search act like search in modern browsers
-set incsearch 
-" Don't redraw while executing macros (good performance config)
-set lazyredraw 
-" For regular expressions turn magic on
-set magic
-" Show matching brackets when text indicator is over them
-set showmatch 
-" How many tenths of a second to blink when matching brackets
-set mat=2
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-" Use spaces instead of tabs
-set expandtab
-autocmd FileType c,c++,gas set expandtab|set smarttab|set sw=2|set ts=2
-" Be smart when using tabs ;)
-set smarttab
-" 1 tab == 2 spaces
-set shiftwidth=2
-set tabstop=2
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-set signcolumn=yes
-
-" Return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" Turn persistent undo on 
-try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
-    set undofile
-catch
-endtry
-
-" Enable Clipboard support
-function! ClipboardYank()
-  call system('xclip -i -selection clipboard', @@)
-endfunction
-function! ClipboardPaste()
-  let @@ = system('xclip -o -selection clipboard')
-endfunction
-
-vnoremap <leader>y y:call ClipboardYank()<cr>
-vnoremap <leader>d d:call ClipboardYank()<cr>d
-nnoremap <leader>p :call ClipboardPaste()<cr>p
-
-
-""""""""""""""""""
-" Keymaps
-""""""""""""""""""
-" remap leader key to ';'
-let mapleader=";"
-
-" Quick save files
-nnoremap <leader>w :w!<cr>
-
-" Copy/Paste from system keyboard register
-noremap <Leader>y "+y
-noremap <Leader>p "+p
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Quickly toggle file treeview
-map <leader>l :NERDTreeToggle<CR>
-
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-
-""""""""""""""""""
-" Colorscheme
-""""""""""""""""""
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'darker-community'
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-if (has('termguicolors'))
-  set termguicolors
-endif
-colorscheme material
-
+-------------------
+-- Colorscheme
+-------------------
+g.material_terminal_italics = 1
+g.material_theme_style = 'darker-community'
+opt.termguicolors = true
+vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
+cmd( 'colorscheme material' )
+EOF
 
 
 """"""""""""""""""""""""""""""""""""""""""""
@@ -166,9 +109,6 @@ colorscheme material
 """"""""""""""""""
 " Lightline
 """"""""""""""""""
-set laststatus=2
-set noshowmode
-
 let g:lightline = {
   \ 'colorscheme': 'material_vim',
   \ 'active': {
