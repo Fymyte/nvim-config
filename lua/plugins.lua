@@ -11,7 +11,7 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 -- edit same text in multiple files (also subfolders)
   Plug 'dyng/ctrlsf.vim'
 -- git commands inside vim
-  Plug 'tpope/vim-fugitive'
+--  Plug 'tpope/vim-fugitive'
 -- Format c/cpp using clang format
 -- "  Plug 'rhysd/vim-clang-format'
 -- Easier commenting using keybindings
@@ -71,7 +71,8 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 -- Material colorscheme for vim
   Plug ('kaicataldo/material.vim', { branch = 'main' })
 -- better status line
-  Plug 'itchyny/lightline.vim'
+  Plug 'nvim-lualine/lualine.nvim'
+--  Plug 'itchyny/lightline.vim'
 -- better vim startup screen
   Plug 'mhinz/vim-startify'
 
