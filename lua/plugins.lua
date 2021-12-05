@@ -25,6 +25,7 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
   Plug 'junegunn/fzf.vim'
 -- copy/paste everywhere
   Plug 'ojroques/vim-oscyank'
+  Plug 'rcarriga/nvim-notify'
 
 --""""""""""""""""""""""""
 --" Highlighting and LSP
@@ -40,6 +41,7 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/cmp-nvim-lua'
   Plug 'hrsh7th/nvim-cmp'
 -- additional hint for rust
   Plug 'simrat39/rust-tools.nvim'
@@ -59,7 +61,7 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 -- i3 config
   Plug 'moon-musick/vim-i3-config-syntax'
 -- rofi config
-  Plug 'cantoromc/vim-rasi'
+-- Plug 'cantoromc/vim-rasi'
 -- kitty config
 --"  Plug 'fladson/vim-kitty'
 

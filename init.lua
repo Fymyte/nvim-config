@@ -2,16 +2,24 @@
 -- File: general.vim
 -- Author: Fymyte - @Fymyte
 -------------------------------------------------------------------------------
--- Enable plugins
-require('plugins')
-
 local opt = vim.opt
 local cmd = vim.cmd
+local api = vim.api
+local lsp = vim.lsp
 local fn = vim.fn
 local g = vim.g
+
+-- Enable plugins
+require('plugins')
+require('notify').setup({ stages = 'slide', timeout = 3000 })
+vim.notify = require('notify')
+local utils = require('utils')
+
 ---------------------------------------------
 --  Global options
 ---------------------------------------------
+
+g.log_level = 'warn'
 -- General
 opt.mouse = 'a'           -- Enable mouse usage
 opt.autoread = true       -- Auto read when a file is changed from the outside
@@ -28,12 +36,14 @@ opt.showmatch = true      -- Show matching brackets when text indicator is over 
 opt.mat = 2               -- How many tenths of a second to blink when matching brackets
 opt.fileformats = { 'unix', 'dos', 'mac' }
 opt.timeoutlen = 500      -- Time for a key map to complete
+opt.updatetime = 1000     -- Time for `CursorHold` event to trigger (ms)
 -- show hidden characters
 opt.listchars = { tab = '▸ ', trail = '·' }
 opt.list = true
 -- Errors
 opt.errorbells = false
 opt.visualbell = false
+cmd([[set t_vb=]])        -- Remove terminal blinking
 -- Linebreak
 opt.linebreak = true
 opt.textwidth = 120
@@ -68,17 +78,32 @@ cmd( [[au FocusGained,BufEnter * checktime]] )
 -- Return to last edit position when opening files
 cmd( [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]] )
 
+local orig_nvim_open_win = api.nvim_open_win
+function api.nvim_open_win(buffer, enter, config)
+  config = config or {}
+  config.border = config.border or 'rounded'
+  return orig_nvim_open_win(buffer, enter, config)
+end
+
 -------------------
 -- Keymaps
 -------------------
-local function map(key)
-  -- get the extra options
+
+local function generic_map(key, map_fun)
+   -- get the extra options
   local opts = { noremap = true, silent = true }
   for i, v in pairs(key) do
     if type(i) == 'string' then opts[i] = v end
   end
-  local set_keymap = vim.api.nvim_set_keymap
-  set_keymap(key[1], key[2], key[3], opts)
+  map_fun(key[1], key[2], key[3], opts)
+  utils.log('trace',
+    string.format('add new keymap: { mode = %q, keys: %q, cmd: %q }', key[1], key[2], key[3]))
+end
+local function map(key)
+  generic_map(key, api.nvim_set_keymap)
+end
+local function buf_map(bufnr, key)
+  generic_map(key, function(m, k, c, o) api.nvim_buf_set_keymap(bufnr, m, k, c, o) end)
 end
 
 g.mapleader = ';'     -- remap leader key to ';'
@@ -113,6 +138,7 @@ cmd( 'colorscheme material' )
 -------------------
 -- Statusline
 -------------------
+
 local theme = require('lualine.themes.material')
 theme.normal.c.bg = '#333333'
 require('lualine').setup({
@@ -130,9 +156,9 @@ require('lualine').setup({
 -------------------
 -- NERD (Tree/Commenter)
 -------------------
+-- Ignore object files in NERDTree
+NERDTreeIgnore = { [[\.o$]], [[\.epci$]], [[\.mls$]], [[\.d$]] }
 vim.cmd [[
-" Ignore object files in NERDTree
-let NERDTreeIgnore=['\.o$', '\.epci$', '\.mls$', '\.d$']
 " Create default mappings
 let g:NERDCreateDefaultMappings = 1
 " Add spaces after comment delimiters by default
@@ -161,9 +187,6 @@ aug i3config_ft_detection
   au!
   au BufNewFile,BufRead ~/.config/i3/config set filetype=i3
 aug end
-
-aug md_ft_detection
-  au!
   au BufNewFile,BufRead Scratch set filetype=markdown
 aug end
 ]]
@@ -180,7 +203,7 @@ require'nvim-treesitter.configs'.setup {
       ["variable.parameter"] = "Identifier"
     },
     additional_vim_regex_highlighting = true,
-      disable = { "fsharp" },
+    disable = {},
   },
 
 }
@@ -189,56 +212,68 @@ require'nvim-treesitter.configs'.setup {
 -------------------
 -- NvimLSP
 -------------------
-local lsp_installer = require("nvim-lsp-installer")
--- Provide settings first!
-lsp_installer.settings {
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-}
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
-    server:setup(opts)
-    vim.cmd [[ do User LspAttachBuffers ]]
-end)
 
-local nvim_lsp = require('lspconfig')
+--- require `nvim-lsp-installer`
+local lsp_installer = require('nvim-lsp-installer')
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+-- Use rounded windows everywhere
+local border = 'rounded'--{ '╭', '─', '╮', '│', '╯','─', '╰', '│' }
+local orig_util_open_floating_preview = lsp.util.open_floating_preview
+function lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+--- Configure diagnostics displayed info
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  underline = true,
+  update_in_insert = true,
+  severity_sort = false,
+})
+-- Change diagnostic symbols in the sign column
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+lsp.set_log_level(g.log_level)
 
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+--- Show source in diagnostics
+--vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+--  virtual_text = {
+--    --prefix = '●',
+----- @version 0.6+
+--    source = "always",  -- Or "if_many"
+--  }
+--})
 
+--- Provide additional key mappings when a lsp server is attached
+local function custom_attach(client, bufnr)
   -- Mappings.
-  local opts = { noremap = true, silent = true }
+  buf_map(bufnr, { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>' } )
+  buf_map(bufnr, { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' } )
+  buf_map(bufnr, { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>' } )
+  buf_map(bufnr, { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>' } )
+  buf_map(bufnr, { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' } )
+  buf_map(bufnr, { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>' } )
+  buf_map(bufnr, { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>' } )
+  buf_map(bufnr, { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>' } )
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  -- Show line diagnostic on cursor hold
+  cmd([[autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()]])
 
+  utils.log('debug', string.format("Language server %s attached", client.name))
 end
 
 -- Setup nvim-cmp.
@@ -255,6 +290,10 @@ cmp.setup({
     end,
   },
   mapping = {
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
@@ -271,6 +310,7 @@ cmp.setup({
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
+    { name = 'nvim_lua' }
   }, {
     { name = 'buffer' },
   })
@@ -286,26 +326,76 @@ cmp.setup.cmdline('/', {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'path' }
+    { name = 'path' },
+    { name = 'nvim_lsp' }
   }, {
     { name = 'cmdline' }
   })
 })
 
 -- Setup lspconfig.
+-- Provide settings first!
+lsp_installer.settings {
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+}
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'rust_analyzer', 'clangd', 'pylsp' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    capabilities = capabilities
+--local servers = { 'rust_analyzer', 'clangd', 'pylsp' }
+local default_opts = {
+  on_attach = custom_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  capabilities = capabilities,
+  log_level = g.log_level,
+}
+lsp_installer.on_server_ready(function(server)
+  local runtime_path = vim.split(package.path, ";")
+  table.insert(runtime_path, "lua/?.lua")
+  table.insert(runtime_path, "lua/?/init.lua")
+  local server_opts = {
+    ['sumneko_lua'] = function ()
+      default_opts.settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+            -- Setup your lua path
+            path = runtime_path,
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim" },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = api.nvim_get_runtime_file("", true),
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
+          },
+        }
+      }
+      return default_opts
+    end
   }
-end
+
+  server:setup(server_opts[server.name] and server_opts[server.name]() or default_opts)
+  vim.cmd([[do User LspAttachBuffers]])
+  utils.log('debug', string.format('Language server %q is ready', server.name))
+end)
+
+
+--for _, server in ipairs(servers) do
+--  lsp[server].setup(default_opts)
+--end
+
 -- Fix colors for lsp errors and warnings
 vim.cmd [[
 highlight LspDiagnosticsDefaultError guifg=#e41b56
@@ -328,7 +418,7 @@ require('rust-tools').setup({})
 -- Quickly open config folder in nerd-tree
 vim.cmd( [[command! Config execute 'vs ~/.config/nvim/']] )
 -- Easely source config without leaving vim
-vim.cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.vim']] )
+vim.cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.lua']] )
 -- Easely open Dotfiles directory
 vim.cmd( [[command! DotFiles execute 'vs ~/.config']] )
 -- Quickly change directory in NERDTree with path completion
