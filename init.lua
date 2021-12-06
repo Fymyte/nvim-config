@@ -78,6 +78,7 @@ cmd( [[au FocusGained,BufEnter * checktime]] )
 -- Return to last edit position when opening files
 cmd( [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]] )
 
+-- Make every window appears with rounded corners
 local orig_nvim_open_win = api.nvim_open_win
 function api.nvim_open_win(buffer, enter, config)
   config = config or {}
@@ -90,7 +91,7 @@ end
 -------------------
 
 local function generic_map(key, map_fun)
-   -- get the extra options
+  -- get the extra options
   local opts = { noremap = true, silent = true }
   for i, v in pairs(key) do
     if type(i) == 'string' then opts[i] = v end
@@ -120,7 +121,7 @@ map( { 'v', '<M-j>', [[:m'>+<cr>`<my`>mzgv`yo`z]] } )
 map( { 'v', '<M-k>', [[:m'<-2<cr>`>my`<mzgv`yo`z]] } )
 -- Misc
 map( { '', '<leader>l', '<cmd>NERDTreeToggle<cr>' } )
-map( { '', '<leader><cr>', '<cmd>noh<cr>' } )
+map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
 
 -------------------
 -- Colorscheme
@@ -148,36 +149,22 @@ require('lualine').setup({
     component_separators = { left = '∣', right = '∣' },
   },
   sections = {
-    lualine_b = {'branch', 'diff',
-                  {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+    lualine_b = { 'branch', 'diff', { 'diagnostics', sources={ 'nvim_lsp' } } },
   }
 })
 
 -------------------
 -- NERD (Tree/Commenter)
 -------------------
--- Ignore object files in NERDTree
-NERDTreeIgnore = { [[\.o$]], [[\.epci$]], [[\.mls$]], [[\.d$]] }
-vim.cmd [[
-" Create default mappings
-let g:NERDCreateDefaultMappings = 1
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 0
-"" Align line-wise comment delimiters flush left instead of following code indentation
-"let g:NERDDefaultAlign = 'left'
-"" Set a language to use its alternate delimiters by default
-"let g:NERDAltDelims_java = 1
-"" Add your own custom formats or override the defaults
-"let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 1
-]]
+
+NERDTreeIgnore = { [[\.o$]], [[\.epci$]], [[\.mls$]], [[\.d$]] } -- Ignore object files in NERDTree
+g.NERDCreateDefaultMappings = 1 -- Create default mappings
+g.NERDSpaceDelims = 1     -- Add spaces after comment delimiters by default
+g.NERDCompactSexyComs = 0 -- Use compact syntax for prettified multi-line comments
+-- g.NERDDefaultAlign = 'left' -- Align line-wise comment delimiters flush left instead of following code indentation
+g.NERDCommentEmptyLines = 1 -- Allow commenting and inverting empty lines (useful when commenting a region)
+g.NERDTrimTrailingWhitespace = 1 -- Enable trimming of trailing whitespace when uncommenting
+g.NERDToggleCheckAllLines = 1 -- Enable NERDCommenterToggle to check all selected lines is commented or not
 
 -------------------
 -- i3 config highlight
@@ -194,6 +181,7 @@ aug end
 -------------------
 -- Treesitter
 -------------------
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "rust", "python", "c", "cpp", "bash", "cuda", "cmake", "vim", "lua" },
   highlight = {
@@ -210,84 +198,35 @@ require'nvim-treesitter.configs'.setup {
 
 
 -------------------
--- NvimLSP
+-- NvimCMP
 -------------------
 
---- require `nvim-lsp-installer`
-local lsp_installer = require('nvim-lsp-installer')
-
--- Use rounded windows everywhere
-local border = 'rounded'--{ '╭', '─', '╮', '│', '╯','─', '╰', '│' }
-local orig_util_open_floating_preview = lsp.util.open_floating_preview
-function lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
---- Configure diagnostics displayed info
-vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  underline = true,
-  update_in_insert = true,
-  severity_sort = false,
-})
--- Change diagnostic symbols in the sign column
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-lsp.set_log_level(g.log_level)
-
---- Show source in diagnostics
---vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
---  virtual_text = {
---    --prefix = '●',
------ @version 0.6+
---    source = "always",  -- Or "if_many"
---  }
---})
-
---- Provide additional key mappings when a lsp server is attached
-local function custom_attach(client, bufnr)
-  -- Mappings.
-  buf_map(bufnr, { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>' } )
-  buf_map(bufnr, { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' } )
-  buf_map(bufnr, { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>' } )
-  buf_map(bufnr, { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>' } )
-  buf_map(bufnr, { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' } )
-  buf_map(bufnr, { 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>' } )
-  buf_map(bufnr, { 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>' } )
-  buf_map(bufnr, { 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>' } )
-  buf_map(bufnr, { 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>' } )
-  buf_map(bufnr, { 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' } )
-  buf_map(bufnr, { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' } )
-  buf_map(bufnr, { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>' } )
-  buf_map(bufnr, { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>' } )
-  buf_map(bufnr, { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>' } )
-  buf_map(bufnr, { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>' } )
-  buf_map(bufnr, { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>' } )
-  buf_map(bufnr, { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>' } )
-
-  -- Show line diagnostic on cursor hold
-  cmd([[autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()]])
-
-  utils.log('debug', string.format("Language server %s attached", client.name))
-end
-
--- Setup nvim-cmp.
 local cmp = require'cmp'
-
 cmp.setup({
   snippet = {
-    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
     end,
+  },
+  formatting = {
+    fields = { "kind", "abbr" },
+    format = require('lspkind').cmp_format({ with_text = false, preset = 'default' })
+  },
+  documentation = {
+    border = 'rounded',
+    zindex = 1002, -- Display documentation on top
+    winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+  },
+  experimental = {
+    ghost_text = {},
+    native_menu = false,
+  },
+  completion = {
+    --border = { '╭', '─', '╮', '│', '╯','─', '╰', '│' },
+    --scrollbar = '',
   },
   mapping = {
     ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -333,19 +272,85 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-------------------
+-- NvimLSP
+-------------------
+
+local lsp_installer = require('nvim-lsp-installer')
+
+-- Use rounded corners for lsp too
+local border = 'rounded'
+local orig_util_open_floating_preview = lsp.util.open_floating_preview
+function lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+--- Configure diagnostics displayed info
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = true,
+  severity_sort = false,
+})
+-- Change diagnostic symbols in the sign column
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+lsp.set_log_level(g.log_level)
+
+--- Show source in diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    prefix = '●',
+    source = "always",
+  }
+})
+
+--- Provide additional key mappings when a lsp server is attached
+local function custom_attach(client, bufnr)
+  -- Mappings.
+  buf_map(bufnr, { 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>' } )
+  buf_map(bufnr, { 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>' } )
+  buf_map(bufnr, { 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>' } )
+  buf_map(bufnr, { 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>' } )
+  buf_map(bufnr, { 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>' } )
+  buf_map(bufnr, { 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' } )
+  buf_map(bufnr, { 'v', '<space>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>' } )
+  buf_map(bufnr, { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>' } )
+  buf_map(bufnr, { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>' } )
+  buf_map(bufnr, { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>' } )
+  buf_map(bufnr, { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>' } )
+
+  -- Show line diagnostic on cursor hold
+  cmd([[autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()]])
+
+  utils.log('info', string.format("Language server %s attached", client.name))
+end
+
 -- Setup lspconfig.
 -- Provide settings first!
 lsp_installer.settings {
     ui = {
         icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
+            server_installed = "",
+            server_pending = "",
+            server_uninstalled = "",
         }
     }
 }
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
---local servers = { 'rust_analyzer', 'clangd', 'pylsp' }
 local default_opts = {
   on_attach = custom_attach,
   flags = {
@@ -354,32 +359,51 @@ local default_opts = {
   capabilities = capabilities,
   log_level = g.log_level,
 }
+
+local function ensure_lsp_installed(servers)
+  for _, name in pairs(servers) do
+    local server_is_found, server = lsp_installer.get_server(name)
+    if server_is_found then
+      if not server:is_installed() then
+        utils.log('warn', 'Server ' .. name .. ' not installed. Installing...')
+        server:install()
+      end
+    end
+  end
+end
+ensure_lsp_installed({ 'rust_analyzer', 'clangd', 'pylsp', 'sumneko_lua' })
+
 lsp_installer.on_server_ready(function(server)
   local runtime_path = vim.split(package.path, ";")
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
   local server_opts = {
-    ['sumneko_lua'] = function ()
-      default_opts.settings = {
+    ['sumneko_lua'] = function () default_opts.settings = {
         Lua = {
           runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = "LuaJIT",
-            -- Setup your lua path
-            path = runtime_path,
+            version = "LuaJIT", -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            path = runtime_path, -- Setup your lua path
           },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { "vim" },
-          },
-          workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = api.nvim_get_runtime_file("", true),
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
+          diagnostics = { globals = { "vim" }, }, -- Get the language server to recognize the `vim` global
+          workspace = { library = api.nvim_get_runtime_file("", true) }, -- Make the server aware of Neovim runtime files
+          telemetry = { enable = false },
+        }
+      }
+      return default_opts
+    end,
+    ['pylsp'] = function () default_opts.settings = {
+        pylsp = {
+          configurationSources = { 'yapf' },
+          -- base plugins can be installed using `pip install 'python-lsp-server[<plugin>|all]'`
+          plugins = {
+            pylint = { enabled = true }, -- `pip install pylint`
+            pyflakes = { enabled = false },
+            pycodestyle = { enabled = false },
+            jedi_completion = { fuzzy = true },
+            pyls_isort = { enabled = true }, -- `pip install pylsp-isort`
+            pylsp_mypy = { enabled = true }, -- `pip install pylsp-mypy`
+            pylsp_rope = { enabled = true }, -- `pip install pylsp-rope`
+          }
         }
       }
       return default_opts
@@ -388,7 +412,7 @@ lsp_installer.on_server_ready(function(server)
 
   server:setup(server_opts[server.name] and server_opts[server.name]() or default_opts)
   vim.cmd([[do User LspAttachBuffers]])
-  utils.log('debug', string.format('Language server %q is ready', server.name))
+  utils.log('info', string.format('Language server %q is ready', server.name))
 end)
 
 
@@ -423,3 +447,9 @@ vim.cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.lua']] )
 vim.cmd( [[command! DotFiles execute 'vs ~/.config']] )
 -- Quickly change directory in NERDTree with path completion
 vim.cmd( [[command! -nargs=1 -complete=dir NCD NERDTree | cd <args> | NERDTreeCWD]] )
+
+vim.cmd( [[com! SynGroup echo {l,c,n ->
+        \   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
+        \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
+        \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
+        \ }(line("."), col("."), "name")]] )

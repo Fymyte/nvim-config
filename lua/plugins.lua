@@ -63,13 +63,15 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 -- rofi config
 -- Plug 'cantoromc/vim-rasi'
 -- kitty config
---"  Plug 'fladson/vim-kitty'
+  Plug 'fladson/vim-kitty'
 
 --""""""""""""""""""""""""
 --" Visual
 --""""""""""""""""""""""""
 -- color background for rbg, hex and anssi colors
   Plug 'ap/vim-css-color'
+-- more icons for lsp doc
+  Plug 'onsails/lspkind-nvim'
 -- Material colorscheme for vim
   Plug ('kaicataldo/material.vim', { branch = 'main' })
 -- better status line
