@@ -58,7 +58,7 @@ opt.smartcase = true
 opt.hlsearch = true       -- Highlight search results
 opt.incsearch = true      -- Makes search act like in modern browsers
 -- Persistent undo file
-opt.undodir = fn.getenv('HOME') .. '/.local/share/nvim/undodir' -- when using lua, create a directory `~` in current directory
+opt.undodir = fn.getenv('HOME') .. '/.local/share/nvim/undodir'
 opt.undofile = true
 -- Indentation
 opt.autoindent = true
@@ -371,7 +371,8 @@ local function ensure_lsp_installed(servers)
     end
   end
 end
-ensure_lsp_installed({ 'rust_analyzer', 'clangd', 'pylsp', 'sumneko_lua' })
+local servers = { 'rust_analyzer', 'clangd', 'pylsp', 'sumneko_lua', 'vimls', 'bashls', 'cmake' }
+--local servers = { 'pylsp' }
 
 lsp_installer.on_server_ready(function(server)
   local runtime_path = vim.split(package.path, ";")
@@ -393,15 +394,18 @@ lsp_installer.on_server_ready(function(server)
     end,
     ['pylsp'] = function () default_opts.settings = {
         pylsp = {
-          configurationSources = { 'yapf' },
+          configurationSources = { "flake8", "pylsp_mypy" },
           -- base plugins can be installed using `pip install 'python-lsp-server[<plugin>|all]'`
           plugins = {
-            pylint = { enabled = true }, -- `pip install pylint`
-            pyflakes = { enabled = false },
+            yapf = { enabled = true },
+            flake8 = { enabled = true },
+            --mypy = { enabled = true, strict = true },
+            --pylint = { enabled = true }, -- `pip install pylint`
+            --pyflakes = { enabled = false },
             pycodestyle = { enabled = false },
             jedi_completion = { fuzzy = true },
-            pyls_isort = { enabled = true }, -- `pip install pylsp-isort`
-            pylsp_mypy = { enabled = true }, -- `pip install pylsp-mypy`
+            --pyls_isort = { enabled = true }, -- `pip install pyls-isort`
+            pylsp_mypy = { enabled = true, strict = true, executable = 'mypy' }, -- `pip install pylsp-mypy`
             pylsp_rope = { enabled = true }, -- `pip install pylsp-rope`
           }
         }
@@ -415,11 +419,6 @@ lsp_installer.on_server_ready(function(server)
   utils.log('info', string.format('Language server %q is ready', server.name))
 end)
 
-
---for _, server in ipairs(servers) do
---  lsp[server].setup(default_opts)
---end
-
 -- Fix colors for lsp errors and warnings
 vim.cmd [[
 highlight LspDiagnosticsDefaultError guifg=#e41b56
@@ -427,14 +426,6 @@ highlight LspDiagnosticsDefaultWarning guifg=#e3641c
 ]]
 -- setup rust-tools
 require('rust-tools').setup({})
-
-
-
---map('n', 'gd', )nmap gd :lua vim.lsp.buf.definition()<CR>
---nmap K :lua vim.lsp.buf.hover()<CR>
---nmap gr :lua vim.lsp.buf.references()<CR>
---nmap <leader>rn :lua vim.lsp.buf.rename()<CR>
-
 
 --------------------------------------------
 -- Curstom commands

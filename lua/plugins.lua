@@ -79,5 +79,6 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 --  Plug 'itchyny/lightline.vim'
 -- better vim startup screen
   Plug 'mhinz/vim-startify'
+  Plug 'dstein64/vim-startuptime'
 
 vim.call('plug#end')
