@@ -105,38 +105,38 @@ local function ensure_lsp_installed(servers)
   end
 end
 
-local custom_pylsp_name = 'pylsp-full'
-local lspconfig_configs = require('lspconfig.configs')
-local lspconfig_util = require('lspconfig.util')
-local pip3 = require('nvim-lsp-installer.installers.pip3')
-local lsp_installer_servers = require('nvim-lsp-installer.servers')
-local lsp_installer_server = require('nvim-lsp-installer.server')
-local root_dir = lsp_installer_server.get_server_root_path(custom_pylsp_name)
-lspconfig_configs[custom_pylsp_name] = {
-  default_config = {
-    cmd = { 'pylsp' },
-    filetypes = { 'python' },
-    root_dir = function(fname)
-      local root_files = {
-        'pyproject.toml',
-        'setup.py',
-        'setup.cfg',
-        'requirements.txt',
-        'Pipfile',
-      }
-      return lspconfig_util.root_pattern(unpack(root_files))(fname) or lspconfig_util.find_git_ancestor(fname)
-    end,
-    single_file_support = true,
-  },
-}
-local custom_pylsp_server = lsp_installer_server.Server:new( {
-  name = custom_pylsp_name,
-  root_dir = root_dir,
-  installer = pip3.packages( { 'python-lsp-server[all]', 'pylsp-mypy', 'pylsp-rope', 'pyls-isort', 'pyls-flake8' } ),
-  default_options = { pip3.executable(root_dir, "pylsp") },
-} )
-lsp_installer_servers.register(custom_pylsp_server)
-local servers = { 'rust_analyzer', 'clangd', custom_pylsp_name, 'sumneko_lua', 'vimls', 'bashls', 'cmake' }
+--local custom_pylsp_name = 'pylsp-full'
+--local lspconfig_configs = require('lspconfig.configs')
+--local lspconfig_util = require('lspconfig.util')
+--local pip3 = require('nvim-lsp-installer.installers.pip3')
+--local lsp_installer_servers = require('nvim-lsp-installer.servers')
+--local lsp_installer_server = require('nvim-lsp-installer.server')
+--local root_dir = lsp_installer_server.get_server_root_path(custom_pylsp_name)
+--lspconfig_configs[custom_pylsp_name] = {
+--  default_config = {
+--    cmd = { 'pylsp' },
+--    filetypes = { 'python' },
+--    root_dir = function(fname)
+--      local root_files = {
+--        'pyproject.toml',
+--        'setup.py',
+--        'setup.cfg',
+--        'requirements.txt',
+--        'Pipfile',
+--      }
+--      return lspconfig_util.root_pattern(unpack(root_files))(fname) or lspconfig_util.find_git_ancestor(fname)
+--    end,
+--    single_file_support = true,
+--  },
+--}
+--local custom_pylsp_server = lsp_installer_server.Server:new( {
+--  name = custom_pylsp_name,
+--  root_dir = root_dir,
+--  installer = pip3.packages( { 'python-lsp-server[all]', 'pylsp-mypy', 'pylsp-rope', 'pyls-isort', 'pyls-flake8' } ),
+--  default_options = { pip3.executable(root_dir, "pylsp") },
+--} )
+--lsp_installer_servers.register(custom_pylsp_server)
+local servers = { 'rust_analyzer', 'clangd', 'pylsp', 'sumneko_lua', 'vimls', 'bashls', 'cmake' }
 --local servers = { 'pylsp' }
 ensure_lsp_installed(servers)
 
@@ -145,7 +145,8 @@ lsp_installer.on_server_ready(function(server)
   table.insert(runtime_path, "lua/?.lua")
   table.insert(runtime_path, "lua/?/init.lua")
   local server_opts = {
-    ['sumneko_lua'] = function () default_opts.settings = {
+    ['sumneko_lua'] = function ()
+      default_opts.settings = {
         Lua = {
           runtime = {
             version = "LuaJIT", -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
@@ -158,26 +159,26 @@ lsp_installer.on_server_ready(function(server)
       }
       return default_opts
     end,
-    [custom_pylsp_name] = function () default_opts.settings = {
+    ['pylsp'] = function ()
+      default_opts.settings = {
         pylsp = {
           configurationSources = { 'pylsp_flake8', 'pylsp_mypy' },
-          -- base plugins can be installed using `pip install 'python-lsp-server[<plugin>|all]'`
           plugins = {
             yapf = { enabled = true },
             autopep8 = { enabled = false },
-            pylint = { enabled = true }, -- `pip install pylint`
+            pylint = { enabled = true },
             --pyflakes = { enabled = false },
             --pycodestyle = { enabled = false },
             jedi_completion = { fuzzy = true },
-            pyls_isort = { enabled = true }, -- `pip install pyls-isort`
+            pyls_isort = { enabled = true },
             pyls_flake8 = { enabled = true },
-            pylsp_mypy = { enabled = true, strict = true, executable = 'mypy' }, -- `pip install pylsp-mypy`
-            pylsp_rope = { enabled = true }, -- `pip install pylsp-rope`
-          }
-        }
+            pylsp_mypy = { enabled = true, strict = true },
+            pylsp_rope = { enabled = true },
+          },
+        },
       }
       return default_opts
-    end
+    end,
   }
 
   server:setup(server_opts[server.name] and server_opts[server.name]() or default_opts)
