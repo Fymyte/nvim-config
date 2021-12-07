@@ -1,3 +1,4 @@
+local api = vim.api
 local g = vim.g
 
 local M = {}
@@ -22,6 +23,25 @@ function M.log(min_lvl, msg)
     log_level = string.lower(log_levels[min_lvl])
     vim.notify(msg, log_level, { title = log_level })
   end
+end
+
+
+local function generic_map(key, map_fun)
+  -- get the extra options
+  local opts = { noremap = true, silent = true }
+  for i, v in pairs(key) do
+    if type(i) == 'string' then opts[i] = v end
+  end
+  map_fun(key[1], key[2], key[3], opts)
+  M.log('trace',
+    string.format('add new keymap: { mode = %q, keys: %q, cmd: %q }', key[1], key[2], key[3]))
+end
+
+function M.map(key)
+  generic_map(key, api.nvim_set_keymap)
+end
+function M.buf_map(bufnr, key)
+  generic_map(key, function(m, k, c, o) api.nvim_buf_set_keymap(bufnr, m, k, c, o) end)
 end
 
 return M

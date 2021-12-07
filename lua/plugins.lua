@@ -43,6 +43,7 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/cmp-nvim-lua'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'f3fora/cmp-spell' -- spellchecking
 -- additional hint for rust
   Plug 'simrat39/rust-tools.nvim'
 
