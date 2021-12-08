@@ -9,7 +9,7 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 -- file explorer
   Plug 'scrooloose/nerdtree'
 -- edit same text in multiple files (also subfolders)
-  Plug 'dyng/ctrlsf.vim'
+  --Plug 'dyng/ctrlsf.vim'
 -- git commands inside vim
 --  Plug 'tpope/vim-fugitive'
 -- Format c/cpp using clang format
@@ -83,3 +83,22 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
   Plug 'dstein64/vim-startuptime'
 
 vim.call('plug#end')
+
+--local fn = vim.fn
+--local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+--local packer_bootstrap = nil
+--if fn.empty(fn.glob(install_path)) > 0 then
+--  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+--end
+--
+--return require('packer').startup(function(use)
+--  -- More syntax
+--  use { 'moon-musick/vim-i3-config-syntax', ft = 'i3' }
+--  use { 'fladson/vim-kitty', ft = { 'kitty', 'kitty-session' } }
+--  use { 'igankevich/mesonic', ft = { 'meson', 'mesonopt' } }
+--  use { 'ap/vim-css-color' }
+--
+--  if packer_bootstrap then
+--    require('packer').sync()
+--  end
+--end)
