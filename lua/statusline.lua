@@ -3,8 +3,9 @@
 -- Author: Fymyte - @Fymyte
 -------------------------------------------------------------------------------
 
-local theme = require('lualine.themes.material')
-theme.normal.c.bg = '#333333'
+--local theme = require('lualine.themes.material')
+--theme.normal.c.bg = '#333333'
+local theme = require('material.lualine')
 require('lualine').setup({
   options = {
     theme = theme,
@@ -12,6 +13,6 @@ require('lualine').setup({
     component_separators = { left = '∣', right = '∣' },
   },
   sections = {
-    lualine_b = { 'branch', 'diff', { 'diagnostics', sources={ 'nvim_lsp' } } },
+    lualine_b = { 'branch', 'diff', { 'diagnostics', sources={ 'nvim_diagnostic' } } },
   }
 })

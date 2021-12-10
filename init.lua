@@ -110,16 +110,19 @@ g.mapleader = ';'     -- remap leader key to ';'
 utils.map( { 'n', '<leader>w', '<cmd>w!<cr>' } ) -- save
 -- Move between windows
 utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' } )
-utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' } )
-utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
+--utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' } ) -- Leave J-K for completion
+--utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
 utils.map( { '', '<C-l>', '<cmd>wincmd l<cr>' } )
 -- Move lines
 utils.map( { 'n', '<M-j>', [[mz:m+<cr>`z]] } )
 utils.map( { 'n', '<M-k>', [[mz:m-2<cr>`z]] } )
 utils.map( { 'v', '<M-j>', [[:m'>+<cr>`<my`>mzgv`yo`z]] } )
 utils.map( { 'v', '<M-k>', [[:m'<-2<cr>`>my`<mzgv`yo`z]] } )
+-- Motions
+utils.map( { 'n', '0', '^'}) -- use 0 to go to first char of line
+utils.map( { 'n', '=', '+'})
 -- Misc
-utils.map( { '', '<leader>l', '<cmd>NERDTreeToggle<cr>' } )
+utils.map( { '', '<leader>l', '<cmd>NvimTreeToggle<cr>' } )
 utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
 
 -------------------
@@ -137,15 +140,28 @@ cmd( 'colorscheme material' )
 -- Plugins
 ---------------------------------------------
 -------------------
+-- AutoPairs
+-------------------
+
+require('autopairs')
+
+-------------------
 -- Statusline
 -------------------
+
 require('statusline')
+
+-------------------
+-- Vimwiki
+-------------------
+
+g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md'} }
 
 -------------------
 -- NERD (Tree/Commenter)
 -------------------
 
-NERDTreeIgnore = { [[\.o$]], [[\.epci$]], [[\.mls$]], [[\.d$]] } -- Ignore object files in NERDTree
+--NERDTreeIgnore = { [[\.o$]], [[\.epci$]], [[\.mls$]], [[\.d$]] } -- Ignore object files in NERDTree
 g.NERDCreateDefaultMappings = 1 -- Create default mappings
 g.NERDSpaceDelims = 1     -- Add spaces after comment delimiters by default
 g.NERDCompactSexyComs = 0 -- Use compact syntax for prettified multi-line comments
@@ -153,6 +169,32 @@ g.NERDCompactSexyComs = 0 -- Use compact syntax for prettified multi-line commen
 g.NERDCommentEmptyLines = 1 -- Allow commenting and inverting empty lines (useful when commenting a region)
 g.NERDTrimTrailingWhitespace = 1 -- Enable trimming of trailing whitespace when uncommenting
 g.NERDToggleCheckAllLines = 1 -- Enable NERDCommenterToggle to check all selected lines is commented or not
+--g.NERDTreeGitStatusUseNerdFonts = 1
+g.nvim_tree_icons = {
+  git = {
+    unstaged = "",
+    staged = "✚",
+    unmerged = "",
+    renamed = "➜",
+    untracked = "★",
+    deleted = "✖",
+    ignored = "◌",
+    modified = '✹',
+  },
+}
+g.nvim_tree_group_empty = 1
+
+require('nvim-tree').setup( {
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
+} )
 
 -------------------
 -- i3 config highlight
@@ -174,12 +216,22 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     custom_captures = {
       ["variable"] = "Identifier",
-      ["variable.parameter"] = "Identifier"
+      ["variable.parameter"] = "Identifier",
+      --["field"] = "Identifier",
     },
     additional_vim_regex_highlighting = true,
     disable = {},
   },
-
+  textobjects = {
+    lsp_interop = {
+      enable = true,
+      border = 'rounded',
+      peek_definition_code = {
+        ["<leader>df"] = "@function.outer",
+        ["<leader>dF"] = "@class.outer",
+      },
+    },
+  },
 }
 
 -------------------

@@ -1,13 +1,13 @@
 -- spellchecker: disable
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
+--local Plug = vim.fn['plug#']
+--vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 -- """"""""""""""""""""""""
 -- " Utils
 -- """"""""""""""""""""""""
 -- add icons before files and folders
-  Plug 'ryanoasis/vim-devicons'
+--  Plug 'ryanoasis/vim-devicons'
 -- file explorer
-  Plug 'scrooloose/nerdtree'
+--  Plug 'scrooloose/nerdtree'
 -- edit same text in multiple files (also subfolders)
   --Plug 'dyng/ctrlsf.vim'
 -- git commands inside vim
@@ -15,90 +15,192 @@ vim.call('plug#begin', '~/.config/nvim/autoload/plugged')
 -- Format c/cpp using clang format
 -- "  Plug 'rhysd/vim-clang-format'
 -- Easier commenting using keybindings
-  Plug 'preservim/nerdcommenter'
+--  Plug 'preservim/nerdcommenter'
 -- Snippets support
-  Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/vim-vsnip'
+
 --  " Fuzzy search
 --  " Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-  Plug 'junegunn/fzf'
-  Plug 'junegunn/fzf.vim'
+--  Plug 'junegunn/fzf'
+--  Plug 'junegunn/fzf.vim'
 -- copy/paste everywhere
-  Plug 'ojroques/vim-oscyank'
-  Plug 'rcarriga/nvim-notify'
+--  Plug 'ojroques/vim-oscyank'
+--  Plug 'rcarriga/nvim-notify'
+
+--  Plug 'vimwiki/vimwiki'
 
 --""""""""""""""""""""""""
 --" Highlighting and LSP
 --""""""""""""""""""""""""
 --  " Highlighting with treesitter
-  Plug('nvim-treesitter/nvim-treesitter', { ['do'] = 'TSUpdate' })
+--  Plug('nvim-treesitter/nvim-treesitter', { ['do'] = 'TSUpdate' })
 -- Neovin integrated lsp client
-  Plug 'neovim/nvim-lspconfig'
+--  Plug 'neovim/nvim-lspconfig'
 --  " Install lsp sever for many language
-  Plug 'williamboman/nvim-lsp-installer'
+--  Plug 'williamboman/nvim-lsp-installer'
 -- LSP based Autocompletion with more sources
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/cmp-nvim-lua'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'f3fora/cmp-spell' -- spellchecking
+--  Plug 'hrsh7th/cmp-nvim-lsp'
+--  Plug 'hrsh7th/cmp-buffer'
+--  Plug 'hrsh7th/cmp-path'
+--  Plug 'hrsh7th/cmp-cmdline'
+--  Plug 'hrsh7th/cmp-nvim-lua'
+--  Plug 'hrsh7th/nvim-cmp'
+--  Plug 'f3fora/cmp-spell' -- spellchecking
 -- additional hint for rust
-  Plug 'simrat39/rust-tools.nvim'
+--  Plug 'simrat39/rust-tools.nvim'
 
 --""""""""""""""""""""""""
 --" Language supports
 --""""""""""""""""""""""""
 --  " Auto pairs for '(' '[' '{'
-  Plug 'jiangmiao/auto-pairs'
+--  Plug 'jiangmiao/auto-pairs'
 -- " heptagon
 -- "  Plug 'Fymyte/hept.vim'
 -- GNU AS
 --"  Plug 'shirk/vim-gas'
-  Plug 'igankevich/mesonic'
+--  Plug 'igankevich/mesonic'
 --  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 --  "Plug 'thindil/Ada-Bundle's
 -- i3 config
-  Plug 'moon-musick/vim-i3-config-syntax'
+--  Plug 'moon-musick/vim-i3-config-syntax'
 -- rofi config
 -- Plug 'cantoromc/vim-rasi'
 -- kitty config
-  Plug 'fladson/vim-kitty'
+--  Plug 'fladson/vim-kitty'
 
 --""""""""""""""""""""""""
 --" Visual
 --""""""""""""""""""""""""
 -- color background for rbg, hex and anssi colors
-  Plug 'ap/vim-css-color'
+--  Plug 'ap/vim-css-color'
 -- more icons for lsp doc
-  Plug 'onsails/lspkind-nvim'
+--  Plug 'onsails/lspkind-nvim'
 -- Material colorscheme for vim
-  Plug ('kaicataldo/material.vim', { branch = 'main' })
+--  Plug ('kaicataldo/material.vim', { branch = 'main' })
 -- better status line
-  Plug 'nvim-lualine/lualine.nvim'
+--  Plug 'nvim-lualine/lualine.nvim'
 --  Plug 'itchyny/lightline.vim'
 -- better vim startup screen
-  Plug 'mhinz/vim-startify'
-  Plug 'dstein64/vim-startuptime'
+--  Plug 'mhinz/vim-startify'
+--  Plug 'dstein64/vim-startuptime'
 
-vim.call('plug#end')
+--vim.call('plug#end')
 
---local fn = vim.fn
---local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
---local packer_bootstrap = nil
---if fn.empty(fn.glob(install_path)) > 0 then
---  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
---end
---
---return require('packer').startup(function(use)
---  -- More syntax
---  use { 'moon-musick/vim-i3-config-syntax', ft = 'i3' }
---  use { 'fladson/vim-kitty', ft = { 'kitty', 'kitty-session' } }
---  use { 'igankevich/mesonic', ft = { 'meson', 'mesonopt' } }
---  use { 'ap/vim-css-color' }
---
---  if packer_bootstrap then
---    require('packer').sync()
+
+--local function bootstrap_packer()
+--  local fn = vim.fn
+--  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+--  if fn.empty(fn.glob(install_path)) > 0 then
+--    if fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path}) then
+--      require('packer').sync()
+--    end
 --  end
---end)
+--end
+
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
+
+return require('packer').startup({
+  function(use)
+    use { 'wbthomason/packer.nvim' }
+    -- More syntax
+    use {
+      'moon-musick/vim-i3-config-syntax',
+      as = 'vim-i3',
+      ft = { 'i3' },
+    }
+    use {
+      'fladson/vim-kitty',
+      ft = { 'kitty', 'kitty-session' },
+    }
+    use {
+      'igankevich/mesonic',
+      as = 'vim-messon',
+      ft = { 'meson', 'mesonopt' },
+    }
+    use { 'ap/vim-css-color' }
+
+    -- Utils
+--    use {
+--      'scrooloose/nerdtree',
+--     -- cmd = { 'NERDTreeToggle' }
+--    }
+--    use {
+--      'Xuyuanp/nerdtree-git-plugin',
+--      requires = { 'ryanoasis/vim-devicons' },
+--      after = 'nerdtree',
+--      as = 'nerdtree-git',
+--    }
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {
+        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      },
+      --config = function() require'nvim-tree'.setup {} end
+    }
+    use { 'preservim/nerdcommenter' }
+    use { 'ojroques/vim-oscyank' }
+    use { 'rcarriga/nvim-notify' }
+    use {
+      'junegunn/fzf.vim',
+      requires = { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end },
+    }
+    use { 'windwp/nvim-autopairs' }
+
+    -- Autocompletion
+    use {
+      'hrsh7th/nvim-cmp',
+      requires = {
+        'hrsh7th/vim-vsnip',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-nvim-lua',
+        'f3fora/cmp-spell',
+      },
+    }
+
+    -- LSP
+    use {
+      'williamboman/nvim-lsp-installer',
+      requires = { 'neovim/nvim-lspconfig' },
+    }
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
+    }
+    use {
+      'simrat39/rust-tools.nvim',
+      requires = { 'neovim/nvim-lspconfig' },
+    }
+
+    -- UI
+    use {
+      'onsails/lspkind-nvim',
+      requires = { 'neovim/nvim-lspconfig' }
+    }
+    --use { 'kaicataldo/material.vim' }
+    use { '~/.config/nvim/my_pluggins/material.vim' }
+    use { 'nvim-lualine/lualine.nvim' }
+    use { 'mhinz/vim-startify' }
+    use { 'dstein64/vim-startuptime' }
+
+    --bootstrap_packer()
+  end,
+  config = {
+    display = {
+      open_fn = function()
+        return require('packer.util').float({ border = 'rounded' })
+      end,
+    },
+    log = { level = vim.g.log_level },
+  },
+})
+
+-- TODO: check distant and vimwiki extentions
