@@ -103,6 +103,16 @@ vim.cmd([[
   augroup end
 ]])
 
+local function check_system_deps(deps)
+  for _, dep in pairs(deps) do
+    if vim.fn.executable(dep) ~= 1 then
+      local msg = ('%q is not installed. (optionnal deps for telescope)'):format(dep)
+      vim.notify(msg, 'warn', { title = 'Packer' })
+    end
+  end
+end
+
+
 return require('packer').startup({
   function(use)
     use { 'wbthomason/packer.nvim' }
@@ -124,29 +134,23 @@ return require('packer').startup({
     use { 'ap/vim-css-color' }
 
     -- Utils
---    use {
---      'scrooloose/nerdtree',
---     -- cmd = { 'NERDTreeToggle' }
---    }
---    use {
---      'Xuyuanp/nerdtree-git-plugin',
---      requires = { 'ryanoasis/vim-devicons' },
---      after = 'nerdtree',
---      as = 'nerdtree-git',
---    }
     use {
       'kyazdani42/nvim-tree.lua',
       requires = {
         'kyazdani42/nvim-web-devicons', -- optional, for file icon
       },
-      --config = function() require'nvim-tree'.setup {} end
+      config = function() require('treeviewer') end,
     }
     use { 'preservim/nerdcommenter' }
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
     use {
-      'junegunn/fzf.vim',
-      requires = { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end },
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      },
+      run = check_system_deps({ 'fd', 'rg' }),
     }
     use { 'windwp/nvim-autopairs' }
 
@@ -176,6 +180,11 @@ return require('packer').startup({
       requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
     }
     use {
+      'nvim-treesitter/playground',
+      run = ':TSInstall query',
+      after = 'nvim-treesitter',
+    }
+    use {
       'simrat39/rust-tools.nvim',
       requires = { 'neovim/nvim-lspconfig' },
     }
@@ -185,9 +194,12 @@ return require('packer').startup({
       'onsails/lspkind-nvim',
       requires = { 'neovim/nvim-lspconfig' }
     }
-    --use { 'kaicataldo/material.vim' }
-    use { '~/.config/nvim/my_pluggins/material.vim' }
-    use { 'nvim-lualine/lualine.nvim' }
+    use { 'kaicataldo/material.vim' }
+    use {
+      'nvim-lualine/lualine.nvim',
+      after = 'material.vim',
+      config = function () require('statusline') end
+    }
     use { 'mhinz/vim-startify' }
     use { 'dstein64/vim-startuptime' }
 

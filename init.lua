@@ -132,7 +132,6 @@ utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
 g.material_terminal_italics = 1
 g.material_theme_style = 'darker-community'
 opt.termguicolors = true
-vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 cmd( 'colorscheme material' )
 
 
@@ -149,7 +148,7 @@ require('autopairs')
 -- Statusline
 -------------------
 
-require('statusline')
+--require('statusline')
 
 -------------------
 -- Vimwiki
@@ -161,7 +160,6 @@ g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md'} }
 -- NERD (Tree/Commenter)
 -------------------
 
---NERDTreeIgnore = { [[\.o$]], [[\.epci$]], [[\.mls$]], [[\.d$]] } -- Ignore object files in NERDTree
 g.NERDCreateDefaultMappings = 1 -- Create default mappings
 g.NERDSpaceDelims = 1     -- Add spaces after comment delimiters by default
 g.NERDCompactSexyComs = 0 -- Use compact syntax for prettified multi-line comments
@@ -169,32 +167,8 @@ g.NERDCompactSexyComs = 0 -- Use compact syntax for prettified multi-line commen
 g.NERDCommentEmptyLines = 1 -- Allow commenting and inverting empty lines (useful when commenting a region)
 g.NERDTrimTrailingWhitespace = 1 -- Enable trimming of trailing whitespace when uncommenting
 g.NERDToggleCheckAllLines = 1 -- Enable NERDCommenterToggle to check all selected lines is commented or not
---g.NERDTreeGitStatusUseNerdFonts = 1
-g.nvim_tree_icons = {
-  git = {
-    unstaged = "",
-    staged = "✚",
-    unmerged = "",
-    renamed = "➜",
-    untracked = "★",
-    deleted = "✖",
-    ignored = "◌",
-    modified = '✹',
-  },
-}
-g.nvim_tree_group_empty = 1
 
-require('nvim-tree').setup( {
-  diagnostics = {
-    enable = true,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    }
-  },
-} )
+--require('treeviewer')
 
 -------------------
 -- i3 config highlight
@@ -230,6 +204,24 @@ require'nvim-treesitter.configs'.setup {
         ["<leader>df"] = "@function.outer",
         ["<leader>dF"] = "@class.outer",
       },
+    },
+  },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
     },
   },
 }
