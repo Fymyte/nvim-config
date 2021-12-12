@@ -151,6 +151,12 @@ require('autopairs')
 --require('statusline')
 
 -------------------
+-- telescope
+-------------------
+
+require('finder')
+
+-------------------
 -- Vimwiki
 -------------------
 
