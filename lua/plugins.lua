@@ -27,14 +27,14 @@ return require('packer').startup({
       ft = { 'i3' },
     }
     use {
-      'fladson/vim-kitty',
+      'Fymyte/vim-kitty',
       ft = { 'kitty', 'kitty-session' },
     }
     use {
       'Fymyte/mesonic',
       as = 'vim-messon',
     }
-    use { 'ap/vim-css-color' }
+    use { 'Fymyte/vim-css-color' }
 
     -- Utils
     use {
