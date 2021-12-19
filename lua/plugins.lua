@@ -35,6 +35,14 @@ return require('packer').startup({
       as = 'vim-messon',
     }
     use { 'Fymyte/vim-css-color' }
+    use {
+      'Fymyte/vim-rasi',
+      ft = { 'rasi' }
+    }
+    use {
+      'amadeus/vim-css',
+      ft = { 'css' },
+    }
 
     -- Utils
     use {
