@@ -27,7 +27,7 @@ return require('packer').startup({
       ft = { 'i3' },
     }
     use {
-      '~/.config/nvim/my_pluggins/vim-kitty',
+      'fladson/vim-kitty',
       ft = { 'kitty', 'kitty-session' },
     }
     use {
