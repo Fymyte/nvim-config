@@ -129,10 +129,11 @@ utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
 -- Colorscheme
 -------------------
 
-g.material_terminal_italics = 1
-g.material_theme_style = 'darker-community'
-opt.termguicolors = true
-cmd( 'colorscheme material' )
+--g.material_terminal_italics = 1
+--g.material_theme_style = 'darker-community'
+--opt.termguicolors = true
+--cmd( 'colorscheme material' )
+require('colorscheme')
 
 
 ---------------------------------------------

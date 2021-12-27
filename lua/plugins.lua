@@ -27,7 +27,7 @@ return require('packer').startup({
       ft = { 'i3' },
     }
     use {
-      'Fymyte/vim-kitty',
+      '~/.config/nvim/my_pluggins/vim-kitty',
       ft = { 'kitty', 'kitty-session' },
     }
     use {
@@ -110,10 +110,15 @@ return require('packer').startup({
       'onsails/lspkind-nvim',
       requires = { 'neovim/nvim-lspconfig' }
     }
-    use { 'kaicataldo/material.vim' }
+    -- use { 'kaicataldo/material.vim' }
+    use {
+      'rebelot/kanagawa.nvim',
+      as = 'kanagawa',
+    }
     use {
       'nvim-lualine/lualine.nvim',
-      after = 'material.vim',
+      -- after = 'material.vim',
+      after = 'kanagawa',
       config = function () require('statusline') end
     }
     use { 'mhinz/vim-startify' }

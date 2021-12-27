@@ -136,7 +136,7 @@ end
 --  default_options = { pip3.executable(root_dir, "pylsp") },
 --} )
 --lsp_installer_servers.register(custom_pylsp_server)
-local servers = { 'rust_analyzer', 'clangd', 'pylsp', 'sumneko_lua', 'vimls', 'bashls', 'cmake' }
+local servers = { 'rust_analyzer', 'clangd', 'sumneko_lua', 'vimls', 'bashls', 'cmake' }
 --local servers = { 'pylsp' }
 ensure_lsp_installed(servers)
 
@@ -188,10 +188,10 @@ end)
 
 
 -- Fix colors for lsp errors and warnings
-vim.cmd [[
-highlight LspDiagnosticsDefaultError guifg=#e41b56
-highlight LspDiagnosticsDefaultWarning guifg=#e3641c
-]]
+--vim.cmd [[
+--highlight LspDiagnosticsDefaultError guifg=#e41b56
+--highlight LspDiagnosticsDefaultWarning guifg=#e3641c
+--]]
 
 -- setup rust-tools
 require('rust-tools').setup({})

@@ -5,10 +5,11 @@
 
 --local theme = require('lualine.themes.material')
 --theme.normal.c.bg = '#333333'
-local theme = require('material.lualine')
+--local theme = require('material.lualine')
+
 require('lualine').setup({
   options = {
-    theme = theme,
+--    theme = theme,
     section_separators = '',
     component_separators = { left = '∣', right = '∣' },
   },
