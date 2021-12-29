@@ -3,6 +3,16 @@ local utils = require('utils')
 local telescope = require('telescope')
 
 telescope.setup{
+  defaults = {
+    theme = {
+      border = true,
+      borderchars = {
+        prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+        results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+        preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      },
+    },
+  },
 }
 
 telescope.load_extension('notify')

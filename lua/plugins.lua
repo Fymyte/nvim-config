@@ -19,7 +19,9 @@ end
 
 return require('packer').startup({
   function(use)
+    -- Actual package manager
     use { 'wbthomason/packer.nvim' }
+
     -- More syntax
     use {
       'moon-musick/vim-i3-config-syntax',
@@ -34,9 +36,10 @@ return require('packer').startup({
       'Fymyte/mesonic',
       as = 'vim-messon',
     }
-    use { 'Fymyte/vim-css-color' }
+    --use { 'ap/vim-css-color' }
+    use { 'Fymyte/vim-css-color', branch='lang/rasi' }
     use {
-      'Fymyte/vim-rasi',
+      'Fymyte/rasi.vim',
       ft = { 'rasi' }
     }
     use {
@@ -132,7 +135,9 @@ return require('packer').startup({
     use { 'mhinz/vim-startify' }
     use { 'dstein64/vim-startuptime' }
 
-    --bootstrap_packer()
+    -- Hard mode
+    use { 'takac/vim-hardtime' }
+
   end,
   config = {
     display = {

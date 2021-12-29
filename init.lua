@@ -26,6 +26,7 @@ opt.history = 500         -- Set how many commands to remember
 opt.foldcolumn = '1'      -- Set maximun unfolded column to 1
 opt.scrolloff = 4         -- Always show 4 lines of the buffer when moving up/down
 opt.number = true         -- Show line numbers
+opt.relativenumber = true -- Enalble relative numbers
 opt.cmdheight = 1         -- Set command window height
 opt.wildignore = { '*.o', '*~', '*.pyc', '*/.git/*', '*/.hg/*', '*/.svn/*', '*/.DS_Store' }
 opt.backspace = { 'eol', 'start', 'indent' } -- Configure backspace so it acts as it should act
@@ -98,7 +99,8 @@ cmd( [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "no
 local orig_nvim_open_win = api.nvim_open_win
 function api.nvim_open_win(buffer, enter, config)
   config = config or {}
-  config.border = config.border or 'rounded'
+  --config.border = config.border or 'rounded'
+  for i,v in ipairs(config) do print(i,v) end
   return orig_nvim_open_win(buffer, enter, config)
 end
 
@@ -129,10 +131,6 @@ utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
 -- Colorscheme
 -------------------
 
---g.material_terminal_italics = 1
---g.material_theme_style = 'darker-community'
---opt.termguicolors = true
---cmd( 'colorscheme material' )
 require('colorscheme')
 
 
