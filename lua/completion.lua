@@ -1,5 +1,6 @@
 local cmp = require'cmp'
-cmp.setup({
+
+local cmp_setup = {
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -22,8 +23,8 @@ cmp.setup({
     native_menu = false,
   },
   completion = {
-    --border = { '╭', '─', '╮', '│', '╯','─', '╰', '│' },
-    --scrollbar = '',
+    -- border = { '╭', '─', '╮', '│', '╯','─', '╰', '│' },
+    -- scrollbar = '',
   },
   mapping = {
     ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -50,10 +51,13 @@ cmp.setup({
     -- { name = 'snippy' }, -- For snippy users.
     { name = 'nvim_lua' },
     { name = 'spell' },
+    { name = 'path' },
   }, {
     { name = 'buffer' },
   })
-})
+}
+
+cmp.setup(cmp_setup)
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {

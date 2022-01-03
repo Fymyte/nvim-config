@@ -190,7 +190,19 @@ aug end
 -------------------
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "rust", "python", "c", "cpp", "bash", "cuda", "cmake", "vim", "lua" },
+  ensure_installed = {
+    "rust",
+    "python",
+    "c",
+    "cpp",
+    "bash",
+    "cuda",
+    "cmake",
+    "vim",
+    "lua",
+    "css",
+    "javascript",
+  },
   highlight = {
     enable = true,
     custom_captures = {

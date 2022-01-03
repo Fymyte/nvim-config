@@ -36,16 +36,15 @@ return require('packer').startup({
       'Fymyte/mesonic',
       as = 'vim-messon',
     }
-    --use { 'ap/vim-css-color' }
-    use { 'Fymyte/vim-css-color', branch='lang/rasi' }
+    use { 'ap/vim-css-color' }
     use {
       'Fymyte/rasi.vim',
       ft = { 'rasi' }
     }
-    use {
-      'amadeus/vim-css',
-      ft = { 'css' },
-    }
+    -- use {
+      -- 'amadeus/vim-css',
+      -- ft = { 'css' },
+    -- }
 
     -- Utils
     use {
@@ -55,7 +54,13 @@ return require('packer').startup({
       },
       config = function() require('treeviewer') end,
     }
-    use { 'preservim/nerdcommenter' }
+    -- use { 'preservim/nerdcommenter' }
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+    end
+}
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
