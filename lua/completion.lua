@@ -16,15 +16,15 @@ local cmp_setup = {
   documentation = {
     border = 'rounded',
     zindex = 1002, -- Display documentation on top
-    winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+    --winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
   },
   experimental = {
     ghost_text = {},
     native_menu = false,
   },
   completion = {
-    -- border = { '╭', '─', '╮', '│', '╯','─', '╰', '│' },
-    -- scrollbar = '',
+    border = { '╭', '─', '╮', '│', '╯','─', '╰', '│' },
+    scrollbar = '│',
   },
   mapping = {
     ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),

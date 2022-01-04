@@ -7,10 +7,10 @@ vim.cmd([[
   augroup end
 ]])
 
-local function check_system_deps(deps)
+local function check_system_deps(deps, name)
   for _, dep in pairs(deps) do
     if vim.fn.executable(dep) ~= 1 then
-      local msg = ('%q is not installed. (optionnal deps for telescope)'):format(dep)
+      local msg = ('%q is not installed. (optionnal deps for ' .. name .. ')'):format(dep)
       vim.notify(msg, 'warn', { title = 'Packer' })
     end
   end
@@ -41,10 +41,14 @@ return require('packer').startup({
       'Fymyte/rasi.vim',
       ft = { 'rasi' }
     }
-    -- use {
-      -- 'amadeus/vim-css',
-      -- ft = { 'css' },
-    -- }
+    use {
+      'amadeus/vim-css',
+      ft = { 'css' },
+    }
+    use {
+      'Ixru/nvim-markdown',
+      ft = { 'markdown' },
+    }
 
     -- Utils
     use {
@@ -59,8 +63,9 @@ return require('packer').startup({
       'numToStr/Comment.nvim',
       config = function()
         require('Comment').setup()
-    end
-}
+      end
+    }
+    use { 'ellisonleao/glow.nvim' }
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -69,9 +74,10 @@ return require('packer').startup({
       requires = {
         { 'nvim-lua/plenary.nvim' },
       },
-      run = check_system_deps({ 'fd', 'rg' }),
+      run = check_system_deps({ 'fd', 'rg' }, 'telescope'),
     }
     use { 'windwp/nvim-autopairs' }
+    -- use { 'jiangmiao/auto-pairs' }
     --use {
     --  'chipsenkbeil/distant.nvim',
     --  config = function()
@@ -88,7 +94,7 @@ return require('packer').startup({
 
     -- Autocompletion
     use {
-      'hrsh7th/nvim-cmp',
+      'Iron-E/nvim-cmp',
       requires = {
         'hrsh7th/vim-vsnip',
         'hrsh7th/cmp-vsnip',
@@ -99,6 +105,7 @@ return require('packer').startup({
         'hrsh7th/cmp-nvim-lua',
         'f3fora/cmp-spell',
       },
+      branch = 'feat/completion-menu-borders'
     }
 
     -- LSP
@@ -133,7 +140,6 @@ return require('packer').startup({
     }
     use {
       'nvim-lualine/lualine.nvim',
-      -- after = 'material.vim',
       after = 'kanagawa',
       config = function () require('statusline') end
     }

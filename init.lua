@@ -72,7 +72,7 @@ opt.spelllang = { 'en_us' }
 cmd( [[
 augroup enableFileTypeSpelling
     autocmd!
-    autocmd FileType gitcommit,markdown,mkd,python,rst,text,vim,yaml
+    autocmd FileType gitcommit,markdown,mkd,rst,text,vim,yaml
       \ setlocal spell
 augroup END
 ]] )
@@ -95,14 +95,17 @@ cmd( [[au FocusGained,BufEnter * checktime]] )
 -- Return to last edit position when opening files
 cmd( [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]] )
 
+-- Disable entering in Ex mode
+cmd( [[nnoremap Q <Nop>]] )
+
 -- Make every window appears with rounded corners
-local orig_nvim_open_win = api.nvim_open_win
-function api.nvim_open_win(buffer, enter, config)
-  config = config or {}
-  --config.border = config.border or 'rounded'
-  for i,v in ipairs(config) do print(i,v) end
-  return orig_nvim_open_win(buffer, enter, config)
-end
+-- local orig_nvim_open_win = api.nvim_open_win
+-- function api.nvim_open_win(buffer, enter, config)
+--   config = config or {}
+--   --config.border = config.border or 'rounded'
+--   for i,v in ipairs(config) do print(i,v) end
+--   return orig_nvim_open_win(buffer, enter, config)
+-- end
 
 -------------------
 -- Keymaps
@@ -133,7 +136,6 @@ utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
 
 require('colorscheme')
 
-
 ---------------------------------------------
 -- Plugins
 ---------------------------------------------
@@ -144,10 +146,23 @@ require('colorscheme')
 require('autopairs')
 
 -------------------
+-- Glow
+-------------------
+
+g.glow_border = "rounded"
+
+-------------------
+-- Markdown
+-------------------
+
+g.vim_markdown_math = 1
+g.mkdp_browser = 'brave'
+
+-------------------
 -- Statusline
 -------------------
 
---require('statusline')
+-- require('statusline')
 
 -------------------
 -- telescope
@@ -189,20 +204,17 @@ aug end
 -- Treesitter
 -------------------
 
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-    "rust",
-    "python",
-    "c",
-    "cpp",
-    "bash",
-    "cuda",
-    "cmake",
-    "vim",
-    "lua",
-    "css",
-    "javascript",
+local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
+parser_config.rasi = {
+  install_info = {
+    url = "https://github.com/Fymyte/tree-sitter-rasi",
+    branch = "main",
+    files = { "src/parser.c" },
   },
+  maintainers = { "@Fymyte" },
+}
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
   highlight = {
     enable = true,
     custom_captures = {
