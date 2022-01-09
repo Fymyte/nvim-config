@@ -189,20 +189,6 @@ require('finder')
 g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md'} }
 
 -------------------
--- NERD (Tree/Commenter)
--------------------
-
-g.NERDCreateDefaultMappings = 1 -- Create default mappings
-g.NERDSpaceDelims = 1     -- Add spaces after comment delimiters by default
-g.NERDCompactSexyComs = 0 -- Use compact syntax for prettified multi-line comments
--- g.NERDDefaultAlign = 'left' -- Align line-wise comment delimiters flush left instead of following code indentation
-g.NERDCommentEmptyLines = 1 -- Allow commenting and inverting empty lines (useful when commenting a region)
-g.NERDTrimTrailingWhitespace = 1 -- Enable trimming of trailing whitespace when uncommenting
-g.NERDToggleCheckAllLines = 1 -- Enable NERDCommenterToggle to check all selected lines is commented or not
-
---require('treeviewer')
-
--------------------
 -- i3 config highlight
 -------------------
 vim.cmd [[
@@ -302,15 +288,15 @@ require('lsp')
 --------------------------------------------
 
 -- Quickly open config folder in nerd-tree
-vim.cmd( [[command! Config execute 'vs ~/.config/nvim/']] )
+cmd( [[command! Config execute 'vs ~/.config/nvim/']] )
 -- Easely source config without leaving vim
-vim.cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.lua']] )
+cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.lua']] )
 -- Easely open Dotfiles directory
-vim.cmd( [[command! DotFiles execute 'vs ~/.config']] )
+cmd( [[command! DotFiles execute 'vs ~/.config']] )
 -- Quickly change directory in NERDTree with path completion
-vim.cmd( [[command! -nargs=1 -complete=dir NCD NERDTree | cd <args> | NERDTreeCWD]] )
+cmd( [[command! -nargs=1 -complete=dir NCD NERDTree | cd <args> | NERDTreeCWD]] )
 
-vim.cmd( [[com! SynGroup echo {l,c,n ->
+cmd( [[com! SynGroup echo {l,c,n ->
         \   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
         \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
         \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
