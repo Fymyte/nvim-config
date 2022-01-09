@@ -13,18 +13,21 @@ local cmp_setup = {
     fields = { "kind", "abbr" },
     format = require('lspkind').cmp_format({ with_text = false, preset = 'default' })
   },
-  documentation = {
-    border = 'rounded',
-    zindex = 1002, -- Display documentation on top
-    --winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+  window = {
+    documentation = {
+      border = 'rounded',
+      scrollbar = '│',
+      zindex = 1002, -- Display documentation on top
+      --winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+    },
+    completion = {
+      border = 'rounded', --{ '╭', '─', '╮', '│', '╯','─', '╰', '│' },
+      scrollbar = '│',
+    },
   },
   experimental = {
     ghost_text = {},
     native_menu = false,
-  },
-  completion = {
-    border = { '╭', '─', '╮', '│', '╯','─', '╰', '│' },
-    scrollbar = '│',
   },
   mapping = {
     ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),

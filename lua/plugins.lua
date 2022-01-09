@@ -39,16 +39,18 @@ return require('packer').startup({
     use { 'ap/vim-css-color' }
     use {
       'Fymyte/rasi.vim',
-      ft = { 'rasi' }
+      ft = { 'rasi' },
+      run = ':TSInstall rasi',
+      requires = { 'nvim-treesitter/nvim-treesitter' },
     }
     use {
       'amadeus/vim-css',
       ft = { 'css' },
     }
-    use {
-      'Ixru/nvim-markdown',
-      ft = { 'markdown' },
-    }
+    -- use {
+    --   'Ixru/nvim-markdown',
+    --   ft = { 'markdown' },
+    -- }
 
     -- Utils
     use {
@@ -58,7 +60,6 @@ return require('packer').startup({
       },
       config = function() require('treeviewer') end,
     }
-    -- use { 'preservim/nerdcommenter' }
     use {
       'numToStr/Comment.nvim',
       config = function()
@@ -91,6 +92,11 @@ return require('packer').startup({
     --    }
     --  end
     --}
+    -- Use neovim in the browser!!!
+    use {
+      'glacambre/firenvim',
+      run = function() vim.fn['firenvim#install'](0) end
+    }
 
     -- Autocompletion
     use {
@@ -114,7 +120,7 @@ return require('packer').startup({
       requires = { 'neovim/nvim-lspconfig' },
     }
     use {
-      'nvim-treesitter/nvim-treesitter',
+      '~/.config/nvim/my_plugins/nvim-treesitter',
       run = ':TSUpdate',
       requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
     }

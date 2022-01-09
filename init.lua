@@ -88,12 +88,22 @@ aug defaultFileType
   autocmd BufNewFile,BufRead Scratch set filetype=markdown
 aug end
 ]] )
--- Copy content of the yanked text in keyboard
-cmd( [[autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif]] )
--- Resync file from disk when gaining focus
-cmd( [[au FocusGained,BufEnter * checktime]] )
--- Return to last edit position when opening files
-cmd( [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]] )
+
+cmd( [[
+augroup OSCYankReg
+  autocmd!
+  " Copy content of the yanked text in keyboard
+  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+augroup end
+
+augroup LastPos
+  autocmd!
+  " Resync file from disk when gaining focus
+  au FocusGained,BufEnter * checktime
+  " Return to last edit position when opening files
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup end
+]] )
 
 -- Disable entering in Ex mode
 cmd( [[nnoremap Q <Nop>]] )
@@ -206,17 +216,8 @@ aug end
 -- Treesitter
 -------------------
 
-local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
-parser_config.rasi = {
-  install_info = {
-    url = "https://github.com/Fymyte/tree-sitter-rasi",
-    branch = "main",
-    files = { "src/parser.c" },
-  },
-  maintainers = { "@Fymyte" },
-}
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
+  ensure_installed = "maintained",
   highlight = {
     enable = true,
     custom_captures = {
@@ -261,7 +262,34 @@ require'nvim-treesitter.configs'.setup {
 -- NvimCmp
 -------------------
 
-require('completion')
+-- nvim_cmp breaks firenvim for now
+if not g.started_by_firenvim then
+  require('completion')
+end
+
+-------------------
+-- Firenvim
+-------------------
+
+if g.started_by_firenvim then
+  g.firenvim_config = {
+    globalSettings = {
+      alt = 'all',
+    },
+
+    localSettings = {
+      -- Don't turn firenvim on by default
+      ['.*'] = {
+        takeover = 'never',
+      },
+      ['https?://github.com/.*'] = {
+        cmdline = 'firenvim',
+        priority = 0,
+        takeover = 'always',
+      },
+   }
+  }
+end
 
 -------------------
 -- NvimLSP

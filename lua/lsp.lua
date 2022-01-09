@@ -155,6 +155,7 @@ lsp_installer.on_server_ready(function(server)
           diagnostics = { globals = { "vim" }, }, -- Get the language server to recognize the `vim` global
           workspace = { library = api.nvim_get_runtime_file("", true) }, -- Make the server aware of Neovim runtime files
           telemetry = { enable = false },
+          hint = { setType = true },
         }
       }
       return default_opts
@@ -185,7 +186,6 @@ lsp_installer.on_server_ready(function(server)
   vim.cmd([[do User LspAttachBuffers]])
   utils.log('info', string.format('Language server %q is ready', server.name))
 end)
-
 
 -- Fix colors for lsp errors and warnings
 --vim.cmd [[
