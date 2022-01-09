@@ -126,6 +126,8 @@ utils.map( { 'v', '<M-k>', [[:m'<-2<cr>`>my`<mzgv`yo`z]] } )
 -- Motions
 utils.map( { 'n', '0', '^'}) -- use 0 to go to first char of line
 utils.map( { 'n', '=', '+'})
+-- Term
+utils.map( { 't', '<Esc>', '<C-\\><C-n>' } )
 -- Misc
 utils.map( { '', '<leader>l', '<cmd>NvimTreeToggle<cr>' } )
 utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
