@@ -1,5 +1,3 @@
--- spellchecker: disable
-
 vim.cmd([[
   augroup packer_user_config
     autocmd!
@@ -120,7 +118,7 @@ return require('packer').startup({
       requires = { 'neovim/nvim-lspconfig' },
     }
     use {
-      '~/.config/nvim/my_plugins/nvim-treesitter',
+      'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
     }

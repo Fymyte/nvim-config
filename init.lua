@@ -1,12 +1,17 @@
 -------------------------------------------------------------------------------
--- File: init.lua
--- Author: Fymyte - @Fymyte
+-- FILE: init.lua
+-- AUTHORS: @Fymyte - https://github.com/Fymyte
 -------------------------------------------------------------------------------
-local opt = vim.opt
+
 local cmd = vim.cmd
-local api = vim.api
-local fn = vim.fn
 local g = vim.g
+
+-- Do not source plugins if packer is not installed
+if require 'user.packer_bootstrap'.installed() then
+  return
+end
+vim.g.mapleader = ';'     -- remap leader key to ';'
+vim.g.log_level = 'warn'
 
 -- Enable plugins
 require('plugins')
@@ -14,114 +19,10 @@ require('notify').setup({ stages = 'slide', timeout = 3000 })
 vim.notify = require('notify')
 local utils = require('utils')
 
----------------------------------------------
---  Global options
----------------------------------------------
-
-g.log_level = 'warn'
--- General
-opt.mouse = 'a'           -- Enable mouse usage
-opt.autoread = true       -- Auto read when a file is changed from the outside
-opt.history = 500         -- Set how many commands to remember
-opt.foldcolumn = '1'      -- Set maximun unfolded column to 1
-opt.scrolloff = 4         -- Always show 4 lines of the buffer when moving up/down
-opt.number = true         -- Show line numbers
-opt.relativenumber = true -- Enalble relative numbers
-opt.cmdheight = 1         -- Set command window height
-opt.wildignore = { '*.o', '*~', '*.pyc', '*/.git/*', '*/.hg/*', '*/.svn/*', '*/.DS_Store' }
-opt.backspace = { 'eol', 'start', 'indent' } -- Configure backspace so it acts as it should act
-opt.lazyredraw = true     -- Don't redraw while executing macros (good performance config)
-opt.magic = true          -- Turn magic on for regex
-opt.showmatch = true      -- Show matching brackets when text indicator is over them
-opt.mat = 2               -- How many tenths of a second to blink when matching brackets
-opt.fileformats = { 'unix', 'dos', 'mac' }
-opt.timeoutlen = 500      -- Time for a key map to complete
-opt.updatetime = 1000     -- Time for `CursorHold` event to trigger (ms)
--- show hidden characters
-opt.listchars = { tab = '▸ ', trail = '·' }
-opt.list = true
--- Errors
-opt.errorbells = false
-opt.visualbell = false
-cmd([[set t_vb=]])        -- Remove terminal blinking
--- Linebreak
-opt.linebreak = true
-opt.textwidth = 120
--- Tabs/Spaces
-opt.smartcase = true
-opt.shiftwidth = 2        -- 1 tab = 2 spaces
-opt.tabstop = 2
-opt.expandtab = true
--- Search
-opt.ignorecase = true     -- Ignore case when searching
-opt.smartcase = true
-opt.hlsearch = true       -- Highlight search results
-opt.incsearch = true      -- Makes search act like in modern browsers
--- Persistent undo file
-opt.undodir = fn.getenv('HOME') .. '/.local/share/nvim/undodir'
-opt.undofile = true
--- Indentation
-opt.autoindent = true
-opt.smartindent = true
-opt.wrap = true
-opt.signcolumn = 'yes'
--- Spell checking
-opt.spell = false         -- Spell checking is not set by default (define per ft using ftplugin)
-opt.spelllang = { 'en_us' }
--- Enable spell checking in all buffers of the following filetypes.
-cmd( [[
-augroup enableFileTypeSpelling
-    autocmd!
-    autocmd FileType gitcommit,markdown,mkd,rst,text,vim,yaml
-      \ setlocal spell
-augroup END
-]] )
--- Completion
-opt.completeopt = { 'menu', 'menuone', 'preview' }
-opt.shortmess:append('c')
--- Status line
-opt.laststatus = 2        -- Always show a status line
-opt.showmode = false      -- Don't show current mod (already displayed in status line)
-cmd( [[
-aug defaultFileType
-  autocmd!
-  autocmd BufNewFile,BufRead Scratch set filetype=markdown
-aug end
-]] )
-
-cmd( [[
-augroup OSCYankReg
-  autocmd!
-  " Copy content of the yanked text in keyboard
-  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
-augroup end
-
-augroup LastPos
-  autocmd!
-  " Resync file from disk when gaining focus
-  au FocusGained,BufEnter * checktime
-  " Return to last edit position when opening files
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-augroup end
-]] )
-
--- Disable entering in Ex mode
-cmd( [[nnoremap Q <Nop>]] )
-
--- Make every window appears with rounded corners
--- local orig_nvim_open_win = api.nvim_open_win
--- function api.nvim_open_win(buffer, enter, config)
---   config = config or {}
---   --config.border = config.border or 'rounded'
---   for i,v in ipairs(config) do print(i,v) end
---   return orig_nvim_open_win(buffer, enter, config)
--- end
-
 -------------------
 -- Keymaps
 -------------------
 
-g.mapleader = ';'     -- remap leader key to ';'
 utils.map( { 'n', '<leader>w', '<cmd>w!<cr>' } ) -- save
 -- Move between windows
 utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' } )

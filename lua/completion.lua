@@ -16,13 +16,13 @@ local cmp_setup = {
   window = {
     documentation = {
       border = 'rounded',
-      scrollbar = '│',
+      scrollbar = '║',
       zindex = 1002, -- Display documentation on top
       --winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
     },
     completion = {
       border = 'rounded', --{ '╭', '─', '╮', '│', '╯','─', '╰', '│' },
-      scrollbar = '│',
+      scrollbar = '║',
     },
   },
   experimental = {

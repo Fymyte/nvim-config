@@ -9,7 +9,9 @@ local colors = {
   waveBlue2 = "#393939",
 }
 
-require('kanagawa').setup({
+local kanagawa = require('kanagawa')
+
+kanagawa.setup({
     undercurl = true,           -- enable undercurls
     commentStyle = "italic",
     functionStyle = "NONE",
@@ -19,10 +21,9 @@ require('kanagawa').setup({
     variablebuiltinStyle = "italic",
     specialReturn = true,       -- special highlight for the return keyword
     specialException = true,    -- special highlight for exception handling keywords
-    transparent = false,        -- do not set background color
+    transparent = false,        -- use background colors defined above
     colors = colors,
     overrides = {},
 })
 
-
-vim.cmd( [[colorscheme kanagawa]] )
+kanagawa.load()
