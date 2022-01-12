@@ -18,14 +18,16 @@ end
 
 local M = {}
 
+-- Check if `packer` is installed, or install it if not
+-- @returns boolean true if packer was already installed, false otherwise
 M.installed =  function()
   if not pcall(require, "packer") then
     download_packer()
 
-    return true
+    return false
   end
 
-  return false
+  return true
 end
 
 return M

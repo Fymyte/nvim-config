@@ -3,51 +3,19 @@
 -- AUTHORS: @Fymyte - https://github.com/Fymyte
 -------------------------------------------------------------------------------
 
-local cmd = vim.cmd
-local g = vim.g
+-- local cmd = vim.cmd
+-- local g = vim.g
 
--- Do not source plugins if packer is not installed
-if require 'user.packer_bootstrap'.installed() then
+-- If packer is not installed, install and quit.
+if not require 'user.packer_bootstrap'.installed() then
   return
 end
-vim.g.mapleader = ';'     -- remap leader key to ';'
-vim.g.log_level = 'warn'
+
+vim.g.mapleader = ';'     -- Leader key -> ";"
+vim.g.log_level = 'warn'  -- Use this for global debugging
 
 -- Enable plugins
 require('plugins')
-require('notify').setup({ stages = 'slide', timeout = 3000 })
-vim.notify = require('notify')
-local utils = require('utils')
-
--------------------
--- Keymaps
--------------------
-
-utils.map( { 'n', '<leader>w', '<cmd>w!<cr>' } ) -- save
--- Move between windows
-utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' } )
---utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' } ) -- Leave J-K for completion
---utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
-utils.map( { '', '<C-l>', '<cmd>wincmd l<cr>' } )
--- Move lines
-utils.map( { 'n', '<M-j>', [[mz:m+<cr>`z]] } )
-utils.map( { 'n', '<M-k>', [[mz:m-2<cr>`z]] } )
-utils.map( { 'v', '<M-j>', [[:m'>+<cr>`<my`>mzgv`yo`z]] } )
-utils.map( { 'v', '<M-k>', [[:m'<-2<cr>`>my`<mzgv`yo`z]] } )
--- Motions
-utils.map( { 'n', '0', '^'}) -- use 0 to go to first char of line
-utils.map( { 'n', '=', '+'})
--- Term
-utils.map( { 't', '<Esc>', '<C-\\><C-n>' } )
--- Misc
-utils.map( { '', '<leader>l', '<cmd>NvimTreeToggle<cr>' } )
-utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
-
--------------------
--- Colorscheme
--------------------
-
-require('colorscheme')
 
 ---------------------------------------------
 -- Plugins
@@ -62,14 +30,14 @@ require('autopairs')
 -- Glow
 -------------------
 
-g.glow_border = "rounded"
+vim.g.glow_border = "rounded"
 
 -------------------
 -- Markdown
 -------------------
 
-g.vim_markdown_math = 1
-g.mkdp_browser = 'brave'
+vim.g.vim_markdown_math = 1
+vim.g.mkdp_browser = 'brave'
 
 -------------------
 -- Statusline
@@ -87,7 +55,7 @@ require('finder')
 -- Vimwiki
 -------------------
 
-g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md'} }
+vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md'} }
 
 -------------------
 -- i3 config highlight
@@ -132,10 +100,10 @@ require'nvim-treesitter.configs'.setup {
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
       toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
+      toggle_hl_groups = 'I',
       toggle_injected_languages = 't',
       toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
+      toggle_language_display = 'h',
       focus_language = 'f',
       unfocus_language = 'F',
       update = 'R',
@@ -143,6 +111,11 @@ require'nvim-treesitter.configs'.setup {
       show_help = '?',
     },
   },
+  query_linter = {
+    enable = true,
+    use_virtual_text = true,
+    lint_event = {"BufWrite", "CursorHold"},
+  }
 }
 
 -------------------
@@ -150,7 +123,7 @@ require'nvim-treesitter.configs'.setup {
 -------------------
 
 -- nvim_cmp breaks firenvim for now
-if not g.started_by_firenvim then
+if not vim.g.started_by_firenvim then
   require('completion')
 end
 
@@ -158,8 +131,8 @@ end
 -- Firenvim
 -------------------
 
-if g.started_by_firenvim then
-  g.firenvim_config = {
+if vim.g.started_by_firenvim then
+  vim.g.firenvim_config = {
     globalSettings = {
       alt = 'all',
     },
@@ -189,15 +162,15 @@ require('lsp')
 --------------------------------------------
 
 -- Quickly open config folder in nerd-tree
-cmd( [[command! Config execute 'vs ~/.config/nvim/']] )
+vim.cmd( [[command! Config execute 'vs ~/.config/nvim/']] )
 -- Easely source config without leaving vim
-cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.lua']] )
+vim.cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.lua']] )
 -- Easely open Dotfiles directory
-cmd( [[command! DotFiles execute 'vs ~/.config']] )
+vim.cmd( [[command! DotFiles execute 'vs ~/.config']] )
 -- Quickly change directory in NERDTree with path completion
-cmd( [[command! -nargs=1 -complete=dir NCD NERDTree | cd <args> | NERDTreeCWD]] )
+vim.cmd( [[command! -nargs=1 -complete=dir NCD NERDTree | cd <args> | NERDTreeCWD]] )
 
-cmd( [[com! SynGroup echo {l,c,n ->
+vim.cmd( [[com! SynGroup echo {l,c,n ->
         \   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
         \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
         \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '

@@ -1,7 +1,7 @@
 local opt = vim.opt
 local cmd = vim.cmd
 
-opt.mouse = 'n'           -- Enable mouse in normal mode only
+opt.mouse = 'nv'          -- Enable mouse in normal and visual mode only
 opt.autoread = true       -- Auto read when a file is changed from the outside
 opt.history = 500         -- Set how many commands to remember
 opt.foldcolumn = '1'      -- Set maximun unfolded column to 1
@@ -82,14 +82,15 @@ opt.formatoptions = opt.formatoptions
 cmd( [[
 augroup defaultFileType
   autocmd!
-  " Enable spell checking in all buffers of the following filetypes.
   autocmd BufNewFile,BufRead Scratch set filetype=markdown
 augroup end
 
 augroup enableFileTypeSpelling
   autocmd!
-  autocmd FileType gitcommit,markdown,mkd,rst,text,vim,yaml
+  " Enable spell checking in all buffers of the following filetypes.
+  autocmd FileType gitcommit,markdown,mkd,rst,text,yaml
     \ setlocal spell
+  autocmd Filetype help setlocal nospell
 augroup END
 
 augroup OSCYankReg
