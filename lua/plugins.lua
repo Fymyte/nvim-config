@@ -22,9 +22,10 @@ return require('packer').startup({
 
     -- More syntax
     use {
-      'moon-musick/vim-i3-config-syntax',
+      'Fymyte/vim-i3-config-syntax',
       as = 'vim-i3',
       ft = { 'i3' },
+      branch = 'xdg-home-ftdetect',
     }
     use {
       'fladson/vim-kitty',

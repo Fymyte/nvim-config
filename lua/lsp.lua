@@ -187,11 +187,6 @@ lsp_installer.on_server_ready(function(server)
   utils.log('info', string.format('Language server %q is ready', server.name))
 end)
 
--- Fix colors for lsp errors and warnings
---vim.cmd [[
---highlight LspDiagnosticsDefaultError guifg=#e41b56
---highlight LspDiagnosticsDefaultWarning guifg=#e3641c
---]]
 
 -- setup rust-tools
 require('rust-tools').setup({})

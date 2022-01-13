@@ -1,8 +1,14 @@
-require('nvim-autopairs').setup({
+local ok, autopairs = pcall(require, 'nvim-autopairs')
+if not ok then
+  return
+end
+
+autopairs.setup({
   check_ts = true,
 })
 
-local ok, cmp = pcall(require, 'cmp')
+local cmp
+ok, cmp = pcall(require, 'cmp')
 if ok then
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
   cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
@@ -13,6 +19,7 @@ local Rule   = require'nvim-autopairs.rule'
 
 print(vim.inspect())
 
+-- Add spaces around text in pairs
 npairs.add_rules {
   Rule(' ', ' ')
     :with_pair(function (opts)

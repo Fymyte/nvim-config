@@ -3,8 +3,25 @@
 -- AUTHORS: @Fymyte - https://github.com/Fymyte
 -------------------------------------------------------------------------------
 
--- local cmd = vim.cmd
--- local g = vim.g
+--[[ NOTE:
+
+Much of the configuration can be found in either:
+
+./after/plugin/*
+  This is where configuration for most plugins is located.
+  Configurations are sourced automatically at startup
+
+./plugin/*.lua
+  This is where my own config for vim defaults options live.
+  - options
+  - keymaps
+
+./lua/user/*.lua
+  This is where added functionalities are located.
+  Utils functions, or plugins extensions are also in this directory
+
+--]]
+
 
 -- If packer is not installed, install and quit.
 if not require 'user.packer_bootstrap'.installed() then
@@ -21,135 +38,14 @@ require('plugins')
 -- Plugins
 ---------------------------------------------
 -------------------
--- AutoPairs
--------------------
-
-require('autopairs')
-
--------------------
--- Glow
--------------------
-
-vim.g.glow_border = "rounded"
-
--------------------
--- Markdown
--------------------
-
-vim.g.vim_markdown_math = 1
-vim.g.mkdp_browser = 'brave'
-
--------------------
--- Statusline
--------------------
-
--- require('statusline')
-
--------------------
--- telescope
--------------------
-
-require('finder')
-
--------------------
--- Vimwiki
--------------------
-
-vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md'} }
-
--------------------
 -- i3 config highlight
 -------------------
-vim.cmd [[
-aug i3config_ft_detection
-  au!
-  au BufNewFile,BufRead ~/.config/i3/config set filetype=i3
-aug end
-]]
-
--------------------
--- Treesitter
--------------------
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-    custom_captures = {
-      ["variable"] = "Identifier",
-      ["variable.parameter"] = "Identifier",
-      --["field"] = "Identifier",
-    },
-    additional_vim_regex_highlighting = true,
-    disable = {},
-  },
-  textobjects = {
-    lsp_interop = {
-      enable = true,
-      border = 'rounded',
-      peek_definition_code = {
-        ["<leader>df"] = "@function.outer",
-        ["<leader>dF"] = "@class.outer",
-      },
-    },
-  },
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-    keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'I',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'h',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
-    },
-  },
-  query_linter = {
-    enable = true,
-    use_virtual_text = true,
-    lint_event = {"BufWrite", "CursorHold"},
-  }
-}
-
--------------------
--- NvimCmp
--------------------
-
--- nvim_cmp breaks firenvim for now
-if not vim.g.started_by_firenvim then
-  require('completion')
-end
-
--------------------
--- Firenvim
--------------------
-
-if vim.g.started_by_firenvim then
-  vim.g.firenvim_config = {
-    globalSettings = {
-      alt = 'all',
-    },
-
-    localSettings = {
-      -- Don't turn firenvim on by default
-      ['.*'] = {
-        takeover = 'never',
-      },
-      ['https?://github.com/.*'] = {
-        cmdline = 'firenvim',
-        priority = 0,
-        takeover = 'always',
-      },
-   }
-  }
-end
+-- vim.cmd [[
+-- aug i3config_ft_detection
+--   au!
+--   au BufNewFile,BufRead ~/.config/i3/config set filetype=i3
+-- aug end
+-- ]]
 
 -------------------
 -- NvimLSP

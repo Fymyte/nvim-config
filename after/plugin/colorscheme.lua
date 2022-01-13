@@ -1,3 +1,8 @@
+local ok, kanagawa = pcall(require, 'kanagawa')
+if not ok then
+  return
+end
+
 local colors = {
   sumiInk1 = "#212121",
   sumiInk0 = "#2A2A2A",
@@ -9,7 +14,6 @@ local colors = {
   waveBlue2 = "#393939",
 }
 
-local kanagawa = require('kanagawa')
 
 kanagawa.setup({
     undercurl = true,           -- enable undercurls
