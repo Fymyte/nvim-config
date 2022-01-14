@@ -15,7 +15,7 @@ parser_config.vim = {
 local maintained_parsers = require'nvim-treesitter.parsers'.maintained_parsers()
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = all,
+  ensure_installed = "all",
   highlight = {
     enable = true,
     custom_captures = {
