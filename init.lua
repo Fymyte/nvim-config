@@ -31,22 +31,6 @@ end
 vim.g.mapleader = ';'     -- Leader key -> ";"
 vim.g.log_level = 'warn'  -- Use this for global debugging
 
--- Enable packer
--- require('plugins')
-
----------------------------------------------
--- Plugins
----------------------------------------------
--------------------
--- i3 config highlight
--------------------
--- vim.cmd [[
--- aug i3config_ft_detection
---   au!
---   au BufNewFile,BufRead ~/.config/i3/config set filetype=i3
--- aug end
--- ]]
-
 -------------------
 -- NvimLSP
 -------------------

@@ -3,8 +3,8 @@ if not ok then
   return
 end
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.vim = {
+local parser_configs = require "nvim-treesitter.parsers".get_parser_configs()
+parser_configs.vim = {
   install_info = {
     url = "~/Documents/dev/tree-sitter-viml", -- local path or git repo
     files = {"src/parser.c", "src/scanner.c"}
@@ -12,7 +12,29 @@ parser_config.vim = {
   filetype = "vim", -- if filetype does not agrees with parser name
 }
 
-local maintained_parsers = require'nvim-treesitter.parsers'.maintained_parsers()
+parser_configs.norg = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg",
+        files = { "src/parser.c", "src/scanner.cc" },
+        branch = "main"
+    },
+}
+
+parser_configs.norg_meta = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
+        files = { "src/parser.c" },
+        branch = "main"
+    },
+}
+
+parser_configs.norg_table = {
+    install_info = {
+        url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
+        files = { "src/parser.c" },
+        branch = "main"
+    },
+}
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",

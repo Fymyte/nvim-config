@@ -22,10 +22,9 @@ return require('packer').startup({
 
     -- More syntax
     use {
-      'Fymyte/vim-i3-config-syntax',
+      'mboughaba/i3config.vim',
       as = 'vim-i3',
-      ft = { 'i3' },
-      branch = 'xdg-home-ftdetect',
+      ft = { 'i3config' },
     }
     use {
       'fladson/vim-kitty',
@@ -45,6 +44,10 @@ return require('packer').startup({
     use {
       'amadeus/vim-css',
       ft = { 'css' },
+    }
+    use {
+      'nvim-neorg/neorg',
+      requires = 'nvim-lua/plenary.nvim',
     }
     -- use {
     --   'Ixru/nvim-markdown',
@@ -96,7 +99,6 @@ return require('packer').startup({
       'glacambre/firenvim',
       run = function() vim.fn['firenvim#install'](0) end
     }
-
     -- Autocompletion
     use {
       'Iron-E/nvim-cmp',

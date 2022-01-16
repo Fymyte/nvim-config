@@ -62,6 +62,7 @@ local cmp_config = {
     { name = 'nvim_lua' },
     { name = 'spell' },
     { name = 'path' },
+    { name = 'neorf' },
   }, {
     { name = 'buffer' },
   })
