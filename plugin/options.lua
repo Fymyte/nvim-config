@@ -50,7 +50,7 @@ opt.signcolumn = 'yes'
 -- Search
 opt.ignorecase = true     -- Ignore case when searching
 opt.smartcase = true
-opt.hlsearch = false      -- Do not highlight previous search results
+opt.hlsearch = true       -- Highlight previous search results
 opt.incsearch = true      -- Highlight search restults incrementaly
 
 -- Persistent undo file

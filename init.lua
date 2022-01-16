@@ -31,8 +31,8 @@ end
 vim.g.mapleader = ';'     -- Leader key -> ";"
 vim.g.log_level = 'warn'  -- Use this for global debugging
 
--- Enable plugins
-require('plugins')
+-- Enable packer
+-- require('plugins')
 
 ---------------------------------------------
 -- Plugins
@@ -52,22 +52,3 @@ require('plugins')
 -------------------
 
 require('lsp')
-
---------------------------------------------
--- Curstom commands
---------------------------------------------
-
--- Quickly open config folder in nerd-tree
-vim.cmd( [[command! Config execute 'vs ~/.config/nvim/']] )
--- Easely source config without leaving vim
-vim.cmd( [[command! SourceConfig execute 'source ~/.config/nvim/init.lua']] )
--- Easely open Dotfiles directory
-vim.cmd( [[command! DotFiles execute 'vs ~/.config']] )
--- Quickly change directory in NERDTree with path completion
-vim.cmd( [[command! -nargs=1 -complete=dir NCD NERDTree | cd <args> | NERDTreeCWD]] )
-
-vim.cmd( [[com! SynGroup echo {l,c,n ->
-        \   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
-        \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
-        \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
-        \ }(line("."), col("."), "name")]] )
