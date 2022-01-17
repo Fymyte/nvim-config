@@ -12,9 +12,10 @@ Much of the configuration can be found in either:
   Configurations are sourced automatically at startup
 
 ./plugin/*.lua
-  This is where my own config for vim defaults options live.
+  This is where config for vim default options live.
   - options
   - keymaps
+  - diagnostics
 
 ./lua/user/*.lua
   This is where added functionalities are located.

@@ -1,4 +1,4 @@
-# My neo-vim config
+# My Neovim config
 
 Entirely rewritten in lua.
 Use built-in LSP

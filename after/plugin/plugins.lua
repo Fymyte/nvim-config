@@ -72,6 +72,11 @@ return require('packer').startup({
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use { 'nvim-telescope/telescope-file-browser.nvim' }
+    use {
+      'rudism/telescope-dict.nvim',
+      run = check_system_deps({ 'dictd' }, 'telescope-dict'),
+    }
     use {
       'nvim-telescope/telescope.nvim',
       requires = {
@@ -80,20 +85,6 @@ return require('packer').startup({
       run = check_system_deps({ 'fd', 'rg' }, 'telescope'),
     }
     use { 'windwp/nvim-autopairs' }
-    -- use { 'jiangmiao/auto-pairs' }
-    --use {
-    --  'chipsenkbeil/distant.nvim',
-    --  config = function()
-    --    require('distant').setup {
-    --      -- Applies Chip's personal settings to every machine you connect to
-    --      --
-    --      -- 1. Ensures that distant servers terminate with no connections
-    --      -- 2. Provides navigation bindings for remote directories
-    --      -- 3. Provides keybinding to jump into a remote file's parent directory
-    --      ['*'] = require('distant.settings').chip_default()
-    --    }
-    --  end
-    --}
     -- Use neovim in the browser!!!
     use {
       'glacambre/firenvim',
@@ -113,6 +104,10 @@ return require('packer').startup({
         'f3fora/cmp-spell',
       },
       branch = 'feat/completion-menu-borders'
+    }
+    use {
+      'sidebar-nvim/sidebar.nvim',
+      branch = 'dev',
     }
 
     -- LSP

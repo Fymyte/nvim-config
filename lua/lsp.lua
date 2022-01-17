@@ -3,9 +3,7 @@ local cmd = vim.cmd
 local api = vim.api
 local g = vim.g
 
-local utils = require('utils')
-
-local lsp_installer = require('nvim-lsp-installer')
+local utils = require('user.utils')
 
 -- Use rounded corners for lsp too
 local border = 'rounded'
@@ -15,30 +13,8 @@ function lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts.border = opts.border or border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
---- Configure diagnostics displayed info
-vim.diagnostic.config({
-  virtual_text = true,
-  signs = true,
-  underline = true,
-  update_in_insert = true,
-  severity_sort = false,
-})
--- Change diagnostic symbols in the sign column
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
 lsp.set_log_level(g.log_level)
-
---- Show source in diagnostics
-lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = {
-    prefix = '●',
-    source = "always",
-  }
-})
 
 --- Goto definition in split window, see
 --- [lspconfig wiki](https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#go-to-definition-in-a-split-window)
@@ -67,13 +43,14 @@ local function custom_attach(client, bufnr)
   utils.buf_map(bufnr, { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>' } )
 
   -- Show line diagnostic on cursor hold
-  cmd([[autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()]])
+  cmd([[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]])
 
   utils.log('info', string.format("Language server %s attached", client.name))
 end
 
 -- Setup lspconfig.
 -- Provide settings first!
+local lsp_installer = require('nvim-lsp-installer')
 lsp_installer.settings {
     ui = {
         icons = {
@@ -168,8 +145,6 @@ lsp_installer.on_server_ready(function(server)
             yapf = { enabled = true },
             autopep8 = { enabled = false },
             pylint = { enabled = true },
-            --pyflakes = { enabled = false },
-            --pycodestyle = { enabled = false },
             jedi_completion = { fuzzy = true },
             pyls_isort = { enabled = true },
             pyls_flake8 = { enabled = true },

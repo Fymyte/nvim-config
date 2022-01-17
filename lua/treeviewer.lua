@@ -1,6 +1,5 @@
 local g = vim.g
 
-
 g.nvim_tree_icons = {
   git = {
     unstaged = "",
