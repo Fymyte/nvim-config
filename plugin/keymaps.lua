@@ -7,8 +7,8 @@ local utils = require 'user.utils'
 utils.map( { 'n', '<leader>w', '<cmd>w!<cr>' } ) -- save
 -- Move between windows
 utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' } )
---utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' } ) -- Leave J-K for completion
---utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
+utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' } ) -- Leave J-K for completion
+utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
 utils.map( { '', '<C-l>', '<cmd>wincmd l<cr>' } )
 -- Move lines
 utils.map( { 'n', '<M-j>', [[mz:m+<cr>`z]] } )
