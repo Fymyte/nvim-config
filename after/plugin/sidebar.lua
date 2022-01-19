@@ -1,3 +1,7 @@
+if vim.g.started_by_firenvim then
+  return
+end
+
 local has_sidebar, sidebar = pcall(require, 'sidebar-nvim')
 if not has_sidebar then
   require('user.utils').log('Warn', 'sidebar-nvim is not installed')

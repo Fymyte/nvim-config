@@ -1,3 +1,8 @@
+local has_packer, packer = pcall(require, 'packer')
+if not has_packer then
+  return
+end
+
 vim.cmd([[
   augroup packer_user_config
     autocmd!
@@ -15,7 +20,7 @@ local function check_system_deps(deps, name)
 end
 
 
-return require('packer').startup({
+return packer.startup({
   function(use)
     -- Actual package manager
     use { 'wbthomason/packer.nvim' }
@@ -71,8 +76,10 @@ return require('packer').startup({
     use { 'ellisonleao/glow.nvim' }
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
+    -- Telescope
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'nvim-telescope/telescope-file-browser.nvim' }
+    use { 'nvim-telescope/telescope-project.nvim' }
     use {
       'rudism/telescope-dict.nvim',
       run = check_system_deps({ 'dictd' }, 'telescope-dict'),

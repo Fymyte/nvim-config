@@ -19,7 +19,13 @@ telescope.setup{
   extensions = {
     file_browser = {
       theme = 'ivy',
-    }
+    },
+    project = {
+      base_dirs = {
+        '~/.config/nvim',
+      },
+      display_type = 'full',
+    },
   }
 }
 
@@ -27,9 +33,11 @@ telescope.load_extension('notify')
 telescope.load_extension('fzf')
 telescope.load_extension('file_browser')
 telescope.load_extension('dict')
+telescope.load_extension('project')
 
 utils.map({'n', '<leader>ff', [[<cmd>lua require('telescope.builtin').find_files()<CR>]]})
 utils.map({'n', '<leader>fl', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]]})
 utils.map({'n', '<leader>fh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]]})
 utils.map({'n', '<leader>fb', [[<cmd>lua require('telescope').extensions.file_browser.file_browser()<CR>]]})
 utils.map({'n', '<leader>fs', [[<cmd>lua require('telescope').extensions.dict.synonyms()<CR>]]})
+utils.map({'n', '<leader>fp', [[<cmd>lua require('telescope').extensions.project.project{display_type='full'}<CR>]]})
