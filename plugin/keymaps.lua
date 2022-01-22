@@ -23,5 +23,5 @@ utils.map( { 'n', '=', '+'})
 -- Term
 utils.map( { 't', '<Esc>', '<C-\\><C-n>' } )
 -- Misc
-utils.map( { '', '<leader>l', '<cmd>NvimTreeToggle<cr>' } )
+utils.map( { '', '<leader>l', '<cmd>SidebarNvimToggle<cr>' } )
 utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )

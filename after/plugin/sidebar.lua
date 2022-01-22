@@ -11,7 +11,7 @@ end
 sidebar.setup {
   disable_default_keybindings = 0,
   bindings = nil,
-  open = true, -- Default window status at startup
+  open = false, -- Default window status at startup
   side = "left",
   initial_width = 30,
   hide_statusline = true,

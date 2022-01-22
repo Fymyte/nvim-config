@@ -37,7 +37,7 @@ parser_configs.norg_table = {
 }
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
+  ensure_installed = "maintained",
   highlight = {
     enable = true,
     custom_captures = {
