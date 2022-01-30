@@ -36,8 +36,16 @@ parser_configs.norg_table = {
     },
 }
 
+local ensure_installed = {
+  'vim',
+  'rust',
+  'norg',
+  'query',
+  'norg_meta',
+  'norg_table'
+}
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = ensure_installed,
   highlight = {
     enable = true,
     custom_captures = {

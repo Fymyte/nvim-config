@@ -6,7 +6,7 @@ end
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    autocmd BufWritePost packer.lua source <afile> | PackerCompile
   augroup end
 ]])
 
@@ -112,10 +112,10 @@ return packer.startup({
       },
       branch = 'feat/completion-menu-borders'
     }
-    use {
-      'sidebar-nvim/sidebar.nvim',
-      branch = 'dev',
-    }
+    -- use {
+    --   'sidebar-nvim/sidebar.nvim',
+    --   branch = 'dev',
+    -- }
 
     -- LSP
     use {

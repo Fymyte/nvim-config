@@ -163,8 +163,17 @@ lsp_installer.on_server_ready(function(server)
 
   server:setup(server_opts[server.name] and server_opts[server.name]() or default_opts)
   vim.cmd([[do User LspAttachBuffers]])
-  utils.log('info', string.format('Language server %q is ready', server.name))
+  utils.log('info', ('Language server %q is ready'):format(server.name))
 end)
+
+require('lspconfig').als.setup{
+    settings = {
+      ada = {
+        projectFile = "morpion.gpr";
+        scenarioVariables = { ... };
+      }
+    }
+}
 
 
 -- setup rust-tools

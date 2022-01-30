@@ -1,5 +1,4 @@
 local opt = vim.opt
-local cmd = vim.cmd
 
 opt.mouse = 'nv'          -- Enable mouse in normal and visual mode only
 opt.autoread = true       -- Auto read when a file is changed from the outside
@@ -27,7 +26,7 @@ opt.list = true
 -- Turn bells off
 opt.errorbells = false
 opt.visualbell = false
-cmd([[set t_vb=]])        -- Remove terminal blinking
+vim.cmd([[set t_vb=]])        -- Remove terminal blinking
 opt.belloff = 'all'
 
 -- Linebreak
@@ -79,19 +78,19 @@ opt.formatoptions = opt.formatoptions
   + "j" -- Auto-remove comments if possible.
   - "2" -- I'm not in gradeschool anymore
 
-cmd( [[
+vim.cmd( [[
 augroup defaultFileType
   autocmd!
   autocmd BufNewFile,BufRead Scratch set filetype=markdown
 augroup end
 
-augroup enableFileTypeSpelling
-  autocmd!
-  " Enable spell checking in all buffers of the following filetypes.
-  autocmd FileType gitcommit,markdown,mkd,rst,text,yaml
-    \ setlocal spell
-  autocmd Filetype help setlocal nospell
-augroup END
+" augroup enableFileTypeSpelling
+"   autocmd!
+"   " Enable spell checking in all buffers of the following filetypes.
+"   autocmd FileType gitcommit,markdown,mkd,rst,text,yaml
+"     \ setlocal spell
+"   autocmd Filetype help setlocal nospell
+" augroup END
 
 augroup OSCYankReg
   autocmd!
@@ -110,4 +109,4 @@ augroup end
 
 -- TODO: re-enable when more confortable with vim
 -- Disable entering in Ex mode
-cmd( [[nnoremap Q <Nop>]] )
+vim.cmd( [[nnoremap Q <Nop>]] )
