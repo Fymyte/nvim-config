@@ -18,7 +18,7 @@ local cmp_config = {
   },
   formatting = {
     fields = { "kind", "abbr" },
-    format = require('lspkind').cmp_format({ with_text = false, preset = 'default' })
+    format = require('lspkind').cmp_format({ mode = 'symbol', preset = 'default' })
   },
   window = {
     documentation = {
@@ -28,7 +28,7 @@ local cmp_config = {
       --winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
     },
     completion = {
-      border = 'rounded', --{ '╭', '─', '╮', '│', '╯','─', '╰', '│' },
+      border = 'rounded',
       scrollbar = '║',
     },
   },
