@@ -39,8 +39,8 @@ parser_configs.norg_table = {
 local ensure_installed = {
   'vim',
   'rust',
-  'norg',
   'query',
+  'norg',
   'norg_meta',
   'norg_table'
 }

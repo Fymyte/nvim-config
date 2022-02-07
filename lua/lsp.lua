@@ -36,14 +36,14 @@ local function custom_attach(client, bufnr)
   utils.buf_map(bufnr, { 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>' } )
   utils.buf_map(bufnr, { 'v', '<space>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>' } )
   utils.buf_map(bufnr, { 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>' } )
-  utils.buf_map(bufnr, { 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>' } )
-  utils.buf_map(bufnr, { 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>' } )
-  utils.buf_map(bufnr, { 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>' } )
-  utils.buf_map(bufnr, { 'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>' } )
+  utils.buf_map(bufnr, { 'n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>' } )
+  utils.buf_map(bufnr, { 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>' } )
+  utils.buf_map(bufnr, { 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>' } )
+  utils.buf_map(bufnr, { 'n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>' } )
   utils.buf_map(bufnr, { 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>' } )
 
   -- Show line diagnostic on cursor hold
-  cmd([[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]])
+  -- vim.cmd([[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]])
 
   utils.log('info', string.format("Language server %s attached", client.name))
 end

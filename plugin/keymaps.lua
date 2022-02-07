@@ -10,6 +10,11 @@ utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' } )
 utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' } ) -- Leave J-K for completion
 utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
 utils.map( { '', '<C-l>', '<cmd>wincmd l<cr>' } )
+-- Cycle throught buffers
+utils.map( { '', '<C-b>p', '<cmd>bprev<cr>' } )
+utils.map( { '', '<C-b><C-p>', '<cmd>bprev<cr>' } )
+utils.map( { '', '<C-b>n', '<cmd>bnext<cr>' } )
+utils.map( { '', '<C-b><C-n>', '<cmd>bnext<cr>' } )
 -- Move lines
 utils.map( { 'n', '<M-j>', [[mz:m+<cr>`z]] } )
 utils.map( { 'n', '<M-k>', [[mz:m-2<cr>`z]] } )

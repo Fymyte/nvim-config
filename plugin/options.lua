@@ -78,6 +78,9 @@ opt.formatoptions = opt.formatoptions
   + "j" -- Auto-remove comments if possible.
   - "2" -- I'm not in gradeschool anymore
 
+vim.g.python3_host_prog = 'python3'
+vim.g.loaded_python_provider = 0
+
 vim.cmd( [[
 augroup defaultFileType
   autocmd!
@@ -104,6 +107,11 @@ augroup LastPos
   au FocusGained,BufEnter * checktime
   " Return to last edit position when opening files
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup end
+
+augroup AutoTermInsertMode
+  autocmd!
+  autocmd TermOpen * startinsert
 augroup end
 ]] )
 

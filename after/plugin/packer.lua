@@ -73,6 +73,7 @@ return packer.startup({
         require('Comment').setup()
       end
     }
+    use { 'numToStr/FTerm.nvim' }
     use { 'ellisonleao/glow.nvim' }
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
@@ -80,6 +81,7 @@ return packer.startup({
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'nvim-telescope/telescope-file-browser.nvim' }
     use { 'nvim-telescope/telescope-project.nvim' }
+    use { 'gbrlsnchs/telescope-lsp-handlers.nvim' }
     use {
       'rudism/telescope-dict.nvim',
       run = check_system_deps({ 'dictd' }, 'telescope-dict'),
