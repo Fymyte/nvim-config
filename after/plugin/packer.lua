@@ -147,8 +147,8 @@ return packer.startup({
       after = 'kanagawa',
       config = function () require('statusline') end
     }
-    use { 'mhinz/vim-startify' }
-    use { 'dstein64/vim-startuptime' }
+    -- use { 'mhinz/vim-startify' }
+    -- use { 'dstein64/vim-startuptime' }
 
   end,
   config = {
