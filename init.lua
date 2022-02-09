@@ -29,7 +29,9 @@ if not require 'user.packer_bootstrap'.installed() then
   return
 end
 
-vim.g.mapleader = ';'     -- Leader key -> ";"
+-- remove navigation using space
+vim.keymap.set('', '<space>', '<nop>', { noremap=true, silent=true })
+vim.g.mapleader = ' '     -- Leader key -> ";"
 vim.g.log_level = 'warn'  -- Use this for global debugging
 
 -------------------

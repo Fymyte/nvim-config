@@ -70,6 +70,7 @@ return packer.startup({
       'tpope/vim-surround',
       requires = 'tpope/vim-repeat', -- allow repetition using `.`
     }
+    use { 'tpope/vim-fugitive' }
     -- Telescope
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'nvim-telescope/telescope-file-browser.nvim' }

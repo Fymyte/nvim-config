@@ -28,15 +28,17 @@ map('', '<C-b><C-n>', '<cmd>bnext<cr>')
 -- Move lines
 map('n', '<M-j>', [[<cmd>m.+1<cr>==]])
 map('n', '<M-k>', [[<cmd>m.-2<cr>==]])
-map('i', '<M-j>', [[<esc><cmd>m.+1<cr>==a]])
-map('i', '<M-k>', [[<esc><cmd>m.-2<cr>==a]])
+map('i', '<M-j>', [[<esc><cmd>m.+1<cr>==]])
+map('i', '<M-k>', [[<esc><cmd>m.-2<cr>==]])
 map('v', '<M-j>', [[<cmd>m'>+1<cr>gv=gv]])
 map('v', '<M-k>', [[<cmd>m'<-2<cr>gv=gv]])
+map('v', '<', '<gv')
+map('v', '>', '>gv')
 -- Join line above at the end of the current line
 map('n', '<leader>j', [[<cmd>m-2|j<cr>]])
 -- Motions
 map('n', '0', '^') -- use 0 to go to first char of line
-map('n', '=', '+')
+-- map('n', '=', '+')
 -- Term
 map('t', '<Esc>', '<C-\\><C-n>')
 -- Misc
