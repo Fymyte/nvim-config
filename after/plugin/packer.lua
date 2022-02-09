@@ -54,19 +54,8 @@ return packer.startup({
       'nvim-neorg/neorg',
       requires = 'nvim-lua/plenary.nvim',
     }
-    -- use {
-    --   'Ixru/nvim-markdown',
-    --   ft = { 'markdown' },
-    -- }
 
     -- Utils
-    -- use {
-    --   'kyazdani42/nvim-tree.lua',
-    --   requires = {
-    --     'kyazdani42/nvim-web-devicons', -- optional, for file icon
-    --   },
-    --   config = function() require('treeviewer') end,
-    -- }
     use {
       'numToStr/Comment.nvim',
       config = function()
@@ -77,6 +66,10 @@ return packer.startup({
     use { 'ellisonleao/glow.nvim' }
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
+    use {
+      'tpope/vim-surround',
+      requires = 'tpope/vim-repeat', -- allow repetition using `.`
+    }
     -- Telescope
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'nvim-telescope/telescope-file-browser.nvim' }
@@ -156,9 +149,6 @@ return packer.startup({
     }
     use { 'mhinz/vim-startify' }
     use { 'dstein64/vim-startuptime' }
-
-    -- Hard mode
-    use { 'takac/vim-hardtime' }
 
   end,
   config = {

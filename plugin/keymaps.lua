@@ -1,32 +1,43 @@
-local utils = require 'user.utils'
+local map = function(mode, lhs, rhs, opts)
+  opts = opts or { noremap = true, silent = true }
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 -------------------
 -- Keymaps
 -------------------
 
-utils.map( { 'n', '<leader>w', '<cmd>w!<cr>' } ) -- save
+-- Quick save
+map('n', '<leader>w', '<cmd>write!<cr>')
+-- Undo breakpoints
+map('i', ',', ',<C-g>u')
+map('i', '.', '.<C-g>u')
+map('i', '!', '!<C-g>u')
+map('i', '?', '?<C-g>u')
+map('i', ':', ':<C-g>u')
 -- Move between windows
-utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' } )
-utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' } ) -- Leave J-K for completion
-utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' } )
-utils.map( { '', '<C-l>', '<cmd>wincmd l<cr>' } )
+-- utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' })
+-- utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' }) -- Leave J-K for completion
+-- utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' })
+-- utils.map( { '', '<C-l>', '<cmd>wincmd l<cr>' })
 -- Cycle throught buffers
-utils.map( { '', '<C-b>p', '<cmd>bprev<cr>' } )
-utils.map( { '', '<C-b><C-p>', '<cmd>bprev<cr>' } )
-utils.map( { '', '<C-b>n', '<cmd>bnext<cr>' } )
-utils.map( { '', '<C-b><C-n>', '<cmd>bnext<cr>' } )
+map('', '<C-b>p', '<cmd>bprev<cr>')
+map('', '<C-b><C-p>', '<cmd>bprev<cr>')
+map('', '<C-b>n', '<cmd>bnext<cr>')
+map('', '<C-b><C-n>', '<cmd>bnext<cr>')
 -- Move lines
-utils.map( { 'n', '<M-j>', [[mz:m+<cr>`z]] } )
-utils.map( { 'n', '<M-k>', [[mz:m-2<cr>`z]] } )
-utils.map( { 'v', '<M-j>', [[:m'>+<cr>`<my`>mzgv`yo`z]] } )
-utils.map( { 'v', '<M-k>', [[:m'<-2<cr>`>my`<mzgv`yo`z]] } )
+map('n', '<M-j>', [[<cmd>m.+1<cr>==]])
+map('n', '<M-k>', [[<cmd>m.-2<cr>==]])
+map('i', '<M-j>', [[<esc><cmd>m.+1<cr>==a]])
+map('i', '<M-k>', [[<esc><cmd>m.-2<cr>==a]])
+map('v', '<M-j>', [[<cmd>m'>+1<cr>gv=gv]])
+map('v', '<M-k>', [[<cmd>m'<-2<cr>gv=gv]])
 -- Join line above at the end of the current line
-utils.map( { 'n', '<leader>j', [[:m-2|j<cr>]] } )
+map('n', '<leader>j', [[<cmd>m-2|j<cr>]])
 -- Motions
-utils.map( { 'n', '0', '^'}) -- use 0 to go to first char of line
-utils.map( { 'n', '=', '+'})
+map('n', '0', '^') -- use 0 to go to first char of line
+map('n', '=', '+')
 -- Term
-utils.map( { 't', '<Esc>', '<C-\\><C-n>' } )
+map('t', '<Esc>', '<C-\\><C-n>')
 -- Misc
-utils.map( { '', '<leader>l', '<cmd>SidebarNvimToggle<cr>' } )
-utils.map( { '', '<leader><Space>', '<cmd>noh<cr>' } )
+map('', '<leader><Space>', '<cmd>noh<cr>')
