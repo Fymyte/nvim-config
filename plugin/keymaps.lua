@@ -30,8 +30,10 @@ map('n', '<M-j>', [[<cmd>m.+1<cr>==]])
 map('n', '<M-k>', [[<cmd>m.-2<cr>==]])
 map('i', '<M-j>', [[<esc><cmd>m.+1<cr>==]])
 map('i', '<M-k>', [[<esc><cmd>m.-2<cr>==]])
-map('v', '<M-j>', [[<cmd>m'>+1<cr>gv=gv]])
-map('v', '<M-k>', [[<cmd>m'<-2<cr>gv=gv]])
+-- Those two needs to use `:` instead of `<cmd>` because otherwise
+-- range is not inserted before the command
+map('v', '<M-j>', [[:m '>+1<cr>gv=gv]])
+map('v', '<M-k>', [[:m '<-2<cr>gv=gv]])
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 -- Join line above at the end of the current line
