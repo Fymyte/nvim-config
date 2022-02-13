@@ -18,6 +18,7 @@ opt.mat = 2               -- How many tenths of a second to blink when matching 
 opt.fileformats = { 'unix', 'dos', 'mac' }
 opt.timeoutlen = 500      -- Time for a key map to complete
 opt.updatetime = 1000     -- Time for `CursorHold` event to trigger (ms)
+opt.hidden = true         -- Do not unload backgroup buffers
 
 -- show hidden characters where we might not want them
 opt.listchars = { tab = '▸ ', trail = '·' }
