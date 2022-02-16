@@ -7,6 +7,14 @@ neorg.setup {
   -- Tell Neorg what modules to load
   load = {
     ["core.defaults"] = {}, -- Load all the default modules
+    ["core.keybinds"] = {
+      config = {
+        hook = function (keybinds)
+          keybinds.unmap('norg', 'n', '<M-j>')
+          keybinds.unmap('norg', 'n', '<M-k>')
+        end,
+      },
+    },
     ["core.norg.concealer"] = {
       config = {
         markup_preset = "dimmed",
