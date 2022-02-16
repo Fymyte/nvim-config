@@ -1,4 +1,4 @@
-local has_neorg, neog = pcall(require, 'neorg')
+local has_neorg, neorg = pcall(require, 'neorg')
 if not has_neorg then
   return
 end
