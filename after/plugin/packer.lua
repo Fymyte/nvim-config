@@ -98,7 +98,7 @@ return packer.startup({
     }
     -- Autocompletion
     use {
-      'Iron-E/nvim-cmp',
+      'hrsh7th/nvim-cmp',
       requires = {
         'hrsh7th/vim-vsnip',
         'hrsh7th/cmp-vsnip',
@@ -109,7 +109,7 @@ return packer.startup({
         'hrsh7th/cmp-nvim-lua',
         'f3fora/cmp-spell',
       },
-      branch = 'feat/completion-menu-borders'
+      branch = 'dev'
     }
     -- use {
     --   'sidebar-nvim/sidebar.nvim',
