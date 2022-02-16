@@ -74,6 +74,10 @@ return packer.startup({
       requires = 'tpope/vim-repeat', -- allow repetition using `.`
     }
     use { 'tpope/vim-fugitive' }
+    use {
+      'lewis6991/gitsigns.nvim',
+      require = 'nvim-lua/plenary.nvim',
+    }
     -- Telescope
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'nvim-telescope/telescope-file-browser.nvim' }
