@@ -45,3 +45,10 @@ map('n', '0', '^') -- use 0 to go to first char of line
 map('t', '<Esc>', '<C-\\><C-n>')
 -- Misc
 map('', '<leader><Space>', '<cmd>noh<cr>')
+
+local function showFugitiveGit()
+  if vim.fn.FugitiveHead() ~= '' then
+    vim.cmd [[Git | wincmd H | vertical resize 31 | setlocal winfixwidth]]
+  end
+end
+map('n', '<leader>gs', showFugitiveGit)
