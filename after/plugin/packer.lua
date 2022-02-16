@@ -125,6 +125,7 @@ return packer.startup({
       rtp = 'vim',
       run = check_system_deps({ 'himalaya' }, 'himalaya')
     }
+    use { 'vigoux/LanguageTool.nvim' }
 
     -- LSP
     use {
