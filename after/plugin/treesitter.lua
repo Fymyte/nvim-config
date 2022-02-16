@@ -12,14 +12,6 @@ parser_configs.vim = {
   filetype = "vim", -- if filetype does not agrees with parser name
 }
 
-parser_configs.norg = {
-    install_info = {
-        url = "https://github.com/nvim-neorg/tree-sitter-norg",
-        files = { "src/parser.c", "src/scanner.cc" },
-        branch = "main"
-    },
-}
-
 parser_configs.norg_meta = {
     install_info = {
         url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
@@ -37,6 +29,8 @@ parser_configs.norg_table = {
 }
 
 local ensure_installed = {
+  'c',
+  'cpp',
   'vim',
   'rust',
   'query',

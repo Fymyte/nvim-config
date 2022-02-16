@@ -52,7 +52,10 @@ return packer.startup({
     }
     use {
       'nvim-neorg/neorg',
-      requires = 'nvim-lua/plenary.nvim',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-neorg/neorg-telescope',
+      },
     }
 
     -- Utils
