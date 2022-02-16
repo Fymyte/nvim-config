@@ -115,6 +115,12 @@ return packer.startup({
     --   'sidebar-nvim/sidebar.nvim',
     --   branch = 'dev',
     -- }
+    -- Mailbox
+    use {
+      'soywod/himalaya',
+      rtp = 'vim',
+      run = check_system_deps({ 'himalaya' }, 'himalaya')
+    }
 
     -- LSP
     use {
