@@ -137,6 +137,7 @@ return packer.startup({
       run = ':TSUpdate',
       requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
     }
+    use { 'wellle/targets.vim' }
     use {
       'nvim-treesitter/playground',
       run = ':TSInstall query',
