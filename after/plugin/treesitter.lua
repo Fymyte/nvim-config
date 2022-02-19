@@ -13,19 +13,26 @@ parser_configs.vim = {
 }
 
 parser_configs.norg_meta = {
-    install_info = {
-        url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-        files = { "src/parser.c" },
-        branch = "main"
-    },
+  install_info = {
+    url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
+    files = { "src/parser.c" },
+    branch = "main"
+  },
 }
 
 parser_configs.norg_table = {
-    install_info = {
-        url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-        files = { "src/parser.c" },
-        branch = "main"
-    },
+  install_info = {
+    url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
+    files = { "src/parser.c" },
+    branch = "main"
+  },
+}
+
+parser_configs.gflow = {
+  install_info = {
+    url = "~/Documents/dev/tree-sitter-goal-flow",
+    files = {"src/parser.c"},
+  },
 }
 
 local ensure_installed = {
