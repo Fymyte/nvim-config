@@ -12,14 +12,18 @@
 "{"
 "}"
 "|"
+"c|"
+"d|"
 ; "("
 ; ")"
 "["
 "]"
 ] @punctuation.bracket
 
-(db_table) @variable
-(db_entry) @variable
+(clue (entry) @variable)
+(discovery (entry) @variable)
+(db_access (table) @variable)
+(db_filter (field) @variable)
 (number_literal) @number
 (boolean_literal) @boolean
 (text_literal) @string

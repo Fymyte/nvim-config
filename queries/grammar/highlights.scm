@@ -5,6 +5,7 @@
 
 "::=" @operator
 "or" @keyword.operator
+":" @punctuation.delimiter
 [
   "("
   ")"
