@@ -34,6 +34,13 @@ parser_configs.gflow = {
     files = {"src/parser.c"},
   },
 }
+parser_configs.grammar = {
+  install_info = {
+    url = "https://github.com/Fymyte/tree-sitter-grammar",
+    files = {"src/parser.c"},
+    branch = "main",
+  },
+}
 
 local ensure_installed = {
   'c',
@@ -41,6 +48,7 @@ local ensure_installed = {
   'vim',
   'rust',
   'query',
+  'lua',
   'norg',
   'norg_meta',
   'norg_table'
