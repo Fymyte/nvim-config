@@ -47,6 +47,10 @@ return packer.startup({
       requires = { 'nvim-treesitter/nvim-treesitter' },
     }
     use {
+      'Fymyte/mbsync.vim',
+      ft = { 'mbsyncrc' },
+    }
+    use {
       'amadeus/vim-css',
       ft = { 'css' },
     }
