@@ -27,7 +27,9 @@ kanagawa.setup({
     specialException = true,    -- special highlight for exception handling keywords
     transparent = false,        -- use background colors defined above
     colors = colors,
-    overrides = {},
+    overrides = {
+      TSVariable = { link = "Identifier" }
+    },
 })
 
 kanagawa.load()
