@@ -22,6 +22,7 @@ Utils functions, or plugins extensions are also in this directory
 - Syntax highlight: [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - Completions: [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
 - Fuzzy finder: [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+- Notes: [neorg](https://github.com/nvim-neorg/neorg)
 
 Plugins are managed using [packer.nvim](https://github.com/wbthomason/packer.nvim)
 
