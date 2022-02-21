@@ -17,8 +17,20 @@ local cmp_config = {
     end,
   },
   formatting = {
-    fields = { "kind", "abbr" },
-    format = require('lspkind').cmp_format({ mode = 'symbol', preset = 'default' })
+    -- fields = { "kind", "abbr" },
+    format = require('lspkind').cmp_format {
+      mode = 'symbol',
+      menu = {
+        buffer = '[buf]',
+        nvim_lua = '[api]',
+        nvim_lsp = '[LSP]',
+        path = '[path]',
+        vsnip = '[snip]',
+        neorg = '[neorg]',
+        spell = '[spell]',
+      },
+      preset = 'default',
+    }
   },
   window = {
     documentation = {
@@ -62,7 +74,7 @@ local cmp_config = {
     { name = 'nvim_lua' },
     { name = 'spell' },
     { name = 'path' },
-    { name = 'neorf' },
+    { name = 'neorg' },
   }, {
     { name = 'buffer' },
   })
