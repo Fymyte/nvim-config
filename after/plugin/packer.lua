@@ -48,7 +48,7 @@ return packer.startup({
     }
     use {
       'Fymyte/mbsync.vim',
-      ft = { 'mbsyncrc' },
+      ft = { 'mbsync' },
     }
     use {
       'amadeus/vim-css',
