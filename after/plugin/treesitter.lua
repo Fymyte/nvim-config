@@ -51,18 +51,38 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     custom_captures = {
       ["variable"] = "Identifier",
-      ["variable.parameter"] = "Identifier",
+      ["parameter"] = "Identifier",
       --["field"] = "Identifier",
     },
     additional_vim_regex_highlighting = true,
     disable = {},
   },
   textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>a"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>A"] = "@parameter.inner",
+      },
+    },
     lsp_interop = {
       enable = true,
       border = 'rounded',
       peek_definition_code = {
         ["<leader>df"] = "@function.outer",
+        ["<leader>db"] = "@block.outer",
         ["<leader>dF"] = "@class.outer",
       },
     },
