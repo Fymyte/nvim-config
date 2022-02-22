@@ -35,11 +35,8 @@ vim.cmd('luafile'  .. packer_compiled)
 
 -- remove navigation using space
 vim.keymap.set('', '<space>', '<nop>', { noremap=true, silent=true })
-vim.g.mapleader = ' '     -- Leader key -> ";"
+vim.g.mapleader = ' '     -- Leader key -> "<space>"
 vim.g.log_level = 'warn'  -- Use this for global debugging
 
--------------------
--- NvimLSP
--------------------
-
-require('fymyte.lsp')
+require'fymyte/globals'
+require'fymyte.lsp'
