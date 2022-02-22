@@ -28,6 +28,7 @@ local cmp_config = {
         vsnip = '[snip]',
         neorg = '[neorg]',
         spell = '[spell]',
+        cmp_git = '[git]',
       },
       preset = 'default',
     }
@@ -75,6 +76,7 @@ local cmp_config = {
     { name = 'spell' },
     { name = 'path' },
     { name = 'neorg' },
+    { name = 'cmp_git' },
   }, {
     { name = 'buffer' },
   })
@@ -98,3 +100,5 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
+
+require'cmp_git'.setup {}

@@ -117,6 +117,7 @@ return packer.startup({
         'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-nvim-lua',
         'f3fora/cmp-spell',
+        { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
       },
       branch = 'dev'
     }
