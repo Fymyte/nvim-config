@@ -25,7 +25,7 @@ Much of the configuration can be found in either:
 
 
 -- If packer is not installed, install and quit.
-if not require 'user.packer_bootstrap'.installed() then
+if not require 'fymyte.packer_bootstrap'.installed() then
   return
 end
 
@@ -42,4 +42,4 @@ vim.g.log_level = 'warn'  -- Use this for global debugging
 -- NvimLSP
 -------------------
 
-require('lsp')
+require('fymyte.lsp')

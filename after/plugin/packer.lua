@@ -73,6 +73,7 @@ return packer.startup({
     use { 'ellisonleao/glow.nvim' }
     use { 'ojroques/vim-oscyank' }
     use { 'rcarriga/nvim-notify' }
+    use { 'wellle/targets.vim' }
     use {
       'tpope/vim-surround',
       requires = 'tpope/vim-repeat', -- allow repetition using `.`
@@ -141,7 +142,6 @@ return packer.startup({
       run = ':TSUpdate',
       requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
     }
-    use { 'wellle/targets.vim' }
     use {
       'nvim-treesitter/playground',
       run = ':TSInstall query',
@@ -165,7 +165,6 @@ return packer.startup({
     use {
       'nvim-lualine/lualine.nvim',
       after = 'kanagawa',
-      config = function () require('statusline') end
     }
     -- use { 'mhinz/vim-startify' }
     -- use { 'dstein64/vim-startuptime' }

@@ -3,7 +3,7 @@ if not ok then
   return
 end
 
-local utils = require('user.utils')
+local utils = require('fymyte.utils')
 
 telescope.setup{
   defaults = {

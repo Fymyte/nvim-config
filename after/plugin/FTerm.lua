@@ -3,7 +3,7 @@ if not has_fterm then
   return
 end
 
-local utils = require'user.utils'
+local utils = require'fymyte.utils'
 
 fterm.setup {
   border = 'rounded',

@@ -3,7 +3,7 @@ local cmd = vim.cmd
 local api = vim.api
 local g = vim.g
 
-local utils = require('user.utils')
+local utils = require('fymyte.utils')
 
 -- Use rounded corners for lsp too
 local border = 'rounded'

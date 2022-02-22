@@ -1,6 +1,9 @@
-local g = vim.g
+local has_tree, tree = pcall(require, 'nvim-tree')
+if not has_tree then
+  return
+end
 
-g.nvim_tree_icons = {
+vim.g.nvim_tree_icons = {
   git = {
     unstaged = "",
     staged = "✚",
@@ -12,9 +15,9 @@ g.nvim_tree_icons = {
     modified = '✹',
   },
 }
-g.nvim_tree_group_empty = 1
+vim.g.nvim_tree_group_empty = 1
 
-require('nvim-tree').setup {
+tree.setup {
   diagnostics = {
     enable = true,
     icons = {
