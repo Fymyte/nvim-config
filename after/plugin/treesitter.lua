@@ -49,9 +49,13 @@ local ensure_installed = {
   'rust',
   'query',
   'lua',
+  'javascript',
+  'typescript',
+  'svelte',
+  'css',
   'norg',
   'norg_meta',
-  'norg_table'
+  'norg_table',
 }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = ensure_installed,
