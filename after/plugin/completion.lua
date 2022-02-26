@@ -37,7 +37,7 @@ local cmp_config = {
     documentation = {
       border = 'rounded',
       scrollbar = '║',
-      zindex = 1002, -- Display documentation on top
+      -- zindex = 1002, -- Display documentation on top
       --winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
     },
     completion = {
@@ -59,12 +59,11 @@ local cmp_config = {
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ['<C-e>'] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -75,8 +74,6 @@ local cmp_config = {
     { name = 'nvim_lua' },
     { name = 'spell' },
     { name = 'path' },
-    { name = 'neorg' },
-    { name = 'cmp_git' },
   }, {
     { name = 'buffer' },
   })
@@ -84,21 +81,38 @@ local cmp_config = {
 
 cmp.setup(cmp_config)
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
-  sources = {
-    { name = 'buffer' }
-  }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
-    { name = 'path' },
-    { name = 'nvim_lsp' }
-  }, {
-    { name = 'cmdline' }
+    { name = 'buffer' }
   })
 })
 
-require'cmp_git'.setup {}
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' },
+  }, {
+    { name = 'nvim_lsp' },
+    { name = 'cmdline' },
+  })
+})
+
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+cmp.setup.filetype('norg', {
+  sources = cmp.config.sources({
+    { name = 'neorg' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+
+require'cmp_git'.setup {
+  remotes = { "upstream", "fork", "origin" },
+  filetypes = { "gitcommit", "markdown" },
+}
