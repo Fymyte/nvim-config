@@ -39,7 +39,11 @@ neorg.setup {
         engine = "nvim-cmp" -- We current support nvim-compe and nvim-cmp only
       }
     },
-    ["core.presenter"] = {},
+    ["core.presenter"] = {
+      config = {
+        zen_mode = "truezen",
+      }
+    },
     ["core.integrations.telescope"] = {},
   },
 }
