@@ -35,10 +35,10 @@ return packer.startup({
       'fladson/vim-kitty',
       ft = { 'kitty', 'kitty-session' },
     }
-    use {
-      'Fymyte/mesonic',
-      as = 'vim-messon',
-    }
+    -- use {
+    --   'Fymyte/mesonic',
+    --   as = 'vim-messon',
+    -- }
     use { 'ap/vim-css-color' }
     use {
       'Fymyte/rasi.vim',
