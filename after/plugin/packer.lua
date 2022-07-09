@@ -14,7 +14,7 @@ local function check_system_deps(deps, name)
   for _, dep in pairs(deps) do
     if vim.fn.executable(dep) ~= 1 then
       local msg = ('%q is not installed. (optionnal deps for ' .. name .. ')'):format(dep)
-      vim.notify(msg, 'warn', { title = 'Packer' })
+      -- vim.notify(msg, 'warn', { title = 'Packer' })
     end
   end
 end
@@ -119,18 +119,18 @@ return packer.startup({
         'f3fora/cmp-spell',
         { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
       },
-      branch = 'dev'
+      -- branch = 'dev'
     }
     -- use {
     --   'sidebar-nvim/sidebar.nvim',
     --   branch = 'dev',
     -- }
     -- Mailbox
-    use {
-      'soywod/himalaya',
-      rtp = 'vim',
-      run = check_system_deps({ 'himalaya' }, 'himalaya')
-    }
+    -- use {
+    --   'soywod/himalaya',
+    --   rtp = 'vim',
+    --   run = check_system_deps({ 'himalaya' }, 'himalaya')
+    -- }
     use { 'vigoux/LanguageTool.nvim' }
 
     -- LSP

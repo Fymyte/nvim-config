@@ -64,7 +64,7 @@ opt.completeopt = { 'menu', 'menuone', 'preview' }
 opt.shortmess:append('c')
 
 -- Status line
-opt.laststatus = 2        -- Always show a status line
+opt.laststatus = 3        -- Always show a status line
 opt.showmode = false      -- Don't show current mod (already displayed in status line)
 
 -- Auto formating options

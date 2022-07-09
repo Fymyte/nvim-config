@@ -38,11 +38,12 @@ local cmp_config = {
       border = 'rounded',
       scrollbar = '║',
       -- zindex = 1002, -- Display documentation on top
-      --winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+      winhighlight = "Normal:Pmenu,FloatBorder:Normal,Search:None",
     },
     completion = {
       border = 'rounded',
       scrollbar = '║',
+      winhighlight = "Normal:Pmenu,FloatBorder:Normal,Search:None",
     },
   },
   experimental = {

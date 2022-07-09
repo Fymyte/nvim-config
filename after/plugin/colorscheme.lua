@@ -17,19 +17,24 @@ local colors = {
 
 kanagawa.setup({
     undercurl = true,           -- enable undercurls
-    commentStyle = "italic",
-    functionStyle = "NONE",
-    keywordStyle = "italic",
-    statementStyle = "bold",
-    typeStyle = "NONE",
-    variablebuiltinStyle = "italic",
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true },
+    statementStyle = { bold = true },
+    typeStyle = {},
+    variablebuiltinStyle = { italic = true },
     specialReturn = true,       -- special highlight for the return keyword
     specialException = true,    -- special highlight for exception handling keywords
     transparent = false,        -- use background colors defined above
+    dimIncative = false,
+    globalStatus = false,
     colors = colors,
     overrides = {
       TSVariable = { link = "Identifier" }
     },
 })
 
+
 kanagawa.load()
+-- vim.api.nvim_set_hl(0, 'FloatBorder', { link="Normal" })
+vim.cmd[[highlight! link FloatBorder Normal]]

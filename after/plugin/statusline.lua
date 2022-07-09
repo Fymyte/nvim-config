@@ -7,7 +7,12 @@
 --theme.normal.c.bg = '#333333'
 --local theme = require('material.lualine')
 
-require('lualine').setup({
+local has_lualine, lualine = pcall(require, 'lualine')
+if not has_lualine then
+  return
+end
+
+lualine.setup({
   options = {
 --    theme = theme,
     section_separators = '',
