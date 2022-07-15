@@ -59,3 +59,15 @@ local function showFugitiveGit()
   end
 end
 map('n', '<leader>gs', showFugitiveGit)
+
+-- vim.cmd[[
+-- function! s:executor() abort
+--   if &ft == 'lua'
+--     call execute(printf(":lua %s", getline(".")))
+--   elseif &ft == 'vim'
+--     exe getline(">")
+--   endif
+-- endfunction
+-- nnoremap <leader>x :call <SID>executor()<CR>
+-- ]]
+-- vim.keymap.set('n', '<leader>x', ":call executor()<CR>", { noremap=true, silent=true })

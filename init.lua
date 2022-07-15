@@ -17,7 +17,7 @@ Much of the configuration can be found in either:
   - keymaps
   - diagnostics
 
-./lua/user/*.lua
+./lua/fymyte/*.lua
   This is where added functionalities are located.
   Utils functions, or plugins extensions are also in this directory
 
@@ -33,13 +33,10 @@ end
 local packer_compiled = vim.fn.stdpath('config') .. '/plugin/packer_compiled.lua'
 vim.cmd('luafile'  .. packer_compiled)
 
-local function setup_space_leader()
-  -- remove navigation using space
-  vim.keymap.set('', '<space>', '<nop>', { noremap=true, silent=true })
-  -- Leader key -> "<space>"
-  vim.g.mapleader = ' '
-end
-setup_space_leader()
+-- remove navigation using space
+vim.keymap.set('', '<space>', '<nop>', { noremap=true, silent=true })
+-- Leader key -> "<space>"
+vim.g.mapleader = ' '
 
 vim.g.log_level = vim.log.levels.INFO -- Use this for global debugging
 

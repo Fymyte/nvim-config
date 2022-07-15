@@ -144,6 +144,7 @@ local servers = {
   --     },
   --   }
   -- },
+  ["taplo"] = {},
 }
 
 --   vim.cmd([[do User LspAttachBuffers]])
