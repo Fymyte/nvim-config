@@ -144,7 +144,7 @@ local servers = {
   --     },
   --   }
   -- },
-  ["taplo"] = {},
+  -- ["taplo"] = {},
 }
 
 --   vim.cmd([[do User LspAttachBuffers]])
@@ -160,5 +160,9 @@ end
 -- setup rust-tools
 local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
 if has_rust_tools then
-  rust_tools.setup {}
+  rust_tools.setup {
+    on_initialized = function(health)
+      vim.notify(("rust analyzer ready (%s)"):format(health))
+    end
+  }
 end

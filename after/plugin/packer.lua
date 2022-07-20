@@ -109,14 +109,16 @@ return packer.startup({
     use {
       'hrsh7th/nvim-cmp',
       requires = {
-        'hrsh7th/vim-vsnip',
-        'hrsh7th/cmp-vsnip',
-        'hrsh7th/cmp-nvim-lsp',
+        { 'hrsh7th/cmp-nvim-lsp', requires = 'neovim/nvim-lspconfig'},
+        { 'hrsh7th/cmp-nvim-lsp-signature-help', requires = 'neovim/nvim-lspconfig'},
+        { 'hrsh7th/cmp-nvim-lsp-document-symbol', requires = 'neovim/nvim-lspconfig'},
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-nvim-lua',
         'f3fora/cmp-spell',
+        'saadparwaiz1/cmp_luasnip',
+        'L3MON4D3/LuaSnip',
         { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
       },
       -- branch = 'dev'
@@ -150,7 +152,11 @@ return packer.startup({
     }
     use {
       'simrat39/rust-tools.nvim',
-      requires = { 'neovim/nvim-lspconfig' },
+      requires = {
+        'neovim/nvim-lspconfig',
+        'nvim-lua/plenary.nvim',
+        'mfussenegger/nvim-dap',
+      },
     }
 
     -- UI
