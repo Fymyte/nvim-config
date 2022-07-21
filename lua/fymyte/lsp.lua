@@ -15,7 +15,7 @@ local function lsp_override_open_floating_preview_opts(config)
   end
 end
 
-lsp.set_log_level(g.log_level)
+lsp.set_log_level("debug")
 
 
 --- Goto definition in split window, see
@@ -121,6 +121,12 @@ local servers = {
         workspace = { library = api.nvim_get_runtime_file("", true) }, -- Make the server aware of Neovim runtime files
         telemetry = { enable = false },
         hint = { setType = true },
+        IntelliSense = {
+          traceLocalSet = true,
+          traceReturn = true,
+          traceBeSetted = true,
+          traceFieldInject = true,
+        }
       }
     }
   },
@@ -145,6 +151,29 @@ local servers = {
   --   }
   -- },
   -- ["taplo"] = {},
+  ["ltex"] = {
+    on_attach = function(client, bufnr)
+      custom_attach(client, bufnr)
+      require'ltex_extra'.setup {
+        load_langs = { 'en-US', 'fr-FR' },
+        -- init_check = true,
+        path = vim.fn.stdpath('config') .. '/spell/dictionaries',
+        log_level = "trace",
+      }
+    end,
+    settings = {
+      ["ltex"] = {
+        configurationTarget = {
+          dictionary = "user",
+          disabledRules = "workspaceFolderExternalFile",
+          hiddenFalsePositives = "workspaceFolderExternalFile"
+        },
+        -- dictionary = {
+        --   ["en-US"] = { "VimL", ":/home/pierrick/.local/share/dictionary/en-US.txt" }
+        -- },
+      }
+    }
+  },
 }
 
 --   vim.cmd([[do User LspAttachBuffers]])

@@ -133,7 +133,6 @@ return packer.startup({
     --   rtp = 'vim',
     --   run = check_system_deps({ 'himalaya' }, 'himalaya')
     -- }
-    use { 'vigoux/LanguageTool.nvim' }
 
     -- LSP
     use {
@@ -158,6 +157,7 @@ return packer.startup({
         'mfussenegger/nvim-dap',
       },
     }
+    use { 'barreiroleo/ltex_extra.nvim' }
 
     -- UI
     use {
