@@ -141,7 +141,7 @@ return packer.startup({
     }
     use {
       'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate',
+      run = function() require('nvim-treesitter.install').update({ with_sync = true }) end
     }
     use {
       'nvim-treesitter/nvim-treesitter-textobjects',
