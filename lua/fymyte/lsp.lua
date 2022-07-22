@@ -158,7 +158,7 @@ local servers = {
         load_langs = { 'en-US', 'fr-FR' },
         -- init_check = true,
         path = vim.fn.stdpath('config') .. '/spell/dictionaries',
-        log_level = "trace",
+        log_level = "none",
       }
     end,
     settings = {

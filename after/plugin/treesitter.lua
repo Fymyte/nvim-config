@@ -28,7 +28,7 @@ parser_configs.norg_table = {
   },
 }
 
-parser_configs.gflow = {
+parser_configs.gflow ={
   install_info = {
     url = "~/Documents/dev/tree-sitter-goal-flow",
     files = {"src/parser.c"},
@@ -59,6 +59,9 @@ local ensure_installed = {
 }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = ensure_installed,
+  sync_install = false,
+  auto_install = true,
+
   highlight = {
     enable = true,
     custom_captures = {
@@ -66,8 +69,20 @@ require'nvim-treesitter.configs'.setup {
       ["parameter"] = "Identifier",
       --["field"] = "Identifier",
     },
-    additional_vim_regex_highlighting = true,
+    additional_vim_regex_highlighting = false,
     disable = {},
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    }
+  },
+  indent = {
+    enable = true,
   },
   textobjects = {
     select = {
@@ -76,8 +91,34 @@ require'nvim-treesitter.configs'.setup {
       keymaps = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
+      },
+    },
+    move = {
+      enable = false,
+      set_jumps = true,
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        -- ["]b"] = "@block.outer",
+        ["]]"] = "@class.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        -- ["]B"] = "@block.outer",
+        ["]["] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        -- ["[b"] = "@block.outer",
+        ["[["] = "@class.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        -- ["[b"] = "@block.outer",
+        ["[]"] = "@class.outer",
       },
     },
     swap = {
@@ -123,3 +164,8 @@ require'nvim-treesitter.configs'.setup {
     lint_event = {"BufWrite", "CursorHold"},
   }
 }
+
+vim.cmd [[
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+]]

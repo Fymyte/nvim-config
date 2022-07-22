@@ -142,7 +142,10 @@ return packer.startup({
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
-      requires = { 'nvim-treesitter/nvim-treesitter-textobjects' }
+    }
+    use {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      after = 'nvim-treesitter'
     }
     use {
       'nvim-treesitter/playground',

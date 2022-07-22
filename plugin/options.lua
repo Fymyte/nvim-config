@@ -67,6 +67,9 @@ opt.shortmess:append('c')
 opt.laststatus = 3        -- Always show a status line
 opt.showmode = false      -- Don't show current mod (already displayed in status line)
 
+-- Folds
+opt.foldlevelstart = 99
+
 -- Auto formating options
 opt.formatoptions = opt.formatoptions
   - "a" -- Auto formatting is BAD.
