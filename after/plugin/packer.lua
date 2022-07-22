@@ -173,6 +173,10 @@ return packer.startup({
       as = 'kanagawa',
     }
     use {
+      'marko-cerovac/material.nvim',
+      as = 'material',
+    }
+    use {
       'nvim-lualine/lualine.nvim',
       after = 'kanagawa',
     }

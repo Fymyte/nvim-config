@@ -43,3 +43,4 @@ vim.g.log_level = vim.log.levels.INFO -- Use this for global debugging
 require'fymyte.notify'    -- Use custom notifications
 require'fymyte.globals'   -- Functions globally available
 require'fymyte.lsp'       -- Setup lsp
+require'fymyte.colorscheme.kanagawa'

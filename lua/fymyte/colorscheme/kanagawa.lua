@@ -30,7 +30,7 @@ kanagawa.setup({
     globalStatus = false,
     colors = colors,
     overrides = {
-      TSVariable = { link = "Identifier" }
+      TSVariable = { fg = "#ECD2A2" }
     },
 })
 
