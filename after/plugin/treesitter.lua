@@ -73,7 +73,7 @@ require'nvim-treesitter.configs'.setup {
     disable = {},
   },
   incremental_selection = {
-    enable = true,
+    enable = false,
     keymaps = {
       init_selection = "gnn",
       node_incremental = "grn",
@@ -91,33 +91,33 @@ require'nvim-treesitter.configs'.setup {
       keymaps = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
-        ["ab"] = "@block.outer",
-        ["ib"] = "@block.inner",
+        ["ap"] = "@parameter.outer",
+        ["ip"] = "@parameter.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
       },
     },
     move = {
-      enable = false,
+      enable = true,
       set_jumps = true,
       goto_next_start = {
         ["]m"] = "@function.outer",
-        -- ["]b"] = "@block.outer",
+        ["]p"] = "@parameter.inner",
         ["]]"] = "@class.outer",
       },
       goto_next_end = {
         ["]M"] = "@function.outer",
-        -- ["]B"] = "@block.outer",
+        ["]P"] = "@parameter.inner",
         ["]["] = "@class.outer",
       },
       goto_previous_start = {
         ["[m"] = "@function.outer",
-        -- ["[b"] = "@block.outer",
+        ["[b"] = "@parameter.inner",
         ["[["] = "@class.outer",
       },
       goto_previous_end = {
         ["[M"] = "@function.outer",
-        -- ["[b"] = "@block.outer",
+        ["[b"] = "@parameter.inner",
         ["[]"] = "@class.outer",
       },
     },
@@ -131,7 +131,7 @@ require'nvim-treesitter.configs'.setup {
       },
     },
     lsp_interop = {
-      enable = true,
+      enable = false,
       border = 'rounded',
       peek_definition_code = {
         ["<leader>df"] = "@function.outer",

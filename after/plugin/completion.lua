@@ -7,6 +7,12 @@ if not has_cmp then
   return
 end
 
+local window_style = {
+  border = 'rounded',
+  scrollbar = '║',
+  winhighlight = "Normal:Pmenu,FloatBorder:Normal,Search:None",
+}
+
 local cmp_config = {
   snippet = {
     expand = function(args)
@@ -33,17 +39,8 @@ local cmp_config = {
     }
   },
   window = {
-    documentation = {
-      border = 'rounded',
-      scrollbar = '║',
-      -- zindex = 1002, -- Display documentation on top
-      winhighlight = "Normal:Pmenu,FloatBorder:Normal,Search:None",
-    },
-    completion = {
-      border = 'rounded',
-      scrollbar = '║',
-      winhighlight = "Normal:Pmenu,FloatBorder:Normal,Search:None",
-    },
+    documentation = window_style,
+    completion = window_style,
   },
   experimental = {
     ghost_text = {},

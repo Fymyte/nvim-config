@@ -38,7 +38,7 @@ vim.keymap.set('', '<space>', '<nop>', { noremap=true, silent=true })
 -- Leader key -> "<space>"
 vim.g.mapleader = ' '
 
-vim.g.log_level = vim.log.levels.INFO -- Use this for global debugging
+vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
 require'fymyte.notify'    -- Use custom notifications
 require'fymyte.globals'   -- Functions globally available

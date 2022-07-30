@@ -92,19 +92,21 @@ return packer.startup({
       'rudism/telescope-dict.nvim',
       run = check_system_deps({ 'dictd' }, 'telescope-dict'),
     }
+    use { 'kyazdani42/nvim-web-devicons' }
     use {
       'nvim-telescope/telescope.nvim',
       requires = {
         { 'nvim-lua/plenary.nvim' },
       },
       run = check_system_deps({ 'fd', 'rg' }, 'telescope'),
+      branch = '0.1.x',
     }
     use { 'windwp/nvim-autopairs' }
     -- Use neovim in the browser!!!
-    use {
-      'glacambre/firenvim',
-      run = function() vim.fn['firenvim#install'](0) end
-    }
+    -- use {
+    --   'glacambre/firenvim',
+    --   run = function() vim.fn['firenvim#install'](0) end
+    -- }
     -- Autocompletion
     use {
       'hrsh7th/nvim-cmp',
@@ -140,6 +142,11 @@ return packer.startup({
       requires = { 'neovim/nvim-lspconfig' },
     }
     use {
+      'glepnir/lspsaga.nvim',
+      requires = { 'neovim/nvim-lspconfig' },
+      branch = 'main',
+    }
+    use {
       'nvim-treesitter/nvim-treesitter',
       run = function() require('nvim-treesitter.install').update({ with_sync = true }) end
     }
@@ -160,6 +167,7 @@ return packer.startup({
         'mfussenegger/nvim-dap',
       },
     }
+    use { 'p00f/clangd_extensions.nvim' }
     use { 'barreiroleo/ltex_extra.nvim' }
 
     -- UI

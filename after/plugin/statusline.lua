@@ -14,11 +14,20 @@ end
 
 lualine.setup({
   options = {
---    theme = theme,
+ --    theme = theme,
     section_separators = '',
     component_separators = { left = '∣', right = '∣' },
+    globalstatus = true,
   },
   sections = {
-    lualine_b = { 'branch', 'diff', { 'diagnostics', sources={ 'nvim_diagnostic' } } },
+    lualine_b = {
+      { 'branch', icon = '' },
+      'diff',
+      {
+        'diagnostics',
+        sources = { 'nvim_diagnostic', 'nvim_lsp' },
+        symbols = { error = " ", warn = " ", hint = " ", info = " " }
+      }
+    },
   }
 })

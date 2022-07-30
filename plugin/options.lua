@@ -69,6 +69,7 @@ opt.showmode = false      -- Don't show current mod (already displayed in status
 
 -- Folds
 opt.foldlevelstart = 99
+opt.foldcolumn = "0"
 
 -- Auto formating options
 opt.formatoptions = opt.formatoptions

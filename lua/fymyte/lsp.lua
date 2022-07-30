@@ -1,25 +1,14 @@
-local lsp = vim.lsp
-local api = vim.api
-local g = vim.g
-
-local utils = require('fymyte.utils')
-
 -- Use provided config when lsp opens a window
 -- @param type Map defining the window configuration. (See `:h nvim_open_win`)
 local function lsp_override_open_floating_preview_opts(config)
-  local orig_util_open_floating_preview = lsp.util.open_floating_preview
-  lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
+  local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+  vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
     opts = vim.tbl_extend("force", opts, config)
-    opts.border = border or opts.border
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
   end
 end
 
-lsp.set_log_level("debug")
-
-
---- Goto definition in split window, see
---- [lspconfig wiki](https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#go-to-definition-in-a-split-window)
+vim.lsp.set_log_level(vim.g.log_level)
 
 local function setup_global_mappings()
   -- Global keymaps to navigate vim diagnostics
@@ -34,6 +23,7 @@ end
 local function custom_attach(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
+  vim.keymap.set("n", "gh", require("lspsaga.finder").lsp_finder, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
@@ -49,8 +39,17 @@ local function custom_attach(client, bufnr)
   end, bufopts)
 
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
+  vim.keymap.set("n", "gr", require("lspsaga.rename").lsp_rename, bufopts)
+
+  -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+  -- vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
+
+  local action = 
+  vim.keymap.set("n", "<leader>ca", require'lspsaga.codeaction'.code_action, bufopts)
+  vim.keymap.set("v", "<leader>ca", function()
+      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
+      require'lspsaga.codeaction'.range_code_action()
+  end, bufopts)
 
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 
@@ -108,8 +107,9 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 local servers = {
-  ["rust_analyzer"] = {},
-  ["clangd"] = {},
+  -- Called from rusttools and clangd_extensions
+  -- ["rust_analyzer"] = {},
+  -- ["clangd"] = {},
   ["sumneko_lua"] = {
     settings = {
       Lua = {
@@ -118,7 +118,7 @@ local servers = {
           path = runtime_path, -- Setup your lua path
         },
         diagnostics = { globals = { "vim" }, }, -- Get the language server to recognize the `vim` global
-        workspace = { library = api.nvim_get_runtime_file("", true) }, -- Make the server aware of Neovim runtime files
+        workspace = { library = vim.api.nvim_get_runtime_file("", true) }, -- Make the server aware of Neovim runtime files
         telemetry = { enable = false },
         hint = { setType = true },
         IntelliSense = {
@@ -158,7 +158,6 @@ local servers = {
         load_langs = { 'en-US', 'fr-FR' },
         -- init_check = true,
         path = vim.fn.stdpath('config') .. '/spell/dictionaries',
-        log_level = "none",
       }
     end,
     settings = {
@@ -168,10 +167,7 @@ local servers = {
           disabledRules = "workspaceFolderExternalFile",
           hiddenFalsePositives = "workspaceFolderExternalFile"
         },
-        -- dictionary = {
-        --   ["en-US"] = { "VimL", ":/home/pierrick/.local/share/dictionary/en-US.txt" }
-        -- },
-      }
+      },
     }
   },
 }
@@ -193,5 +189,39 @@ if has_rust_tools then
     on_initialized = function(health)
       vim.notify(("rust analyzer ready (%s)"):format(health))
     end
+  }
+end
+
+local has_clangd_extension, clangd_extensions = pcall(require, 'clangd_extensions')
+if has_clangd_extension then
+  clangd_extensions.setup {
+    extensions = {
+      ast = {
+            role_icons = {
+                type = "",
+                declaration = "",
+                expression = "",
+                specifier = "",
+                statement = "",
+                ["template argument"] = "",
+            },
+
+            kind_icons = {
+                Compound = "",
+                Recovery = "",
+                TranslationUnit = "",
+                PackExpansion = "",
+                TemplateTypeParm = "",
+                TemplateTemplateParm = "",
+                TemplateParamObject = "",
+            },
+
+            highlights = {
+                detail = "Comment",
+            },
+        },
+      memory_usage = { border = "rounded" },
+      symbol_info = { border = "rounded" },
+    }
   }
 end
