@@ -29,5 +29,6 @@ lualine.setup({
         symbols = { error = " ", warn = " ", hint = " ", info = " " }
       }
     },
+    lualine_c = { '%=%t%m' }
   }
 })
