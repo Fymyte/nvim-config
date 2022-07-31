@@ -34,7 +34,7 @@ telescope.load_extension('fzf')
 telescope.load_extension('file_browser')
 telescope.load_extension('dict')
 telescope.load_extension('project')
-telescope.load_extension('lsp_handlers')
+-- telescope.load_extension('lsp_handlers')
 
 utils.map({'n', '<leader>ff', [[<cmd>lua require('telescope.builtin').find_files()<CR>]]})
 utils.map({'n', '<leader>fl', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]]})

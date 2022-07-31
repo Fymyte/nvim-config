@@ -44,3 +44,4 @@ require'fymyte.notify'    -- Use custom notifications
 require'fymyte.globals'   -- Functions globally available
 require'fymyte.lsp'       -- Setup lsp
 require'fymyte.colorscheme.kanagawa'
+require'fymyte.plugins'

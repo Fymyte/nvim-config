@@ -1,5 +1,5 @@
 -- Use provided config when lsp opens a window
--- @param type Map defining the window configuration. (See `:h nvim_open_win`)
+-- @param config table: Map defining the window configuration. (See `:h nvim_open_win`)
 local function lsp_override_open_floating_preview_opts(config)
   local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
   vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
@@ -29,8 +29,9 @@ local function custom_attach(client, bufnr)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'K', require("lspsaga.hover").render_hover_doc, bufopts)
+  vim.keymap.set('n', '<C-k>', require("lspsaga.signaturehelp").signature_help, bufopts)
 
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -130,6 +131,7 @@ local servers = {
       }
     }
   },
+  zls = {},
   -- ["vimls"] = {},
   -- ["bashls"] = {},
   ["cmake"] = {},
@@ -172,10 +174,7 @@ local servers = {
   },
 }
 
---   vim.cmd([[do User LspAttachBuffers]])
---   utils.log('info', ('Language server %q is ready'):format(server.name))
-
-lsp_override_open_floating_preview_opts { border = 'rounded' }
+-- lsp_override_open_floating_preview_opts { border = 'rounded' }
 setup_global_mappings()
 
 for server, config in pairs(servers) do
@@ -195,6 +194,10 @@ end
 local has_clangd_extension, clangd_extensions = pcall(require, 'clangd_extensions')
 if has_clangd_extension then
   clangd_extensions.setup {
+    server = {
+      on_attach = custom_attach,
+      capabilities = get_client_capabilities(),
+    },
     extensions = {
       ast = {
             role_icons = {

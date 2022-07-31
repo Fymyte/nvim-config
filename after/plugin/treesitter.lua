@@ -11,23 +11,6 @@ local parser_configs = require "nvim-treesitter.parsers".get_parser_configs()
 -- --   },
 -- --   filetype = "vim", -- if filetype does not agrees with parser name
 -- }
-
-parser_configs.norg_meta = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-    files = { "src/parser.c" },
-    branch = "main"
-  },
-}
-
-parser_configs.norg_table = {
-  install_info = {
-    url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-    files = { "src/parser.c" },
-    branch = "main"
-  },
-}
-
 parser_configs.gflow ={
   install_info = {
     url = "~/Documents/dev/tree-sitter-goal-flow",
@@ -54,9 +37,10 @@ local ensure_installed = {
   'svelte',
   'css',
   'norg',
-  'norg_meta',
-  'norg_table',
+  'rasi',
+  'zig',
 }
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = ensure_installed,
   sync_install = false,
