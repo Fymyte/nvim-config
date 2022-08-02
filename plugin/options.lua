@@ -118,12 +118,17 @@ augroup AutoTermInsertMode
   autocmd!
   autocmd TermOpen * startinsert
 augroup end
-
-augroup Highlight_Yank
-  autocmd!
- autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500} 
-augroup end
 ]] )
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("Highlight_Yank", {clear=true}),
+  pattern = "*",
+  callback = function()
+  vim.highlight.on_yank {
+    higroup = (vim.fn.hlexists('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'),
+    timeout = 500
+  }
+  end
+})
 
 -- TODO: re-enable when more confortable with vim
 -- Disable entering in Ex mode

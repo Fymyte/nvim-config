@@ -49,6 +49,7 @@ packer.startup{
     use 'wellle/targets.vim' -- Add a tone of textobjects
     use 'tpope/vim-surround' -- Surround textobjects with pairs
     use 'tpope/vim-repeat' -- Allow repetition using `.`
+    use 'tpope/vim-abolish' -- Operations on words
     use 'windwp/nvim-autopairs' -- Auto close match pairs
     use 'rcarriga/nvim-notify'
     -- use 'ellisonleao/glow.nvim'
