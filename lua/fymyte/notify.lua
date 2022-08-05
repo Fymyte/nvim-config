@@ -4,7 +4,7 @@ if not ok then
 end
 
 notify.setup {
-  stages = 'slide',
+  stages = 'fade',
   timeout = 3000,
 }
 

@@ -29,6 +29,7 @@ opt.errorbells = false
 opt.visualbell = false
 vim.cmd([[set t_vb=]])        -- Remove terminal blinking
 opt.belloff = 'all'
+opt.termguicolors = true
 
 -- Linebreak
 opt.linebreak = true

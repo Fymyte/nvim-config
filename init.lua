@@ -40,6 +40,7 @@ vim.g.mapleader = ' '
 
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
+require'fymyte.options'
 require'fymyte.notify'    -- Use custom notifications
 require'fymyte.globals'   -- Functions globally available
 require'fymyte.lsp'       -- Setup lsp

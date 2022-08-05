@@ -29,6 +29,7 @@ lualine.setup({
         symbols = { error = " ", warn = " ", hint = " ", info = " " }
       }
     },
-    lualine_c = { '%=%t%m' }
+    lualine_c = { '%=%t%m', 'filetype' },
+    lualine_x = { 'encoding', 'fileformat' },
   }
 })

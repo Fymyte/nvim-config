@@ -15,11 +15,6 @@ map('i', '.', '.<C-g>u')
 map('i', '!', '!<C-g>u')
 map('i', '?', '?<C-g>u')
 map('i', ':', ':<C-g>u')
--- Move between windows
--- utils.map( { '', '<C-h>', '<cmd>wincmd h<cr>' })
--- utils.map( { '', '<C-j>', '<cmd>wincmd j<cr>' }) -- Leave J-K for completion
--- utils.map( { '', '<C-k>', '<cmd>wincmd k<cr>' })
--- utils.map( { '', '<C-l>', '<cmd>wincmd l<cr>' })
 -- Cycle throught buffers
 map('', '<C-b>p', '<cmd>bprev<cr>')
 map('', '<C-b><C-p>', '<cmd>bprev<cr>')

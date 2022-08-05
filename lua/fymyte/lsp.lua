@@ -52,12 +52,12 @@ local function custom_attach(client, bufnr)
       require'lspsaga.codeaction'.range_code_action()
   end, bufopts)
 
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format{async=true} end, bufopts)
 
   -- Show line diagnostic on cursor hold
   -- vim.cmd([[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]])
 
-  vim.notify(('lsp %s attached'):format(client.name))
+  vim.notify(('lsp %s attached'):format(client.name), "info", {title="LSP"})
 end
 
 local function get_client_capabilities()

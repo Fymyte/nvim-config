@@ -117,6 +117,7 @@ packer.startup{
       },
     }
     use { 'glepnir/lspsaga.nvim', branch = 'main' }
+    use 'j-hui/fidget.nvim'
 
     -- Treesitter
     use {
