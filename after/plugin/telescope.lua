@@ -16,30 +16,46 @@ telescope.setup{
       },
     },
   },
+  pickers = {
+    current_buffer_fuzzy_find = { theme = 'dropdown' },
+    buffers = { theme = 'dropdown' },
+    registers = { theme = 'dropdown' },
+  },
   extensions = {
     file_browser = {
-      theme = 'ivy',
+      theme = 'dropdown',
     },
     project = {
       base_dirs = {
         '~/.config/nvim',
       },
-      display_type = 'full',
+      theme = 'dropdown'
     },
+    ['ui-select'] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
+    }
   }
 }
 
-telescope.load_extension('notify')
-telescope.load_extension('fzf')
-telescope.load_extension('file_browser')
-telescope.load_extension('dict')
-telescope.load_extension('project')
--- telescope.load_extension('lsp_handlers')
+telescope.load_extension'notify'
+telescope.load_extension'fzf'
+telescope.load_extension'file_browser'
+telescope.load_extension'dict'
+telescope.load_extension'project'
+telescope.load_extension'ui-select'
+telescope.load_extension'packer'
 
-utils.map({'n', '<leader>ff', [[<cmd>lua require('telescope.builtin').find_files()<CR>]]})
-utils.map({'n', '<leader>fl', [[<cmd>lua require('telescope.builtin').live_grep()<CR>]]})
-utils.map({'n', '<leader>fh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]]})
-utils.map({'n', '<leader>fc', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown())<CR>]]})
-utils.map({'n', '<leader>fb', [[<cmd>lua require('telescope').extensions.file_browser.file_browser()<CR>]]})
-utils.map({'n', '<leader>fs', [[<cmd>lua require('telescope').extensions.dict.synonyms()<CR>]]})
-utils.map({'n', '<leader>fp', [[<cmd>lua require('telescope').extensions.project.project{display_type='full'}<CR>]]})
+local opts = { silent = true, noremap = true }
+
+vim.keymap.set('n', '<leader>ff', require'telescope.builtin'.find_files, opts)
+vim.keymap.set('n', '<leader>fl', require'telescope.builtin'.live_grep, opts)
+vim.keymap.set('n', '<leader>fh', require'telescope.builtin'.help_tags, opts)
+vim.keymap.set('n', '<leader>fy', require'telescope.builtin'.registers, opts)
+vim.keymap.set('n', '<leader>fbb', require'telescope.builtin'.buffers, opts)
+vim.keymap.set('n', '<leader>fc', require'telescope.builtin'.current_buffer_fuzzy_find, opts)
+vim.keymap.set('n', '<leader>fb', require'telescope'.extensions.file_browser.file_browser, opts)
+vim.keymap.set('n', '<leader>fs', require'telescope'.extensions.dict.synonyms, opts)
+vim.keymap.set('n', '<leader>fp', require'telescope'.extensions.project.project, opts)
+

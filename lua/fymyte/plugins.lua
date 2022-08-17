@@ -32,6 +32,8 @@ packer.startup{
     use 'Fymyte/mbsync.vim'
     use 'amadeus/vim-css'
     use 'Fymyte/rasi.vim'
+    use 'max397574/colortils.nvim'
+    use 'NvChad/nvim-colorizer.lua'
 
     -- Neorg (Note taking)
     use {
@@ -51,6 +53,7 @@ packer.startup{
     use 'tpope/vim-repeat' -- Allow repetition using `.`
     use 'tpope/vim-abolish' -- Operations on words
     use 'windwp/nvim-autopairs' -- Auto close match pairs
+    use 'tommcdo/vim-exchange' -- Exchange two elements
     use 'rcarriga/nvim-notify'
     -- use 'ellisonleao/glow.nvim'
     -- use {
@@ -70,10 +73,11 @@ packer.startup{
     use { 'lewis6991/gitsigns.nvim', require = 'nvim-lua/plenary.nvim' }
 
     -- Telescope (Fuzzy finder)
-    -- use { 'gbrlsnchs/telescope-lsp-handlers.nvim' }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use 'nvim-telescope/telescope-file-browser.nvim'
     use 'nvim-telescope/telescope-project.nvim'
+    use 'nvim-telescope/telescope-ui-select.nvim'
+    use 'nvim-telescope/telescope-packer.nvim'
     use {
       'rudism/telescope-dict.nvim',
       run = function() check_system_deps({ 'dictd' }, 'telescope-dict') end,
@@ -101,22 +105,27 @@ packer.startup{
         'saadparwaiz1/cmp_luasnip',
         'L3MON4D3/LuaSnip',
         { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
+        'rcarriga/cmp-dap'
       },
     }
 
     -- LSP
     use 'neovim/nvim-lspconfig'
-    use 'williamboman/nvim-lsp-installer'
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
     use 'p00f/clangd_extensions.nvim'
     use 'barreiroleo/ltex_extra.nvim'
-    use 'mfussenegger/nvim-dap'
     use {
       'simrat39/rust-tools.nvim',
       requires = {
         'nvim-lua/plenary.nvim',
       },
     }
-    use { 'glepnir/lspsaga.nvim', branch = 'main' }
+    use 'folke/lua-dev.nvim'
+    use 'glepnir/lspsaga.nvim'
     use 'j-hui/fidget.nvim'
 
     -- Treesitter

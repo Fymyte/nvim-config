@@ -1,0 +1,12 @@
+---@meta
+
+---@class vim.lsp.client
+---@field id number The id allocated to the client.
+---@field name string
+---@field rpc table
+---@field offset_encoding string
+---@field handlers table
+---@field requests table
+---@field config table
+---@field server_capabilities table
+---@filed request function

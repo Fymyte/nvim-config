@@ -118,6 +118,11 @@ cmp.setup.filetype('norg', {
     { name = 'buffer' },
   })
 })
+cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+  sources = {
+    { name = "dap" },
+  },
+})
 
 
 require'cmp_git'.setup {

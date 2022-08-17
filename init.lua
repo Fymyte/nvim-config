@@ -23,7 +23,6 @@ Much of the configuration can be found in either:
 
 --]]
 
-
 -- If packer is not installed, install and quit.
 if not require 'fymyte.packer_bootstrap'.installed() then
   return
@@ -37,12 +36,11 @@ vim.cmd('luafile'  .. packer_compiled)
 vim.keymap.set('', '<space>', '<nop>', { noremap=true, silent=true })
 -- Leader key -> "<space>"
 vim.g.mapleader = ' '
-
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
 require'fymyte.options'
 require'fymyte.notify'    -- Use custom notifications
 require'fymyte.globals'   -- Functions globally available
-require'fymyte.lsp'       -- Setup lsp
+require'fymyte.tools'       -- Setup lsp
 require'fymyte.colorscheme.kanagawa'
 require'fymyte.plugins'

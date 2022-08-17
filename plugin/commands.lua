@@ -11,3 +11,16 @@ vim.cmd( [[com! SynGroup echo {l,c,n ->
         \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
         \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
         \ }(line("."), col("."), "name")]] )
+
+vim.cmd[[
+function! Scratch()
+    split
+    noswapfile hide enew
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    "setlocal nobuflisted
+    "lcd ~
+    file scratch
+endfunction
+command! Scratch call Scratch()
+]]

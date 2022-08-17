@@ -20,6 +20,9 @@ opt.timeoutlen = 500      -- Time for a key map to complete
 opt.updatetime = 1000     -- Time for `CursorHold` event to trigger (ms)
 opt.hidden = true         -- Do not unload backgroup buffers
 
+-- Splits
+opt.splitright = true     -- vsplit open new window on the right
+
 -- show hidden characters where we might not want them
 opt.listchars = { tab = '▸ ', trail = '·' }
 opt.list = true
@@ -36,7 +39,6 @@ opt.linebreak = true
 opt.textwidth = 120
 
 -- Tabs/Spaces
-opt.smartcase = true
 opt.shiftwidth = 2        -- 1 tab = 2 spaces
 opt.tabstop = 2
 opt.softtabstop = 2
@@ -50,7 +52,7 @@ opt.signcolumn = 'yes'
 
 -- Search
 opt.ignorecase = true     -- Ignore case when searching
-opt.smartcase = true
+opt.smartcase = true      -- Take case into account only if uppercase is searched
 opt.hlsearch = true       -- Highlight previous search results
 opt.incsearch = true      -- Highlight search restults incrementaly
 
@@ -72,7 +74,7 @@ opt.showmode = false      -- Don't show current mod (already displayed in status
 opt.foldlevelstart = 99
 opt.foldcolumn = "0"
 
--- Auto formating options
+-- Auto formating options (:h fo-table)
 opt.formatoptions = opt.formatoptions
   - "a" -- Auto formatting is BAD.
   - "t" -- Don't auto format my code. I got linters for that.
@@ -82,7 +84,7 @@ opt.formatoptions = opt.formatoptions
   + "r" -- But do continue when pressing enter.
   + "n" -- Indent past the formatlistpat, not underneath it.
   + "j" -- Auto-remove comments if possible.
-  - "2" -- I'm not in gradeschool anymore
+  + "1"
 
 vim.g.python3_host_prog = 'python3'
 vim.g.loaded_python_provider = 0
@@ -109,8 +111,8 @@ augroup end
 
 augroup LastPos
   autocmd!
-  " Resync file from disk when gaining focus
-  au FocusGained,BufEnter * checktime
+  " Resync file from disk when gaining focus (only if current buffer is not '[Command Line]')
+  " au FocusGained,BufEnter * if expand('%') !=# '[Command Line]'| checktime | endif
   " Return to last edit position when opening files
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup end
@@ -124,10 +126,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("Highlight_Yank", {clear=true}),
   pattern = "*",
   callback = function()
-  vim.highlight.on_yank {
-    higroup = (vim.fn.hlexists('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'),
-    timeout = 500
-  }
+    vim.highlight.on_yank {
+      higroup = (vim.fn.hlexists('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'),
+      timeout = 500
+    }
   end
 })
 
