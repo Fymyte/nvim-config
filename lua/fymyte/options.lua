@@ -57,7 +57,7 @@ opt.hlsearch = true       -- Highlight previous search results
 opt.incsearch = true      -- Highlight search restults incrementaly
 
 -- Persistent undo file
-opt.undodir = vim.fn.getenv('HOME') .. '/.local/share/nvim/undodir'
+opt.undodir = vim.fn.stdpath'data' .. '/undodir'
 opt.undofile = true
 -- Spell checking
 opt.spell = false         -- Spell checking is not set by default (define per ft using ftplugin)
