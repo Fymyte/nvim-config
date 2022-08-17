@@ -55,6 +55,8 @@ packer.startup{
     use 'windwp/nvim-autopairs' -- Auto close match pairs
     use 'tommcdo/vim-exchange' -- Exchange two elements
     use 'rcarriga/nvim-notify'
+    use 'junegunn/vim-easy-align'
+    use 'mbbill/undotree'
     -- use 'ellisonleao/glow.nvim'
     -- use {
     --   'sidebar-nvim/sidebar.nvim',

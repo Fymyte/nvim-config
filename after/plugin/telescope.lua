@@ -58,4 +58,5 @@ vim.keymap.set('n', '<leader>fc', require'telescope.builtin'.current_buffer_fuzz
 vim.keymap.set('n', '<leader>fb', require'telescope'.extensions.file_browser.file_browser, opts)
 vim.keymap.set('n', '<leader>fs', require'telescope'.extensions.dict.synonyms, opts)
 vim.keymap.set('n', '<leader>fp', require'telescope'.extensions.project.project, opts)
+vim.keymap.set('n', '<leader>ft', '<cmd>Telescope<cr>', opts)
 

@@ -3,6 +3,8 @@ local map = function(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+local opts = { noremap = true, silent = true }
+
 -------------------
 -- Keymaps
 -------------------
@@ -39,7 +41,7 @@ map('n', '0', '^') -- use 0 to go to first char of line
 -- Term
 map('t', '<Esc>', '<C-\\><C-n>')
 -- Misc
-map('', '<leader><Space>', '<cmd>noh<cr>')
+map('n', '<leader><leader>', '<cmd>noh<cr>')
 
 local function showFugitiveGit()
   if vim.fn.FugitiveHead() ~= '' then
@@ -53,14 +55,20 @@ local function showFugitiveGit()
     ]]
   end
 end
-map('n', '<leader>gs', showFugitiveGit)
+local function toggleFugitiveGit()
+  if vim.fn.buflisted(vim.fn.bufname('fugitive:///*/.git/')) ~= 0 then
+    vim.cmd[[ execute ":bdelete" bufname('fugitive:///*/.git/') ]]
+  else
+    showFugitiveGit()
+  end
+end
 
 local function executor()
   if vim.bo.filetype == 'lua' then
     loadstring(vim.api.nvim_get_current_line())()
   end
 end
-vim.keymap.set('n', '<leader>x', executor, { noremap=true, silent=true })
+vim.keymap.set('n', '<leader>x', executor, opts)
 
 local function save_and_execute()
   if vim.bo.filetype == 'lua' then
@@ -70,4 +78,7 @@ local function save_and_execute()
     ]]
   end
 end
-vim.keymap.set('n', '<leader><leader>x', save_and_execute, { noremap=true, silent=true })
+vim.keymap.set('n', '<leader><leader>x', save_and_execute, opts)
+
+vim.keymap.set('n', '<F5>', '<cmd>UndotreeToggle<CR>', opts)
+vim.keymap.set('n', '<F6>', toggleFugitiveGit, opts)
