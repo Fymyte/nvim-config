@@ -75,8 +75,8 @@ require'nvim-treesitter.configs'.setup {
       keymaps = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
-        ["ap"] = "@parameter.outer",
-        ["ip"] = "@parameter.inner",
+        ["ao"] = "@parameter.outer",
+        ["io"] = "@parameter.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
       },
