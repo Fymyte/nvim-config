@@ -45,16 +45,17 @@ packer.startup{
     }
 
     -- Utils
-    use 'numToStr/Comment.nvim' -- Smart comments
-    use 'numToStr/FTerm.nvim' -- Floating terminal
-    use 'ojroques/vim-oscyank' -- Yank also to keyboard
-    use 'wellle/targets.vim' -- Add a tone of textobjects
-    use 'tpope/vim-surround' -- Surround textobjects with pairs
-    use 'tpope/vim-repeat' -- Allow repetition using `.`
-    use 'tpope/vim-abolish' -- Operations on words
-    use 'windwp/nvim-autopairs' -- Auto close match pairs
-    use 'tommcdo/vim-exchange' -- Exchange two elements
-    use 'rcarriga/nvim-notify'
+    use 'numToStr/Comment.nvim'  -- Smart comments
+    use 'numToStr/FTerm.nvim'    -- Floating terminal
+    use 'ojroques/vim-oscyank'   -- Yank also to keyboard
+    use 'wellle/targets.vim'     -- Add a tone of textobjects
+    use 'tpope/vim-surround'     -- Surround textobjects with pairs
+    use 'tpope/vim-repeat'       -- Allow repetition using `.`
+    use 'tpope/vim-abolish'      -- Operations on words
+    use 'windwp/nvim-autopairs'  -- Auto close match pairs
+    use 'tommcdo/vim-exchange'   -- Exchange two elements
+    use 'rcarriga/nvim-notify'   -- Beautify vim.notify
+    use 'stevearc/dressing.nvim' -- Beautify vim.ui.input
     use 'junegunn/vim-easy-align'
     use 'mbbill/undotree'
     -- use 'ellisonleao/glow.nvim'
