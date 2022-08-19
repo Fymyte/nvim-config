@@ -4,13 +4,13 @@ if not ok then
 end
 
 local parser_configs = require "nvim-treesitter.parsers".get_parser_configs()
--- parser_configs.vim = {
--- --   install_info = {
--- --     url = "~/Documents/dev/tree-sitter-viml", -- local path or git repo
--- --     files = {"src/parser.c", "src/scanner.c"}
--- --   },
--- --   filetype = "vim", -- if filetype does not agrees with parser name
--- }
+parser_configs.vim = {
+  install_info = {
+    url = "~/Documents/dev/tree-sitter-viml", -- local path or git repo
+    files = {"src/parser.c", "src/scanner.c"}
+  },
+  filetype = "vim", -- if filetype does not agrees with parser name
+}
 parser_configs.gflow ={
   install_info = {
     url = "~/Documents/dev/tree-sitter-goal-flow",
@@ -70,39 +70,39 @@ require'nvim-treesitter.configs'.setup {
   },
   textobjects = {
     select = {
-      enable = true,
+      enable = false,
       lookahead = true,
       keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ao"] = "@parameter.outer",
-        ["io"] = "@parameter.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
+        -- ["af"] = "@function.outer",
+        -- ["if"] = "@function.inner",
+        -- ["ao"] = "@parameter.outer",
+        -- ["io"] = "@parameter.inner",
+        -- ["ac"] = "@class.outer",
+        -- ["ic"] = "@class.inner",
       },
     },
     move = {
-      enable = true,
+      enable = false,
       set_jumps = true,
       goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]p"] = "@parameter.inner",
-        ["]]"] = "@class.outer",
+        -- ["]m"] = "@function.outer",
+        -- ["]p"] = "@parameter.inner",
+        -- ["]]"] = "@class.outer",
       },
       goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]P"] = "@parameter.inner",
-        ["]["] = "@class.outer",
+        -- ["]M"] = "@function.outer",
+        -- ["]P"] = "@parameter.inner",
+        -- ["]["] = "@class.outer",
       },
       goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[b"] = "@parameter.inner",
-        ["[["] = "@class.outer",
+        -- ["[m"] = "@function.outer",
+        -- ["[b"] = "@parameter.inner",
+        -- ["[["] = "@class.outer",
       },
       goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[b"] = "@parameter.inner",
-        ["[]"] = "@class.outer",
+        -- ["[M"] = "@function.outer",
+        -- ["[b"] = "@parameter.inner",
+        -- ["[]"] = "@class.outer",
       },
     },
     swap = {

@@ -128,6 +128,8 @@ M.servers = {
       }
     }
   },
+  ['eslint'] = nil,
+  ['denols'] = {},
   ['zls']= {},
   ['vimls'] = nil,
   ['bashls'] = nil,

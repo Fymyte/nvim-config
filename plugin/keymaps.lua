@@ -56,7 +56,7 @@ local function showFugitiveGit()
     ]]
   end
 end
-local function toggleFugitiveGit()
+function ToggleFugitiveGit()
   if vim.fn.buflisted(vim.fn.bufname('fugitive:///*/.git//$')) ~= 0 then
     vim.cmd[[ execute ":bdelete" bufname('fugitive:///*/.git//$') ]]
   else
@@ -82,4 +82,4 @@ end
 vim.keymap.set('n', '<leader><leader>x', save_and_execute, opts)
 
 vim.keymap.set('n', '<F5>', '<cmd>UndotreeToggle<CR>', opts)
-vim.keymap.set('n', '<F6>', toggleFugitiveGit, opts)
+vim.keymap.set('n', '<F6>', ToggleFugitiveGit, opts)
