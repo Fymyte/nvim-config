@@ -27,7 +27,7 @@ saga.init_lsp_saga {
   -- add bracket or something with diagnostic source, just have 2 elements
   diagnostic_source_bracket = {},
   -- use emoji lightbulb in default
-  code_action_icon = "💡",
+  code_action_icon = "",
   -- if true can press number to execute the codeaction in codeaction window
   code_action_num_shortcut = true,
   -- same as nvim-lightbulb but async

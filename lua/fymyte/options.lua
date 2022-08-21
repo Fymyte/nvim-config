@@ -17,7 +17,7 @@ opt.showmatch = true      -- Show matching brackets when text indicator is over 
 opt.mat = 2               -- How many tenths of a second to blink when matching brackets
 opt.fileformats = { 'unix', 'dos', 'mac' }
 opt.timeoutlen = 500      -- Time for a key map to complete
-opt.updatetime = 1000     -- Time for `CursorHold` event to trigger (ms)
+opt.updatetime = 500      -- Time for `CursorHold` event to trigger (ms)
 opt.hidden = true         -- Do not unload backgroup buffers
 
 -- Splits
@@ -130,6 +130,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
       higroup = (vim.fn.hlexists('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'),
       timeout = 500
     }
+  end
+})
+
+vim.api.nvim_create_autocmd("BufAdd", {
+  group = vim.api.nvim_create_augroup("fugitive_commit", {clear=true}),
+  pattern = "*/.git/COMMIT_EDITMSG",
+  callback = function(args)
+    vim.cmd[[
+    wincmd H
+    vertical resize 60
+    setlocal nonumber
+    setlocal norelativenumber
+    setlocal winfixwidth
+    ]]
   end
 })
 

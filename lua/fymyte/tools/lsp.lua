@@ -1,12 +1,11 @@
 local M = {}
 
-
 ---@brief Use provided config when lsp opens a window
 ---@param config table: Map defining the window configuration. (See `:h nvim_open_win`)
 function M.override_open_floating_preview(config)
   local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
   vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
-    opts = vim.tbl_extend("force", opts, config)
+    opts = vim.tbl_extend('force', opts, config)
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
   end
 end
@@ -14,8 +13,8 @@ end
 function M.setup_diagnostics_mappings()
   -- Global keymaps to navigate vim diagnostics
   local opts = { noremap = true, silent = true }
-  -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
-  vim.keymap.set('n', '<leader>e', require("lspsaga.diagnostic").show_line_diagnostics, opts)
+  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+  -- vim.keymap.set('n', '<leader>e', require('lspsaga.diagnostic').show_line_diagnostics, opts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
@@ -26,7 +25,7 @@ end
 local function custom_attach(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-  vim.keymap.set("n", "gh", require("lspsaga.finder").lsp_finder, bufopts)
+  vim.keymap.set('n', 'gh', require('lspsaga.finder').lsp_finder, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
@@ -34,7 +33,7 @@ local function custom_attach(client, bufnr)
   vim.keymap.set('n', 'ge', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   -- vim.keymap.set('n', 'K', require("lspsaga.hover").render_hover_doc, bufopts)
-  vim.keymap.set('n', '<C-k>', require("lspsaga.signaturehelp").signature_help, bufopts)
+  vim.keymap.set('n', '<C-k>', require('lspsaga.signaturehelp').signature_help, bufopts)
 
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -54,12 +53,14 @@ local function custom_attach(client, bufnr)
   --     require'lspsaga.codeaction'.range_code_action()
   -- end, bufopts)
 
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format{async=true} end, bufopts)
+  vim.keymap.set('n', '<space>f', function()
+    vim.lsp.buf.format { async = true }
+  end, bufopts)
 
   -- Show line diagnostic on cursor hold
   -- vim.cmd([[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]])lsp
 
-  vim.notify(('lsp %s attached'):format(client.name), "info", {title="LSP"})
+  vim.notify(('lsp %s attached'):format(client.name), 'info', { title = 'LSP' })
 end
 
 local function get_client_capabilities()
@@ -71,18 +72,12 @@ local function get_client_capabilities()
   return capabilities
 end
 
+require('lspconfig').util.default_config = vim.tbl_extend('force', require('lspconfig').util.default_config, {
+  on_attach = custom_attach,
+  capabilities = get_client_capabilities(),
+})
 
-
-require'lspconfig'.util.default_config = vim.tbl_extend(
-  'force',
-  require'lspconfig'.util.default_config,
-  {
-    on_attach = custom_attach,
-    capabilities = get_client_capabilities(),
-  }
-)
-
-require'mason-lspconfig'.setup {
+require('mason-lspconfig').setup {
   automatic_installation = true,
 }
 
@@ -90,33 +85,35 @@ require'mason-lspconfig'.setup {
 ---@alias ServerConfigs table<string,ServerConfig>
 ---@type ServerConfigs
 M.servers = {
-  ['rust_analyzer'] = function ()
-    local extension_path = vim.fn.stdpath'data' .. '/mason/packages/codelldb/extension'
+  ['rust_analyzer'] = function()
+    local extension_path = vim.fn.stdpath 'data' .. '/mason/packages/codelldb/extension'
     local codelldb_path = extension_path .. '/adapter/codelldb'
     local liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
-    require'rust-tools'.setup {
-      on_initialized = function(health) vim.notify(("rust analyzer ready (%s)"):format(health)) end,
+    require('rust-tools').setup {
+      on_initialized = function(health)
+        vim.notify(('rust analyzer ready (%s)'):format(health))
+      end,
       dap = {
-        adapter = require'rust-tools.dap'.get_codelldb_adapter(codelldb_path, liblldb_path)
-      }
+        adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
+      },
     }
   end,
-  ['clangd'] = function ()
-    require'clangd_extensions'.setup {
+  ['clangd'] = function()
+    require('clangd_extensions').setup {
       server = {
         on_attach = custom_attach,
         capabilities = get_client_capabilities(),
       },
       extensions = {
-        memory_usage = { border = "rounded" },
-        symbol_info = { border = "rounded" },
-      }
+        memory_usage = { border = 'rounded' },
+        symbol_info = { border = 'rounded' },
+      },
     }
   end,
-  ['sumneko_lua'] = require'lua-dev'.setup{
+  ['sumneko_lua'] = require('lua-dev').setup {
     settings = {
       Lua = {
-        diagnostics = { globals = { "vim" }, }, -- Get the language server to recognize the `vim` global
+        diagnostics = { globals = { 'vim' } }, -- Get the language server to recognize the `vim` global
         telemetry = { enable = false },
         hint = { setType = true },
         IntelliSense = {
@@ -124,13 +121,13 @@ M.servers = {
           traceReturn = true,
           traceBeSetted = true,
           traceFieldInject = true,
-        }
-      }
-    }
+        },
+      },
+    },
   },
   ['eslint'] = nil,
   ['denols'] = {},
-  ['zls']= {},
+  ['zls'] = {},
   ['vimls'] = nil,
   ['bashls'] = nil,
   ['cmake'] = nil,
@@ -149,49 +146,71 @@ M.servers = {
           pylsp_rope = { enabled = true },
         },
       },
-    }
+    },
   },
-  ["taplo"] = {},
+  ['taplo'] = {},
   pyright = nil,
-  ["ltex"] = {
+  ['ltex'] = {
     on_attach = function(client, bufnr)
       custom_attach(client, bufnr)
-      require'ltex_extra'.setup {
+      require('ltex_extra').setup {
         load_langs = { 'en-US', 'fr-FR' },
         -- init_check = true,
-        path = vim.fn.stdpath('config') .. '/spell/dictionaries',
+        path = vim.fn.stdpath 'config' .. '/spell/dictionaries',
       }
     end,
     settings = {
-      ["ltex"] = {
+      ['ltex'] = {
         configurationTarget = {
-          dictionary = "user",
-          disabledRules = "workspaceFolderExternalFile",
-          hiddenFalsePositives = "workspaceFolderExternalFile"
+          dictionary = 'user',
+          disabledRules = 'workspaceFolderExternalFile',
+          hiddenFalsePositives = 'workspaceFolderExternalFile',
         },
       },
-    }
+    },
   },
 }
 
-require'null-ls'.setup({
+require('null-ls').setup {
   sources = {
-    require("null-ls").builtins.formatting.stylua,
-    require'null-ls'.builtins.formatting.clang_format,
-    require("null-ls").builtins.diagnostics.eslint_d,
-    require("null-ls").builtins.diagnostics.selene,
+    require('null-ls').builtins.formatting.stylua,
+    require('null-ls').builtins.formatting.clang_format,
+    require('null-ls').builtins.diagnostics.eslint_d,
+    require('null-ls').builtins.diagnostics.selene,
   },
-})
+}
 
 ---@param servers ServerConfigs
-M.setup_servers = function (servers)
+M.setup_servers = function(servers)
   for server, config in pairs(servers) do
-    if type(config) == "boolean" then
-      if config then require'lspconfig'[server].setup{} end
-    elseif type(config) == "function" then
+    if type(config) == 'boolean' then
+      if config then
+        require('lspconfig')[server].setup {}
+      end
+    elseif type(config) == 'function' then
       config()
-    elseif type(config) == "table" then
-      require'lspconfig'[server].setup(config)
+    elseif type(config) == 'table' then
+      require('lspconfig')[server].setup(config)
+    end
+  end
+end
+
+---Setup extra features
+---@param extras array<string> extras  to enables
+M.setup_extras = function(extras)
+  -- local extra_autocmd = vim.api.nvim_create_augroup("lsp_extras", {})
+  local builtin_extras = {
+    ['highlight_symbol_under_cursor'] = function()
+      vim.cmd [[
+      autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+      autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      ]]
+    end,
+  }
+  for _, extra in ipairs(extras) do
+    if builtin_extras[extra] and type(builtin_extras[extra]) == 'function' then
+      builtin_extras[extra]()
     end
   end
 end

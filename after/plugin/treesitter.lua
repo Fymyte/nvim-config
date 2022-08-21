@@ -3,25 +3,25 @@ if not ok then
   return
 end
 
-local parser_configs = require "nvim-treesitter.parsers".get_parser_configs()
+local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 parser_configs.vim = {
   install_info = {
-    url = "~/Documents/dev/tree-sitter-viml", -- local path or git repo
-    files = {"src/parser.c", "src/scanner.c"}
+    url = '~/Documents/dev/tree-sitter-viml', -- local path or git repo
+    files = { 'src/parser.c', 'src/scanner.c' },
   },
-  filetype = "vim", -- if filetype does not agrees with parser name
+  filetype = 'vim', -- if filetype does not agrees with parser name
 }
-parser_configs.gflow ={
+parser_configs.gflow = {
   install_info = {
-    url = "~/Documents/dev/tree-sitter-goal-flow",
-    files = {"src/parser.c"},
+    url = '~/Documents/dev/tree-sitter-goal-flow',
+    files = { 'src/parser.c' },
   },
 }
 parser_configs.grammar = {
   install_info = {
-    url = "https://github.com/Fymyte/tree-sitter-grammar",
-    files = {"src/parser.c"},
-    branch = "main",
+    url = 'https://github.com/Fymyte/tree-sitter-grammar',
+    files = { 'src/parser.c' },
+    branch = 'main',
   },
 }
 
@@ -41,7 +41,7 @@ local ensure_installed = {
   'zig',
 }
 
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   ensure_installed = ensure_installed,
   sync_install = false,
   auto_install = true,
@@ -49,8 +49,8 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     custom_captures = {
-      ["variable"] = "Identifier",
-      ["parameter"] = "Identifier",
+      ['variable'] = 'Identifier',
+      ['parameter'] = 'Identifier',
       --["field"] = "Identifier",
     },
     additional_vim_regex_highlighting = false,
@@ -59,11 +59,11 @@ require'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = false,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    }
+      init_selection = 'gnn',
+      node_incremental = 'grn',
+      scope_incremental = 'grc',
+      node_decremental = 'grm',
+    },
   },
   indent = {
     enable = true,
@@ -108,19 +108,19 @@ require'nvim-treesitter.configs'.setup {
     swap = {
       enable = true,
       swap_next = {
-        ["<leader>a"] = "@parameter.inner",
+        ['<leader>a'] = '@parameter.inner',
       },
       swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
+        ['<leader>A'] = '@parameter.inner',
       },
     },
     lsp_interop = {
       enable = false,
       border = 'rounded',
       peek_definition_code = {
-        ["<leader>df"] = "@function.outer",
-        ["<leader>db"] = "@block.outer",
-        ["<leader>dF"] = "@class.outer",
+        ['<leader>df'] = '@function.outer',
+        ['<leader>db'] = '@block.outer',
+        ['<leader>dF'] = '@class.outer',
       },
     },
   },
@@ -145,14 +145,14 @@ require'nvim-treesitter.configs'.setup {
   query_linter = {
     enable = true,
     use_virtual_text = true,
-    lint_event = {"BufWrite", "CursorHold"},
-  }
+    lint_event = { 'BufWrite', 'CursorHold' },
+  },
 }
 
--- vim.api.nvim_create_autocmd({'BufEnter','BufAdd','BufNew','BufNewFile','BufWinEnter'}, {
---   group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
---   callback = function()
---     vim.opt.foldmethod     = 'expr'
---     vim.opt.foldexpr       = 'nvim_treesitter#foldexpr()'
---   end
--- })
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'BufWinEnter' }, {
+  group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
+  callback = function()
+    vim.opt.foldmethod = 'expr'
+    vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+  end,
+})
