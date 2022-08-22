@@ -2,3 +2,5 @@ VimL
 Utils
 ltex
 keymaps
+lua
+treesitter

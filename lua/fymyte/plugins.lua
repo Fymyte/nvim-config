@@ -58,6 +58,7 @@ packer.startup{
     use 'stevearc/dressing.nvim' -- Beautify vim.ui.input
     use 'junegunn/vim-easy-align'
     use 'mbbill/undotree'
+    use 'milisims/nvim-luaref'
     -- use 'ellisonleao/glow.nvim'
     -- use {
     --   'sidebar-nvim/sidebar.nvim',

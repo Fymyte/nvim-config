@@ -136,7 +136,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("BufAdd", {
   group = vim.api.nvim_create_augroup("fugitive_commit", {clear=true}),
   pattern = "*/.git/COMMIT_EDITMSG",
-  callback = function(args)
+  callback = function()
     vim.cmd[[
     wincmd H
     vertical resize 60
