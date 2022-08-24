@@ -33,7 +33,7 @@ local function custom_attach(client, bufnr)
   vim.keymap.set('n', 'ge', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   -- vim.keymap.set('n', 'K', require("lspsaga.hover").render_hover_doc, bufopts)
-  vim.keymap.set('n', '<C-k>', require('lspsaga.signaturehelp').signature_help, bufopts)
+  -- vim.keymap.set('n', '<C-k>', require('lspsaga.signaturehelp').signature_help, bufopts)
 
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -79,6 +79,57 @@ require('lspconfig').util.default_config = vim.tbl_extend('force', require('lspc
 
 require('mason-lspconfig').setup {
   automatic_installation = true,
+}
+
+local ltex_languages = {
+  "auto",
+  "ar",
+  "ast-ES",
+  "be-BY",
+  "br-FR",
+  "ca-ES",
+  "ca-ES-valencia",
+  "da-DK",
+  "de",
+  "de-AT",
+  "de-CH",
+  "de-DE",
+  "de-DE-x-simple-language",
+  "el-GR",
+  "en",
+  "en-AU",
+  "en-CA",
+  "en-GB",
+  "en-NZ",
+  "en-US",
+  "en-ZA",
+  "eo",
+  "es",
+  "es-AR",
+  "fa",
+  "fr",
+  "ga-IE",
+  "gl-ES",
+  "it",
+  "ja-JP",
+  "km-KH",
+  "nl",
+  "nl-BE",
+  "pl-PL",
+  "pt",
+  "pt-AO",
+  "pt-BR",
+  "pt-MZ",
+  "pt-PT",
+  "ro-RO",
+  "ru-RU",
+  "sk-SK",
+  "sl-SI",
+  "sv",
+  "ta-IN",
+  "tl-PH",
+  "uk-UA",
+  "zh-CN",
 }
 
 ---@alias ServerConfig table|function|nil
@@ -150,25 +201,45 @@ M.servers = {
   },
   ['taplo'] = {},
   pyright = nil,
-  ['ltex'] = {
-    on_attach = function(client, bufnr)
-      custom_attach(client, bufnr)
-      require('ltex_extra').setup {
-        load_langs = { 'en-US', 'fr-FR' },
-        -- init_check = true,
-        path = vim.fn.stdpath 'config' .. '/spell/dictionaries',
-      }
-    end,
-    settings = {
-      ['ltex'] = {
-        configurationTarget = {
-          dictionary = 'user',
-          disabledRules = 'workspaceFolderExternalFile',
-          hiddenFalsePositives = 'workspaceFolderExternalFile',
+  ['ltex'] = function()
+    local function setup_ltex(lang)
+      local config = {
+        on_attach = function(client, bufnr)
+          custom_attach(client, bufnr)
+          require('ltex_extra').setup {
+            load_langs = { 'en-US', 'fr-FR' },
+            -- init_check = true,
+            path = vim.fn.stdpath 'config' .. '/spell/dictionaries',
+          }
+          vim.api.nvim_create_user_command("LtexSwitchLang", function(args)
+            local splited_args = vim.split(args.args, " ", {trimemtpy=true})
+            -- local ltex_clients = vim.lsp.get_active_clients({bufnr=0, name="ltex"})
+            -- for _, ltex_client in ipairs(ltex_clients) do
+            --   vim.lsp.stop_client(ltex_client.id, false)
+            -- end
+            setup_ltex(splited_args[1])
+          end, {
+              nargs = 1,
+              complete = function (ArgLead, _, _)
+                return vim.tbl_filter(function(el) return el:find(ArgLead, 1, true) end, ltex_languages)
+              end
+            })
+        end,
+        settings = {
+          ['ltex'] = {
+            configurationTarget = {
+              dictionary = 'user',
+              disabledRules = 'workspaceFolderExternalFile',
+              hiddenFalsePositives = 'workspaceFolderExternalFile',
+            },
+            language = lang,
+          },
         },
-      },
-    },
-  },
+      }
+      require'lspconfig'['ltex'].setup(config)
+    end
+    setup_ltex('en-US')
+  end
 }
 
 require('null-ls').setup {

@@ -16,6 +16,6 @@ local lsp = require'fymyte.tools.lsp'
 lsp.setup_diagnostics_mappings()
 lsp.override_open_floating_preview { border = 'rounded' }
 lsp.setup_servers(lsp.servers)
-lsp.setup_extras({'highlight_symbol_under_cursor'})
+-- lsp.setup_extras({'highlight_symbol_under_cursor'})
 
 require'fymyte.tools.dap'
