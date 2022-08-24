@@ -52,6 +52,7 @@ packer.startup{
     use 'tpope/vim-surround'     -- Surround textobjects with pairs
     use 'tpope/vim-repeat'       -- Allow repetition using `.`
     use 'tpope/vim-abolish'      -- Operations on words
+    use 'tpope/vim-unimpaired'   -- ][ danse
     use 'windwp/nvim-autopairs'  -- Auto close match pairs
     use 'tommcdo/vim-exchange'   -- Exchange two elements
     use 'rcarriga/nvim-notify'   -- Beautify vim.notify
@@ -59,6 +60,7 @@ packer.startup{
     use 'junegunn/vim-easy-align'
     use 'mbbill/undotree'
     use 'milisims/nvim-luaref'
+    use 'B4mbus/todo-comments.nvim' -- TODOS class highlights
     -- use 'ellisonleao/glow.nvim'
     -- use {
     --   'sidebar-nvim/sidebar.nvim',

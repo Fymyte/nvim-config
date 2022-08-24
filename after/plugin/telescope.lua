@@ -46,6 +46,7 @@ telescope.load_extension'dict'
 telescope.load_extension'project'
 telescope.load_extension'ui-select'
 telescope.load_extension'packer'
+telescope.load_extension'todo-comments'
 
 local opts = { silent = true, noremap = true }
 
