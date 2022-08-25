@@ -5,6 +5,7 @@ end
 
 notify.setup {
   stages = 'fade',
+  fps = '60',
   timeout = 3000,
 }
 
