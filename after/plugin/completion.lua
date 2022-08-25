@@ -1,7 +1,3 @@
-if vim.g.started_by_firenvim then
-  return
-end
-
 local has_cmp, cmp = pcall(require, 'cmp')
 if not has_cmp then
   return
