@@ -54,7 +54,17 @@ local function custom_attach(client, bufnr)
   -- end, bufopts)
 
   vim.keymap.set('n', '<space>f', function()
-    vim.lsp.buf.format { async = true }
+    -- Checks if null-ls is present and able to format the buffer, otherwise allow formatting with other lsp
+    local clients = vim.lsp.get_active_clients{ bufnr = vim.api.nvim_get_current_buf() }
+    clients = vim.tbl_filter(function(client)
+      return client.name == 'null-ls' and client.supports_method('textDocument/formatting')
+    end, clients)
+    vim.lsp.buf.format {
+      async = true,
+      filter = function(formatting_client)
+        return #clients <= 0 or formatting_client.name == 'null-ls'
+      end,
+    }
   end, bufopts)
 
   -- Show line diagnostic on cursor hold
@@ -177,7 +187,8 @@ M.servers = {
     },
   },
   ['eslint'] = nil,
-  ['denols'] = {},
+  -- ['denols'] = {},
+  ['tsserver'] = {},
   ['zls'] = {},
   ['vimls'] = nil,
   ['bashls'] = nil,
@@ -242,12 +253,13 @@ M.servers = {
   end
 }
 
-require('null-ls').setup {
+require'null-ls'.setup {
   sources = {
-    require('null-ls').builtins.formatting.stylua,
-    require('null-ls').builtins.formatting.clang_format,
-    require('null-ls').builtins.diagnostics.eslint_d,
-    require('null-ls').builtins.diagnostics.selene,
+    require'null-ls'.builtins.formatting.stylua,
+    require'null-ls'.builtins.formatting.clang_format,
+    require'null-ls'.builtins.diagnostics.eslint_d,
+    require'null-ls'.builtins.diagnostics.selene,
+    require'null-ls'.builtins.formatting.prettier,
   },
 }
 
