@@ -4,13 +4,13 @@ if not ok then
 end
 
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
--- parser_configs.vim = {
---   install_info = {
---     url = '~/Documents/dev/tree-sitter-viml', -- local path or git repo
---     files = { 'src/parser.c', 'src/scanner.c' },
---   },
---   filetype = 'vim', -- if filetype does not agrees with parser name
--- }
+parser_configs.vim = {
+  install_info = {
+    url = '~/Documents/dev/tree-sitter-viml', -- local path or git repo
+    files = { 'src/parser.c', 'src/scanner.c' },
+  },
+  filetype = 'vim', -- if filetype does not agrees with parser name
+}
 parser_configs.gflow = {
   install_info = {
     url = '~/Documents/dev/tree-sitter-goal-flow',

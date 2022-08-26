@@ -41,8 +41,8 @@ local function custom_attach(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
 
-  vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
-  -- vim.keymap.set("n", "gr", require("lspsaga.rename").lsp_rename, bufopts)
+  -- vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<cr>", bufopts)
 
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
