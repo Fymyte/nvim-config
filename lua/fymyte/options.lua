@@ -89,11 +89,20 @@ opt.formatoptions = opt.formatoptions
 vim.g.python3_host_prog = 'python3'
 vim.g.loaded_python_provider = 0
 
+vim.filetype.add({
+  extension = {
+    qml = 'qmljs',
+  },
+  filename = {
+    Scratch = 'markdown',
+  },
+})
+
 vim.cmd( [[
-augroup defaultFileType
-  autocmd!
-  autocmd BufNewFile,BufRead Scratch set filetype=markdown
-augroup end
+" augroup defaultFileType
+"   autocmd!
+"   autocmd BufNewFile,BufRead Scratch set filetype=markdown
+" augroup end
 
 " augroup enableFileTypeSpelling
 "   autocmd!

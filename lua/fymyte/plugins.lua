@@ -36,13 +36,13 @@ packer.startup{
     use 'NvChad/nvim-colorizer.lua'
 
     -- Neorg (Note taking)
-    use {
-      'nvim-neorg/neorg',
-      requires = {
-        'nvim-lua/plenary.nvim',
-        'nvim-neorg/neorg-telescope',
-      },
-    }
+    -- use {
+    --   'nvim-neorg/neorg',
+    --   requires = {
+    --     'nvim-lua/plenary.nvim',
+    --     'nvim-neorg/neorg-telescope',
+    --   },
+    -- }
 
     -- Utils
     use 'numToStr/Comment.nvim'  -- Smart comments
@@ -58,6 +58,7 @@ packer.startup{
     use 'rcarriga/nvim-notify'   -- Beautify vim.notify
     use 'stevearc/dressing.nvim' -- Beautify vim.ui.input
     use 'junegunn/vim-easy-align'
+    use 'folke/persistence.nvim' -- Easy session management
     use 'mbbill/undotree'
     use 'milisims/nvim-luaref'
     use 'B4mbus/todo-comments.nvim' -- TODOS class highlights
@@ -132,7 +133,8 @@ packer.startup{
     }
     use 'folke/lua-dev.nvim'
     use 'glepnir/lspsaga.nvim'
-    use 'j-hui/fidget.nvim'
+    -- use 'j-hui/fidget.nvim'
+    use 'vigoux/notifier.nvim'
 
     -- Treesitter
     use {
@@ -157,6 +159,10 @@ packer.startup{
     use {
       'rebelot/kanagawa.nvim',
       as = 'kanagawa',
+    }
+    use {
+      'catppuccin/nvim',
+      as = 'catppuccin',
     }
     use {
       'marko-cerovac/material.nvim',

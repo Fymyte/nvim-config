@@ -12,6 +12,7 @@ gitsigns.setup {
       opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
+    local opts = {buffer = bufnr, noremap=true, silent=true}
 
     -- Navigation
     map('n', ']c', "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", {expr=true})
@@ -19,7 +20,7 @@ gitsigns.setup {
 
     -- Actions
     map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    vim.keymap.set({'n', 'v'}, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>', opts)
     map('n', '<leader>hS', gs.stage_buffer)
     map('n', '<leader>hu', gs.undo_stage_hunk)
     map('n', '<leader>hR', gs.reset_buffer)

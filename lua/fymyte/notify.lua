@@ -9,5 +9,12 @@ notify.setup {
   timeout = 3000,
 }
 
+local notify_without_offset_encoding_warning = function(msg, ...)
+  if msg:match("warning: multiple different client offset_encodings") then
+    return
+  end
+
+  notify(msg, ...)
+end
 -- Replace standard notification with prettyfied ones
-vim.notify = notify
+vim.notify = notify_without_offset_encoding_warning

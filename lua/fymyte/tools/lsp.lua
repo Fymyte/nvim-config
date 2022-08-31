@@ -193,25 +193,25 @@ M.servers = {
   ['vimls'] = nil,
   ['bashls'] = nil,
   ['cmake'] = nil,
-  ['pylsp'] = {
-    settings = {
-      pylsp = {
-        configurationSources = { 'pylsp_flake8', 'pylsp_mypy' },
-        plugins = {
-          yapf = { enabled = true },
-          autopep8 = { enabled = false },
-          pylint = { enabled = true },
-          jedi_completion = { fuzzy = true },
-          pyls_isort = { enabled = true },
-          pyls_flake8 = { enabled = true },
-          pylsp_mypy = { enabled = true, strict = true },
-          pylsp_rope = { enabled = true },
-        },
-      },
-    },
-  },
+  -- ['pylsp'] = {
+  --   settings = {
+  --     pylsp = {
+  --       configurationSources = { 'pylsp_flake8', 'pylsp_mypy' },
+  --       plugins = {
+  --         yapf = { enabled = true },
+  --         autopep8 = { enabled = false },
+  --         pylint = { enabled = true },
+  --         jedi_completion = { fuzzy = true },
+  --         pyls_isort = { enabled = true },
+  --         pyls_flake8 = { enabled = true },
+  --         pylsp_mypy = { enabled = true, strict = true },
+  --         pylsp_rope = { enabled = true },
+  --       },
+  --     },
+  --   },
+  -- },
   ['taplo'] = {},
-  pyright = nil,
+  ['pyright'] = {},
   ['ltex'] = function()
     local function setup_ltex(lang)
       local config = {
