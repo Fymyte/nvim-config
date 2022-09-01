@@ -69,6 +69,7 @@ require('nvim-treesitter.configs').setup {
     enable = true,
   },
   textobjects = {
+    enable = false,
     select = {
       enable = false,
       lookahead = true,

@@ -94,7 +94,7 @@ packer.startup{
       'nvim-telescope/telescope.nvim',
       requires = 'nvim-lua/plenary.nvim',
       run = function() check_system_deps({ 'fd', 'rg' }, 'telescope') end,
-      branch = '0.1.x',
+      -- branch = '0.1.x',
     }
 
     -- Autocompletion
@@ -141,10 +141,10 @@ packer.startup{
       'nvim-treesitter/nvim-treesitter',
       run = function() require('nvim-treesitter.install').update({ with_sync = true }) end
     }
-    use {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      after = 'nvim-treesitter'
-    }
+    -- use {
+    --   'nvim-treesitter/nvim-treesitter-textobjects',
+    --   after = 'nvim-treesitter'
+    -- }
     use {
       'nvim-treesitter/playground',
       run = ':TSInstall query',
