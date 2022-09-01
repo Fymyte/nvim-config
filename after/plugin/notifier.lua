@@ -1,4 +1,4 @@
-if not require'notifier' then
+if not pcall(require, 'notifier') then
   return
 end
 

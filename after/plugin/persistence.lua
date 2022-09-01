@@ -1,4 +1,4 @@
-if not require 'persistence' then
+if not pcall(require, 'persistence') then
   return
 end
 
