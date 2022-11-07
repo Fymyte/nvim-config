@@ -61,7 +61,7 @@ packer.startup{
     use 'folke/persistence.nvim' -- Easy session management
     use 'mbbill/undotree'
     use 'milisims/nvim-luaref'
-    use 'B4mbus/todo-comments.nvim' -- TODOS class highlights
+    use 'folke/todo-comments.nvim' -- TODOS class highlights
     -- use 'ellisonleao/glow.nvim'
     -- use {
     --   'sidebar-nvim/sidebar.nvim',
@@ -132,7 +132,7 @@ packer.startup{
       },
     }
     use 'folke/lua-dev.nvim'
-    use 'glepnir/lspsaga.nvim'
+    -- use 'glepnir/lspsaga.nvim'
     -- use 'j-hui/fidget.nvim'
     use 'vigoux/notifier.nvim'
 

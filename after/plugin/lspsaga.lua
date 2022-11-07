@@ -22,8 +22,8 @@ saga.init_lsp_saga {
   -- entry is a table type has these filed
   -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
   diagnostic_header = { " ", " ", " ", "" },
-  -- show diagnostic source
-  show_diagnostic_source = true,
+  -- -- show diagnostic source
+  -- show_diagnostic_source = true,
   -- add bracket or something with diagnostic source, just have 2 elements
   diagnostic_source_bracket = {},
   -- use emoji lightbulb in default

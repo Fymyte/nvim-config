@@ -25,7 +25,7 @@ end
 local function custom_attach(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-  vim.keymap.set('n', 'gh', require('lspsaga.finder').lsp_finder, bufopts)
+  -- vim.keymap.set('n', 'gh', require('lspsaga.finder').lsp_finder, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
@@ -41,11 +41,11 @@ local function custom_attach(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
 
-  -- vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<cr>", bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
+  -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<cr>", bufopts)
 
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
+  -- vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
 
   -- vim.keymap.set("n", "<leader>ca", require'lspsaga.codeaction'.code_action, bufopts)
   -- vim.keymap.set("v", "<leader>ca", function()
@@ -142,6 +142,10 @@ local ltex_languages = {
   "zh-CN",
 }
 
+if require'neodev' then
+  require'neodev'.setup { }
+end
+
 ---@alias ServerConfig table|function|nil
 ---@alias ServerConfigs table<string,ServerConfig>
 ---@type ServerConfigs
@@ -171,7 +175,7 @@ M.servers = {
       },
     }
   end,
-  ['sumneko_lua'] = require('lua-dev').setup {
+  ['sumneko_lua'] = {
     settings = {
       Lua = {
         diagnostics = { globals = { 'vim' } }, -- Get the language server to recognize the `vim` global
