@@ -26,5 +26,5 @@ if not ok then
 end
 
 colorizer.setup ({
-  'rasi'
+  -- 'rasi'
 }, { RRGGBBAA = true, css = true })
