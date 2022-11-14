@@ -131,7 +131,7 @@ packer.startup{
         'nvim-lua/plenary.nvim',
       },
     }
-    use 'folke/lua-dev.nvim'
+    use 'folke/neodev.nvim'
     -- use 'glepnir/lspsaga.nvim'
     -- use 'j-hui/fidget.nvim'
     use 'vigoux/notifier.nvim'
