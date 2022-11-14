@@ -5,9 +5,9 @@ end
 
 notify.setup {
   stages = 'fade',
-  fps = '60',
+  fps = 60,
   timeout = 3000,
-  background_colour = "#000000",
+  background_colour = "#303446",
 }
 
 local notify_without_offset_encoding_warning = function(msg, ...)
