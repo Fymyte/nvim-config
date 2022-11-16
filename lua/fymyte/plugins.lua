@@ -58,10 +58,12 @@ packer.startup{
     use 'rcarriga/nvim-notify'   -- Beautify vim.notify
     use 'stevearc/dressing.nvim' -- Beautify vim.ui.input
     use 'junegunn/vim-easy-align'
-    use 'folke/persistence.nvim' -- Easy session management
+    -- use 'folke/persistence.nvim' -- Easy session management
     use 'mbbill/undotree'
     use 'milisims/nvim-luaref'
     use 'folke/todo-comments.nvim' -- TODOS class highlights
+    use 'klen/nvim-config-local'  -- Securly source local nvim config
+    use 'gpanders/editorconfig.nvim' -- Load editorconfig
     -- use 'ellisonleao/glow.nvim'
     -- use {
     --   'sidebar-nvim/sidebar.nvim',

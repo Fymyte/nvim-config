@@ -39,9 +39,9 @@ opt.linebreak = true
 opt.textwidth = 120
 
 -- Tabs/Spaces
-opt.shiftwidth = 4        -- 1 tab = 2 spaces
-opt.tabstop = 4
-opt.softtabstop = 4
+opt.shiftwidth = 2        -- 1 tab = 2 spaces
+opt.tabstop = 2
+opt.softtabstop = 2
 opt.expandtab = true
 
 -- Indentation
