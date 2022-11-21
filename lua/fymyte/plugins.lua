@@ -3,10 +3,10 @@ if not has_packer then
   return
 end
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-  group = vim.api.nvim_create_augroup("packer_user_config", {}),
-  pattern = "plugins.lua",
-  command = "source <afile> | PackerCompile | PackerSync"
+vim.api.nvim_create_autocmd('BufWritePost', {
+  group = vim.api.nvim_create_augroup('packer_user_config', {}),
+  pattern = 'plugins.lua',
+  command = 'source <afile> | PackerCompile | PackerSync',
 })
 
 local function check_system_deps(deps, name)
@@ -18,9 +18,8 @@ local function check_system_deps(deps, name)
   end
 end
 
-
 packer.reset()
-packer.startup{
+packer.startup {
   function(use)
     -- Actual package manager
     use 'wbthomason/packer.nvim'
@@ -36,33 +35,34 @@ packer.startup{
     use 'NvChad/nvim-colorizer.lua'
 
     -- Neorg (Note taking)
-    -- use {
-    --   'nvim-neorg/neorg',
-    --   requires = {
-    --     'nvim-lua/plenary.nvim',
-    --     'nvim-neorg/neorg-telescope',
-    --   },
-    -- }
+    use {
+      'nvim-neorg/neorg',
+      run = ":Neorg sync-parsers",
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-neorg/neorg-telescope',
+      },
+    }
 
     -- Utils
-    use 'numToStr/Comment.nvim'  -- Smart comments
-    use 'numToStr/FTerm.nvim'    -- Floating terminal
-    use 'ojroques/vim-oscyank'   -- Yank also to keyboard
-    use 'wellle/targets.vim'     -- Add a tone of textobjects
-    use 'tpope/vim-surround'     -- Surround textobjects with pairs
-    use 'tpope/vim-repeat'       -- Allow repetition using `.`
-    use 'tpope/vim-abolish'      -- Operations on words
-    use 'tpope/vim-unimpaired'   -- ][ danse
-    use 'windwp/nvim-autopairs'  -- Auto close match pairs
-    use 'tommcdo/vim-exchange'   -- Exchange two elements
-    use 'rcarriga/nvim-notify'   -- Beautify vim.notify
+    use 'numToStr/Comment.nvim' -- Smart comments
+    use 'numToStr/FTerm.nvim' -- Floating terminal
+    use 'ojroques/vim-oscyank' -- Yank also to keyboard
+    use 'wellle/targets.vim' -- Add a tone of textobjects
+    use 'tpope/vim-surround' -- Surround textobjects with pairs
+    use 'tpope/vim-repeat' -- Allow repetition using `.`
+    use 'tpope/vim-abolish' -- Operations on words
+    use 'tpope/vim-unimpaired' -- ][ danse
+    use 'windwp/nvim-autopairs' -- Auto close match pairs
+    use 'tommcdo/vim-exchange' -- Exchange two elements
+    use 'rcarriga/nvim-notify' -- Beautify vim.notify
     use 'stevearc/dressing.nvim' -- Beautify vim.ui.input
     use 'junegunn/vim-easy-align'
     -- use 'folke/persistence.nvim' -- Easy session management
     use 'mbbill/undotree'
     use 'milisims/nvim-luaref'
     use 'folke/todo-comments.nvim' -- TODOS class highlights
-    use 'klen/nvim-config-local'  -- Securly source local nvim config
+    use 'klen/nvim-config-local' -- Securly source local nvim config
     use 'gpanders/editorconfig.nvim' -- Load editorconfig
     -- use 'ellisonleao/glow.nvim'
     -- use {
@@ -87,15 +87,20 @@ packer.startup{
     use 'nvim-telescope/telescope-project.nvim'
     use 'nvim-telescope/telescope-ui-select.nvim'
     use 'nvim-telescope/telescope-packer.nvim'
+    use 'nvim-telescope/telescope-live-grep-args.nvim'
     use {
       'rudism/telescope-dict.nvim',
-      run = function() check_system_deps({ 'dictd' }, 'telescope-dict') end,
+      run = function()
+        check_system_deps({ 'dictd' }, 'telescope-dict')
+      end,
     }
     use 'kyazdani42/nvim-web-devicons'
     use {
       'nvim-telescope/telescope.nvim',
       requires = 'nvim-lua/plenary.nvim',
-      run = function() check_system_deps({ 'fd', 'rg' }, 'telescope') end,
+      run = function()
+        check_system_deps({ 'fd', 'rg' }, 'telescope')
+      end,
       -- branch = '0.1.x',
     }
 
@@ -114,7 +119,7 @@ packer.startup{
         'saadparwaiz1/cmp_luasnip',
         'L3MON4D3/LuaSnip',
         { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
-        'rcarriga/cmp-dap'
+        'rcarriga/cmp-dap',
       },
     }
 
@@ -141,7 +146,9 @@ packer.startup{
     -- Treesitter
     use {
       'nvim-treesitter/nvim-treesitter',
-      run = function() require('nvim-treesitter.install').update({ with_sync = true }) end
+      run = function()
+        require('nvim-treesitter.install').update { with_sync = true }
+      end,
     }
     -- use {
     --   'nvim-treesitter/nvim-treesitter-textobjects',
@@ -156,7 +163,7 @@ packer.startup{
     -- UI
     use {
       'onsails/lspkind-nvim',
-      requires = { 'neovim/nvim-lspconfig' }
+      requires = { 'neovim/nvim-lspconfig' },
     }
     use {
       'rebelot/kanagawa.nvim',
@@ -176,14 +183,12 @@ packer.startup{
     }
     -- use { 'mhinz/vim-startify' }
     -- use { 'dstein64/vim-startuptime' }
-
   end,
   config = {
     display = {
       open_fn = function()
-        return require'packer.util'.float{ border = 'rounded' }
+        return require('packer.util').float { border = 'rounded' }
       end,
     },
-  }
+  },
 }
-

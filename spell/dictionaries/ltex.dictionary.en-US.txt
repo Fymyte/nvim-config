@@ -5,3 +5,9 @@ keymaps
 lua
 treesitter
 GPIO
+PINCTRL
+pinctrl
+linux
+gpio
+Pierrick
+pingroups
