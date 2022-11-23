@@ -64,6 +64,7 @@ packer.startup {
     use 'folke/todo-comments.nvim' -- TODOS class highlights
     use 'klen/nvim-config-local' -- Securly source local nvim config
     use 'gpanders/editorconfig.nvim' -- Load editorconfig
+    use 'danymat/neogen' -- Doc auto generation
     -- use 'ellisonleao/glow.nvim'
     -- use {
     --   'sidebar-nvim/sidebar.nvim',
