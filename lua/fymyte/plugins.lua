@@ -27,7 +27,6 @@ packer.startup {
     -- More syntax
     use 'mboughaba/i3config.vim'
     use 'fladson/vim-kitty'
-    use 'ap/vim-css-color'
     use 'Fymyte/mbsync.vim'
     use 'amadeus/vim-css'
     use 'Fymyte/rasi.vim'
