@@ -41,6 +41,8 @@ local ensure_installed = {
   'zig',
 }
 
+vim.api.nvim_set_hl(0, '@variable', { link = 'Identifier' })
+vim.api.nvim_set_hl(0, '@parameter', { link = 'Identifier' })
 require('nvim-treesitter.configs').setup {
   ensure_installed = ensure_installed,
   sync_install = false,
@@ -48,11 +50,6 @@ require('nvim-treesitter.configs').setup {
 
   highlight = {
     enable = true,
-    custom_captures = {
-      ['variable'] = 'Identifier',
-      ['parameter'] = 'Identifier',
-      --["field"] = "Identifier",
-    },
     additional_vim_regex_highlighting = false,
     disable = {},
   },
