@@ -6,7 +6,7 @@ end
 local window_style = {
   border = 'rounded',
   scrollbar = '║',
-  winhighlight = "Normal:Pmenu,FloatBorder:Normal,Search:None",
+  winhighlight = 'Normal:Pmenu,FloatBorder:Normal,Search:None',
 }
 
 local cmp_config = {
@@ -32,7 +32,7 @@ local cmp_config = {
         git = '[git]',
       },
       preset = 'default',
-    }
+    },
   },
   window = {
     documentation = window_style,
@@ -43,18 +43,18 @@ local cmp_config = {
     native_menu = false,
   },
   mapping = {
-    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-n>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ['<Down>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+    ['<Up>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<M-y>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-e>'] = cmp.mapping({
+    ['<M-y>'] = cmp.mapping.confirm { select = true },
+    ['<C-e>'] = cmp.mapping {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
-    }),
+    },
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -65,39 +65,39 @@ local cmp_config = {
     { name = 'path' },
   }, {
     { name = 'buffer', keyword_length = 4 },
-  })
+  }),
 }
 
 cmp.setup(cmp_config)
 
-require'cmp'.setup.cmdline('/', {
+require('cmp').setup.cmdline('/', {
   sources = cmp.config.sources({
-    { name = 'nvim_lsp_document_symbol' }
+    { name = 'nvim_lsp_document_symbol' },
   }, {
-    { name = 'buffer' }
-  })
+    { name = 'buffer' },
+  }),
 })
 
 cmp.setup.cmdline(':', {
   mapping = {
-    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-n>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+    ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-l>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-e>'] = cmp.mapping({
+    ['<C-l>'] = cmp.mapping.confirm { select = true },
+    ['<C-e>'] = cmp.mapping {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
-    }),
+    },
   },
   sources = cmp.config.sources({
     { name = 'path' },
   }, {
     { name = 'nvim_lsp' },
     { name = 'cmdline' },
-    { name = 'nvim_lua' }
-  })
+    { name = 'nvim_lua' },
+  }),
 })
 
 cmp.setup.filetype('gitcommit', {
@@ -105,23 +105,22 @@ cmp.setup.filetype('gitcommit', {
     { name = 'git' },
   }, {
     { name = 'buffer' },
-  })
+  }),
 })
 cmp.setup.filetype('norg', {
   sources = cmp.config.sources({
     { name = 'neorg' },
   }, {
     { name = 'buffer' },
-  })
+  }),
 })
-cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+cmp.setup.filetype({ 'dap-repl', 'dapui_watches' }, {
   sources = {
-    { name = "dap" },
+    { name = 'dap' },
   },
 })
 
-
-require'cmp_git'.setup {
-  remotes = { "upstream", "fork", "origin" },
-  filetypes = { "gitcommit", "markdown" },
+require('cmp_git').setup {
+  remotes = { 'upstream', 'fork', 'origin' },
+  filetypes = { 'gitcommit', 'markdown' },
 }

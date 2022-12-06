@@ -55,9 +55,9 @@ local function custom_attach(client, bufnr)
 
   vim.keymap.set('n', '<space>f', function()
     -- Checks if null-ls is present and able to format the buffer, otherwise allow formatting with other lsp
-    local clients = vim.lsp.get_active_clients{ bufnr = vim.api.nvim_get_current_buf() }
+    local clients = vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }
     clients = vim.tbl_filter(function(client)
-      return client.name == 'null-ls' and client.supports_method('textDocument/formatting')
+      return client.name == 'null-ls' and client.supports_method 'textDocument/formatting'
     end, clients)
     vim.lsp.buf.format {
       async = true,
@@ -92,58 +92,58 @@ require('mason-lspconfig').setup {
 }
 
 local ltex_languages = {
-  "auto",
-  "ar",
-  "ast-ES",
-  "be-BY",
-  "br-FR",
-  "ca-ES",
-  "ca-ES-valencia",
-  "da-DK",
-  "de",
-  "de-AT",
-  "de-CH",
-  "de-DE",
-  "de-DE-x-simple-language",
-  "el-GR",
-  "en",
-  "en-AU",
-  "en-CA",
-  "en-GB",
-  "en-NZ",
-  "en-US",
-  "en-ZA",
-  "eo",
-  "es",
-  "es-AR",
-  "fa",
-  "fr",
-  "ga-IE",
-  "gl-ES",
-  "it",
-  "ja-JP",
-  "km-KH",
-  "nl",
-  "nl-BE",
-  "pl-PL",
-  "pt",
-  "pt-AO",
-  "pt-BR",
-  "pt-MZ",
-  "pt-PT",
-  "ro-RO",
-  "ru-RU",
-  "sk-SK",
-  "sl-SI",
-  "sv",
-  "ta-IN",
-  "tl-PH",
-  "uk-UA",
-  "zh-CN",
+  'auto',
+  'ar',
+  'ast-ES',
+  'be-BY',
+  'br-FR',
+  'ca-ES',
+  'ca-ES-valencia',
+  'da-DK',
+  'de',
+  'de-AT',
+  'de-CH',
+  'de-DE',
+  'de-DE-x-simple-language',
+  'el-GR',
+  'en',
+  'en-AU',
+  'en-CA',
+  'en-GB',
+  'en-NZ',
+  'en-US',
+  'en-ZA',
+  'eo',
+  'es',
+  'es-AR',
+  'fa',
+  'fr',
+  'ga-IE',
+  'gl-ES',
+  'it',
+  'ja-JP',
+  'km-KH',
+  'nl',
+  'nl-BE',
+  'pl-PL',
+  'pt',
+  'pt-AO',
+  'pt-BR',
+  'pt-MZ',
+  'pt-PT',
+  'ro-RO',
+  'ru-RU',
+  'sk-SK',
+  'sl-SI',
+  'sv',
+  'ta-IN',
+  'tl-PH',
+  'uk-UA',
+  'zh-CN',
 }
 
-if require'neodev' then
-  require'neodev'.setup { }
+if require 'neodev' then
+  require('neodev').setup {}
 end
 
 ---@alias ServerConfig table|function|nil
@@ -226,19 +226,21 @@ M.servers = {
             -- init_check = true,
             path = vim.fn.stdpath 'config' .. '/spell/dictionaries',
           }
-          vim.api.nvim_create_user_command("LtexSwitchLang", function(args)
-            local splited_args = vim.split(args.args, " ", {trimemtpy=true})
+          vim.api.nvim_create_user_command('LtexSwitchLang', function(args)
+            local splited_args = vim.split(args.args, ' ', { trimemtpy = true })
             -- local ltex_clients = vim.lsp.get_active_clients({bufnr=0, name="ltex"})
             -- for _, ltex_client in ipairs(ltex_clients) do
             --   vim.lsp.stop_client(ltex_client.id, false)
             -- end
             setup_ltex(splited_args[1])
           end, {
-              nargs = 1,
-              complete = function (ArgLead, _, _)
-                return vim.tbl_filter(function(el) return el:find(ArgLead, 1, true) end, ltex_languages)
-              end
-            })
+            nargs = 1,
+            complete = function(ArgLead, _, _)
+              return vim.tbl_filter(function(el)
+                return el:find(ArgLead, 1, true)
+              end, ltex_languages)
+            end,
+          })
         end,
         settings = {
           ['ltex'] = {
@@ -251,19 +253,19 @@ M.servers = {
           },
         },
       }
-      require'lspconfig'['ltex'].setup(config)
+      require('lspconfig')['ltex'].setup(config)
     end
-    setup_ltex('en-US')
-  end
+    setup_ltex 'en-US'
+  end,
 }
 
-require'null-ls'.setup {
+require('null-ls').setup {
   sources = {
-    require'null-ls'.builtins.formatting.stylua,
-    require'null-ls'.builtins.formatting.clang_format,
-    require'null-ls'.builtins.diagnostics.eslint_d,
-    require'null-ls'.builtins.diagnostics.selene,
-    require'null-ls'.builtins.formatting.prettier,
+    require('null-ls').builtins.formatting.stylua,
+    require('null-ls').builtins.formatting.clang_format,
+    require('null-ls').builtins.diagnostics.eslint_d,
+    require('null-ls').builtins.diagnostics.selene,
+    require('null-ls').builtins.formatting.prettier,
   },
 }
 

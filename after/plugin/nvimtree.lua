@@ -5,13 +5,13 @@ end
 
 vim.g.nvim_tree_icons = {
   git = {
-    unstaged = "",
-    staged = "✚",
-    unmerged = "",
-    renamed = "➜",
-    untracked = "★",
-    deleted = "✖",
-    ignored = "◌",
+    unstaged = '',
+    staged = '✚',
+    unmerged = '',
+    renamed = '➜',
+    untracked = '★',
+    deleted = '✖',
+    ignored = '◌',
     modified = '✹',
   },
 }
@@ -21,10 +21,10 @@ tree.setup {
   diagnostics = {
     enable = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    }
+      hint = '',
+      info = '',
+      warning = '',
+      error = '',
+    },
   },
 }

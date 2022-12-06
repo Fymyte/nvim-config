@@ -14,8 +14,6 @@ if vim.g.started_by_firenvim then
         priority = 0,
         takeover = 'always',
       },
-   }
+    },
   }
 end
-
-

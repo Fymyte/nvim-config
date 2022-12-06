@@ -12,9 +12,9 @@ if not has_lualine then
   return
 end
 
-lualine.setup({
+lualine.setup {
   options = {
- --    theme = theme,
+    --    theme = theme,
     section_separators = '',
     component_separators = { left = '∣', right = '∣' },
     globalstatus = true,
@@ -26,10 +26,10 @@ lualine.setup({
       {
         'diagnostics',
         sources = { 'nvim_diagnostic', 'nvim_lsp' },
-        symbols = { error = " ", warn = " ", hint = " ", info = " " }
-      }
+        symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' },
+      },
     },
     lualine_c = { '%=%t%m', 'filetype' },
     lualine_x = { 'encoding', 'fileformat' },
-  }
-})
+  },
+}

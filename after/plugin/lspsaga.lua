@@ -1,16 +1,16 @@
-local has_lspsaga, saga = pcall(require, "lspsaga")
+local has_lspsaga, saga = pcall(require, 'lspsaga')
 if not has_lspsaga then
   return
 end
 
 saga.init_lsp_saga {
-    -- "single" | "double" | "rounded" | "bold" | "plus"
-  border_style = "rounded",
+  -- "single" | "double" | "rounded" | "bold" | "plus"
+  border_style = 'rounded',
   --the range of 0 for fully opaque window (disabled) to 100 for fully
   --transparent background. Values between 0-30 are typically most useful.
   saga_winblend = 0,
   -- when cursor in saga window you config these to move
-  move_in_saga = { prev = '<C-p>',next = '<C-n>'},
+  move_in_saga = { prev = '<C-p>', next = '<C-n>' },
   -- Error, Warn, Info, Hint
   -- use emoji like
   -- { "🙀", "😿", "😾", "😺" }
@@ -21,21 +21,21 @@ saga.init_lsp_saga {
   -- is function type it will have a param `entry`
   -- entry is a table type has these filed
   -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
-  diagnostic_header = { " ", " ", " ", "" },
+  diagnostic_header = { ' ', ' ', ' ', '' },
   -- -- show diagnostic source
   -- show_diagnostic_source = true,
   -- add bracket or something with diagnostic source, just have 2 elements
   diagnostic_source_bracket = {},
   -- use emoji lightbulb in default
-  code_action_icon = "",
+  code_action_icon = '',
   -- if true can press number to execute the codeaction in codeaction window
   code_action_num_shortcut = true,
   -- same as nvim-lightbulb but async
   code_action_lightbulb = {
-      enable = true,
-      sign = true,
-      sign_priority = 20,
-      virtual_text = true,
+    enable = true,
+    sign = true,
+    sign_priority = 20,
+    virtual_text = true,
   },
   -- finder icons
   finder_icons = {
@@ -46,27 +46,27 @@ saga.init_lsp_saga {
   -- preview lines of lsp_finder and definition preview
   max_preview_lines = 10,
   finder_action_keys = {
-      open = "o",
-      vsplit = "s",
-      split = "i",
-      tabe = "t",
-      quit = "q",
-      scroll_down = "<C-f>",
-      scroll_up = "<C-b>", -- quit can be a table
+    open = 'o',
+    vsplit = 's',
+    split = 'i',
+    tabe = 't',
+    quit = 'q',
+    scroll_down = '<C-f>',
+    scroll_up = '<C-b>', -- quit can be a table
   },
   code_action_keys = {
-      quit = "q",
-      exec = "<CR>",
+    quit = 'q',
+    exec = '<CR>',
   },
-  rename_action_quit = "<C-c>",
-  definition_preview_icon = "  ",
+  rename_action_quit = '<C-c>',
+  definition_preview_icon = '  ',
   -- show symbols in winbar must nightly
   symbol_in_winbar = {
-      in_custom = false,
-      enable = false,
-      separator = ' ',
-      show_file = true,
-      click_support = false,
+    in_custom = false,
+    enable = false,
+    separator = ' ',
+    show_file = true,
+    click_support = false,
   },
   -- show outline
   show_outline = {

@@ -3,7 +3,7 @@ if not has_fterm then
   return
 end
 
-local utils = require'fymyte.utils'
+local utils = require 'fymyte.utils'
 
 fterm.setup {
   border = 'rounded',
@@ -11,6 +11,3 @@ fterm.setup {
 
 utils.map { 'n', '<A-i>', '<cmd>lua require("FTerm").toggle()<CR>' }
 utils.map { 't', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<CR>' }
-
-
-

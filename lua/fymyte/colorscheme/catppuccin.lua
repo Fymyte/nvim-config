@@ -1,10 +1,8 @@
-if not require'catppuccin' then
+if not require 'catppuccin' then
   return
 end
 
 vim.g.catppuccin_flavour = 'frappe'
 
-require'catppuccin'.setup {
-
-}
-vim.cmd[[colo catppuccin]]
+require('catppuccin').setup {}
+vim.cmd [[colo catppuccin]]
