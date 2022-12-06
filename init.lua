@@ -30,7 +30,11 @@ end
 
 -- Manually source the packer_compiled file for plugins using `rtp`
 local packer_compiled = vim.fn.stdpath 'config' .. '/plugin/packer_compiled.lua'
-vim.cmd('luafile' .. packer_compiled)
+if not pcall(vim.cmd, 'luafile' .. packer_compiled) then
+	require'fymyte.plugins'
+	vim.cmd[[PackerCompile]]
+	return
+end
 
 -- remove navigation using space
 vim.keymap.set('', '<space>', '<nop>', { noremap = true, silent = true })

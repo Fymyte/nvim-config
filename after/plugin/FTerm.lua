@@ -3,11 +3,9 @@ if not has_fterm then
   return
 end
 
-local utils = require 'fymyte.utils'
-
 fterm.setup {
   border = 'rounded',
 }
 
-utils.map { 'n', '<A-i>', '<cmd>lua require("FTerm").toggle()<CR>' }
-utils.map { 't', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<CR>' }
+vim.keymap.set('n', '<A-i>', require("FTerm").toggle)
+vim.keymap.set('t', '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<CR>')
