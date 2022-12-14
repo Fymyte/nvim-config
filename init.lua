@@ -30,6 +30,7 @@ end
 
 -- Manually source the packer_compiled file for plugins using `rtp`
 local packer_compiled = vim.fn.stdpath 'config' .. '/plugin/packer_compiled.lua'
+---@diagnostic disable-next-line: param-type-mismatch
 if not pcall(vim.cmd, 'luafile' .. packer_compiled) then
 	require'fymyte.plugins'
 	vim.cmd[[PackerCompile]]
