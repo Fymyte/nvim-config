@@ -25,7 +25,7 @@ map('', '<C-b><C-n>', '<cmd>bnext<cr>')
 -- Cycle throught tabs
 map('n', '<leader>tn', '<cmd>tabnext<cr>')
 map('n', '<leader>tp', '<cmd>tabprev<cr>')
-map('n', '<leader>tn', '<cmd>tabedit<cr>')
+map('n', '<leader>te', '<cmd>tabedit<cr>')
 -- Move lines
 map('n', '<M-j>', [[<cmd>m.+1<cr>==]])
 map('n', '<M-k>', [[<cmd>m.-2<cr>==]])
