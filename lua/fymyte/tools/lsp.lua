@@ -172,9 +172,10 @@ M.servers = {
     local codelldb_path = extension_path .. '/adapter/codelldb'
     local liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
     require('rust-tools').setup {
-      on_initialized = function(health)
-        vim.notify(('rust analyzer ready (%s)'):format(health))
-      end,
+      -- tools = {
+      --   on_initialized = function(health) vim.notify(('rust analyzer ready (%s)'):format(health.health))
+      --   end,
+      -- },
       dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
       },
