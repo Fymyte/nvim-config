@@ -32,6 +32,8 @@ packer.startup {
     use 'Fymyte/rasi.vim'
     use 'max397574/colortils.nvim'
     use 'NvChad/nvim-colorizer.lua'
+    use 'theRealCarneiro/hyprland-vim-syntax'
+    use 'elkowar/yuck.vim'
 
     -- Neorg (Note taking)
     use {
