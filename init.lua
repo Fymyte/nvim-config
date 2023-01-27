@@ -24,17 +24,16 @@ Much of the configuration can be found in either:
 --]]
 
 -- If packer is not installed, install and quit.
-if not require('fymyte.packer_bootstrap').installed() then
+if require'fymyte.packer_bootstrap'.bootstraped then
+  require'fymyte.plugins'
+  require'packer'.sync()
+  -- You'll need to restart nvim, and then it will work.
+  print '=================================='
+  print '    Plugins are being installed'
+  print '    Wait until Packer completes,'
+  print '       then restart nvim'
+  print '=================================='
   return
-end
-
--- Manually source the packer_compiled file for plugins using `rtp`
-local packer_compiled = vim.fn.stdpath 'config' .. '/plugin/packer_compiled.lua'
----@diagnostic disable-next-line: param-type-mismatch
-if not pcall(vim.cmd, 'luafile' .. packer_compiled) then
-	require'fymyte.plugins'
-	vim.cmd[[PackerCompile]]
-	return
 end
 
 -- remove navigation using space

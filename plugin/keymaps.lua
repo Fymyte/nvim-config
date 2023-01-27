@@ -1,51 +1,53 @@
-local map = function(mode, lhs, rhs, opts)
-  opts = opts or { noremap = true, silent = true }
-  vim.keymap.set(mode, lhs, rhs, opts)
-end
-
 local opts = { noremap = true, silent = true }
+
+local keymap = function(mode, lhs, rhs, desc)
+  local local_opts = vim.tbl_extend("keep", opts, { desc = desc })
+  vim.keymap.set(mode, lhs, rhs, local_opts)
+end
 
 -------------------
 -- Keymaps
 -------------------
 
 -- Quick save
-map('n', '<leader>w', '<cmd>write!<cr>')
--- Undo breakpoints
-map('i', ',', ',<C-g>u')
-map('i', '.', '.<C-g>u')
-map('i', '!', '!<C-g>u')
-map('i', '?', '?<C-g>u')
-map('i', ':', ':<C-g>u')
+keymap('n', '<leader>w', '<cmd>write!<cr>', "write buffer")
+-- Do not add breakpoints when typing punctuation
+keymap('i', ',', ',<C-g>u')
+keymap('i', '.', '.<C-g>u')
+keymap('i', '!', '!<C-g>u')
+keymap('i', '?', '?<C-g>u')
+keymap('i', ':', ':<C-g>u')
 -- Cycle throught buffers
-map('', '<C-b>p', '<cmd>bprev<cr>')
-map('', '<C-b><C-p>', '<cmd>bprev<cr>')
-map('', '<C-b>n', '<cmd>bnext<cr>')
-map('', '<C-b><C-n>', '<cmd>bnext<cr>')
+keymap('', '<C-b>p', '<cmd>bprev<cr>', "Next buffer")
+keymap('', '<C-b><C-p>', '<cmd>bprev<cr>')
+keymap('', '<C-b>n', '<cmd>bnext<cr>')
+keymap('', '<C-b><C-n>', '<cmd>bnext<cr>')
 -- Cycle throught tabs
-map('n', '<leader>tn', '<cmd>tabnext<cr>')
-map('n', '<leader>tp', '<cmd>tabprev<cr>')
-map('n', '<leader>te', '<cmd>tabedit<cr>')
+keymap('n', '<leader>tn', '<cmd>tabnext<cr>')
+keymap('n', '<leader>tp', '<cmd>tabprev<cr>')
+keymap('n', '<leader>te', '<cmd>tabedit<cr>')
 -- Move lines
-map('n', '<M-j>', [[<cmd>m.+1<cr>==]])
-map('n', '<M-k>', [[<cmd>m.-2<cr>==]])
-map('i', '<M-j>', [[<esc><cmd>m.+1<cr>==]])
-map('i', '<M-k>', [[<esc><cmd>m.-2<cr>==]])
+keymap('n', '<M-j>', [[<cmd>m.+1<cr>==]])
+keymap('n', '<M-k>', [[<cmd>m.-2<cr>==]])
+keymap('i', '<M-k>', [[<esc><cmd>m.-2<cr>==]])
+keymap('i', '<M-j>', [[<esc><cmd>m.+1<cr>==]])
 -- Those two needs to use `:` instead of `<cmd>` because otherwise
 -- range is not inserted before the command
-map('v', '<M-j>', [[:m '>+1<cr>gv=gv]])
-map('v', '<M-k>', [[:m '<-2<cr>gv=gv]])
-map('v', '<', '<gv')
-map('v', '>', '>gv')
+keymap('v', '<M-j>', [[:m '>+1<cr>gv=gv]])
+keymap('v', '<M-k>', [[:m '<-2<cr>gv=gv]])
+keymap('v', '<', '<gv')
+keymap('v', '>', '>gv')
+-- Dont move cursor when joining lines
+keymap('n', 'J', 'mzJ`z')
 -- Join line above at the end of the current line
-map('n', '<leader>j', [[<cmd>m-2|j<cr>]])
+keymap('n', '<leader>j', [[<cmd>m-2|j<cr>]])
 -- Motions
-map('n', '0', '^') -- use 0 to go to first char of line
+keymap('n', '0', '^') -- use 0 to go to first char of line
 -- map('n', '=', '+')
 -- Term
-map('t', '<Esc>', '<C-\\><C-n>')
+keymap('t', '<Esc>', '<C-\\><C-n>')
 -- Misc
-map('n', '<leader><leader>', '<cmd>noh<cr>')
+keymap('n', '<leader><leader>', '<cmd>noh<cr>')
 
 local function showFugitiveGit()
   if vim.fn.FugitiveHead() ~= '' then

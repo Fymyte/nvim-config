@@ -3,10 +3,17 @@ if not has_packer then
   return
 end
 
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
-  group = vim.api.nvim_create_augroup('packer_user_config', {}),
+  group = packer_group,
   pattern = 'plugins.lua',
-  command = 'source <afile> | PackerCompile | PackerSync',
+  command = [[
+    source <afile>
+    silent! LspStop
+    silent! LspStart
+    PackerCompile
+    PackerSync
+  ]],
 })
 
 local function check_system_deps(deps, name)
@@ -29,7 +36,7 @@ packer.startup {
     use 'fladson/vim-kitty'
     use 'Fymyte/mbsync.vim'
     use 'amadeus/vim-css'
-    use 'Fymyte/rasi.vim'
+    use '~/Documents/dev/rasi.vim'
     use 'max397574/colortils.nvim'
     use 'NvChad/nvim-colorizer.lua'
     use 'theRealCarneiro/hyprland-vim-syntax'
@@ -149,7 +156,7 @@ packer.startup {
     use {
       'nvim-treesitter/nvim-treesitter',
       run = function()
-        require('nvim-treesitter.install').update { with_sync = true }
+        pcall(require('nvim-treesitter.install').update { with_sync = true })
       end,
     }
     -- use {
