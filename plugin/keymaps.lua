@@ -48,6 +48,8 @@ keymap('n', '0', '^') -- use 0 to go to first char of line
 keymap('t', '<Esc>', '<C-\\><C-n>')
 -- Misc
 keymap('n', '<leader><leader>', '<cmd>noh<cr>')
+-- Paste without losing clipboard content
+keymap('x', '<leader>p', '"_dP')
 
 local function showFugitiveGit()
   if vim.fn.FugitiveHead() ~= '' then
