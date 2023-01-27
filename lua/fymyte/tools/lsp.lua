@@ -284,6 +284,8 @@ require('null-ls').setup {
     require('null-ls').builtins.diagnostics.eslint_d,
     require('null-ls').builtins.diagnostics.selene,
     require('null-ls').builtins.formatting.prettier,
+    require('null-ls').builtins.formatting.shfmt,
+    require('null-ls').builtins.code_actions.shellcheck,
   },
 }
 
