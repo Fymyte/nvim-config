@@ -3,28 +3,6 @@ if not ok then
   return
 end
 
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
--- parser_configs.vim = {
---   install_info = {
---     url = '~/Documents/dev/tree-sitter-viml', -- local path or git repo
---     files = { 'src/parser.c', 'src/scanner.c' },
---   },
---   filetype = 'vim', -- if filetype does not agrees with parser name
--- }
-parser_configs.gflow = {
-  install_info = {
-    url = '~/Documents/dev/tree-sitter-goal-flow',
-    files = { 'src/parser.c' },
-  },
-}
-parser_configs.grammar = {
-  install_info = {
-    url = 'https://github.com/Fymyte/tree-sitter-grammar',
-    files = { 'src/parser.c' },
-    branch = 'main',
-  },
-}
-
 local ensure_installed = {
   'c',
   'cpp',

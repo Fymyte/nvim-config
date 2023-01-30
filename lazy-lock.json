@@ -1,7 +1,7 @@
 {
-  "Comment.nvim": { "branch": "master", "commit": "eab2c83a0207369900e92783f56990808082eac2" },
   "catppuccin": { "branch": "main", "commit": "491f0a58ba8901258f84de94d848811a6eaf5b98" },
   "colortils.nvim": { "branch": "main", "commit": "4f4d89ccaac8e544c18ab7101e718604a5cdd6b0" },
+  "comment.nvim": { "branch": "master", "commit": "eab2c83a0207369900e92783f56990808082eac2" },
   "dressing.nvim": { "branch": "master", "commit": "4436d6f41e2f6b8ada57588acd1a9f8b3d21453c" },
   "hyprland-vim-syntax": { "branch": "main", "commit": "254df6b476db5784bc6bfe3f612129b73dfc43b5" },
   "i3config.vim": { "branch": "master", "commit": "5c753c56c033d3b17e5005a67cdb9653bbb88ba7" },
