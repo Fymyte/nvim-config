@@ -23,28 +23,16 @@ Much of the configuration can be found in either:
 
 --]]
 
--- If packer is not installed, install and quit.
-if require'fymyte.packer_bootstrap'.bootstraped then
-  require'fymyte.plugins'
-  require'packer'.sync()
-  -- You'll need to restart nvim, and then it will work.
-  print '=================================='
-  print '    Plugins are being installed'
-  print '    Wait until Packer completes,'
-  print '       then restart nvim'
-  print '=================================='
-  return
-end
-
 -- remove navigation using space
 vim.keymap.set('', '<space>', '<nop>', { noremap = true, silent = true })
--- Leader key -> "<space>"
 vim.g.mapleader = ' '
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
-require 'fymyte.options'
-require 'fymyte.notify' -- Use custom notifications
+-- Bootstrap nvim package manager
+local lazy_opts = require 'fymyte.lazy-bootstrap'
+require 'lazy'.setup( 'fymyte.plugins', lazy_opts)
+
 require 'fymyte.globals' -- Functions globally available
-require 'fymyte.tools' -- Setup lsp
-require 'fymyte.colorscheme.catppuccin'
-require 'fymyte.plugins'
+require 'fymyte.options'
+--require 'fymyte.tools' -- Setup lsp
+--require 'fymyte.plugins-packer'

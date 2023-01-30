@@ -1,4 +1,4 @@
-local has_comment, comment = pcall(require, 'Comment')
+--[[ local has_comment, comment = pcall(require, 'Comment')
 if not has_comment then
   return
 end
@@ -71,4 +71,4 @@ comment.setup {
   ---Post-hook, called after commenting is done
   ---@type fun(ctx: CommentCtx)
   post_hook = nil,
-}
+} ]]

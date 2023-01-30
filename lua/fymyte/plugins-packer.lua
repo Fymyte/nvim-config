@@ -1,21 +1,3 @@
-local has_packer, packer = pcall(require, 'packer')
-if not has_packer then
-  return
-end
-
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-  group = packer_group,
-  pattern = 'plugins.lua',
-  command = [[
-    source <afile>
-    silent! LspStop
-    silent! LspStart
-    PackerCompile
-    PackerSync
-  ]],
-})
-
 local function check_system_deps(deps, name)
   for _, dep in pairs(deps) do
     if vim.fn.executable(dep) ~= 1 then
@@ -28,20 +10,6 @@ end
 packer.reset()
 packer.startup {
   function(use)
-    -- Actual package manager
-    use 'wbthomason/packer.nvim'
-
-    -- More syntax
-    use 'mboughaba/i3config.vim'
-    use 'fladson/vim-kitty'
-    use 'Fymyte/mbsync.vim'
-    use 'amadeus/vim-css'
-    use 'fymyte/rasi.vim'
-    use 'nvim-colortils/colortils.nvim'
-    use 'NvChad/nvim-colorizer.lua'
-    use 'theRealCarneiro/hyprland-vim-syntax'
-    use 'elkowar/yuck.vim'
-
     -- Neorg (Note taking)
     use {
       'nvim-neorg/neorg',
@@ -63,10 +31,7 @@ packer.startup {
     use 'tpope/vim-unimpaired' -- ][ danse
     use 'windwp/nvim-autopairs' -- Auto close match pairs
     use 'tommcdo/vim-exchange' -- Exchange two elements
-    use 'rcarriga/nvim-notify' -- Beautify vim.notify
-    use 'stevearc/dressing.nvim' -- Beautify vim.ui.input
     use 'junegunn/vim-easy-align'
-    -- use 'folke/persistence.nvim' -- Easy session management
     use 'mbbill/undotree'
     use 'milisims/nvim-luaref'
     use 'folke/todo-comments.nvim' -- TODOS class highlights
@@ -174,24 +139,7 @@ packer.startup {
       'onsails/lspkind-nvim',
       requires = { 'neovim/nvim-lspconfig' },
     }
-    use {
-      'rebelot/kanagawa.nvim',
-      as = 'kanagawa',
-    }
-    use {
-      'catppuccin/nvim',
-      as = 'catppuccin',
-    }
-    use {
-      'marko-cerovac/material.nvim',
-      as = 'material',
-    }
-    use {
-      'nvim-lualine/lualine.nvim',
-      after = 'kanagawa',
-    }
     -- use { 'mhinz/vim-startify' }
-    -- use { 'dstein64/vim-startuptime' }
   end,
   config = {
     display = {
