@@ -3,22 +3,6 @@ if not ok then
   return
 end
 
-local ensure_installed = {
-  'c',
-  'cpp',
-  'vim',
-  'rust',
-  'query',
-  'lua',
-  'javascript',
-  'typescript',
-  'svelte',
-  'css',
-  'norg',
-  'rasi',
-  'zig',
-}
-
 vim.api.nvim_set_hl(0, '@variable', { link = 'Identifier' })
 vim.api.nvim_set_hl(0, '@parameter', { link = 'Identifier' })
 require('nvim-treesitter.configs').setup {
@@ -117,11 +101,6 @@ require('nvim-treesitter.configs').setup {
       goto_node = '<cr>',
       show_help = '?',
     },
-  },
-  query_linter = {
-    enable = true,
-    use_virtual_text = true,
-    lint_event = { 'BufWrite', 'CursorHold' },
   },
 }
 

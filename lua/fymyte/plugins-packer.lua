@@ -21,18 +21,9 @@ packer.startup {
     }
 
     -- Utils
-    use 'numToStr/Comment.nvim' -- Smart comments
-    use 'numToStr/FTerm.nvim' -- Floating terminal
-    use 'ojroques/vim-oscyank' -- Yank also to keyboard
     use 'wellle/targets.vim' -- Add a tone of textobjects
-    use 'tpope/vim-surround' -- Surround textobjects with pairs
-    use 'tpope/vim-repeat' -- Allow repetition using `.`
-    use 'tpope/vim-abolish' -- Operations on words
-    use 'tpope/vim-unimpaired' -- ][ danse
     use 'windwp/nvim-autopairs' -- Auto close match pairs
     use 'tommcdo/vim-exchange' -- Exchange two elements
-    use 'junegunn/vim-easy-align'
-    use 'mbbill/undotree'
     use 'milisims/nvim-luaref'
     use 'folke/todo-comments.nvim' -- TODOS class highlights
     use 'klen/nvim-config-local' -- Securly source local nvim config
@@ -49,11 +40,6 @@ packer.startup {
     --   rtp = 'vim',
     --   run = check_system_deps({ 'himalaya' }, 'himalaya')
     -- }
-
-    -- Git
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-rhubarb'
-    use { 'lewis6991/gitsigns.nvim', require = 'nvim-lua/plenary.nvim' }
 
     -- Telescope (Fuzzy finder)
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -117,23 +103,10 @@ packer.startup {
     -- use 'j-hui/fidget.nvim'
     use 'vigoux/notifier.nvim'
 
-    -- Treesitter
-    use {
-      'nvim-treesitter/nvim-treesitter',
-      run = function()
-        pcall(require('nvim-treesitter.install').update { with_sync = true })
-      end,
-    }
     -- use {
     --   'nvim-treesitter/nvim-treesitter-textobjects',
     --   after = 'nvim-treesitter'
     -- }
-    use {
-      'nvim-treesitter/playground',
-      run = ':TSInstall query',
-      after = 'nvim-treesitter',
-    }
-
     -- UI
     use {
       'onsails/lspkind-nvim',
