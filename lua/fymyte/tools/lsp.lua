@@ -305,7 +305,7 @@ M.setup_servers = function(servers)
 end
 
 ---Setup extra features
----@param extras array<string> extras  to enables
+---@param extras table<string> extras  to enables
 M.setup_extras = function(extras)
   -- local extra_autocmd = vim.api.nvim_create_augroup("lsp_extras", {})
   local builtin_extras = {
