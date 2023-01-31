@@ -28,11 +28,9 @@ vim.keymap.set('', '<space>', '<nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
+require 'fymyte.globals' -- Functions globally available
+require 'fymyte.options'
+
 -- Bootstrap nvim package manager
 local lazy_opts = require 'fymyte.lazy-bootstrap'
 require 'lazy'.setup( 'fymyte.plugins', lazy_opts)
-
-require 'fymyte.globals' -- Functions globally available
-require 'fymyte.options'
---require 'fymyte.tools' -- Setup lsp
---require 'fymyte.plugins-packer'

@@ -26,11 +26,11 @@ keymap('', '<C-b><C-n>', '<cmd>bnext<cr>')
 keymap('n', '<leader>tn', '<cmd>tabnext<cr>')
 keymap('n', '<leader>tp', '<cmd>tabprev<cr>')
 keymap('n', '<leader>te', '<cmd>tabedit<cr>')
--- Move lines
-keymap('n', '<M-j>', [[<cmd>m.+1<cr>==]])
-keymap('n', '<M-k>', [[<cmd>m.-2<cr>==]])
-keymap('i', '<M-k>', [[<esc><cmd>m.-2<cr>==]])
-keymap('i', '<M-j>', [[<esc><cmd>m.+1<cr>==]])
+-- Move lines (handandled by mini.move)
+-- keymap('n', '<M-j>', [[<cmd>m.+1<cr>==]])
+-- keymap('n', '<M-k>', [[<cmd>m.-2<cr>==]])
+-- keymap('i', '<M-k>', [[<esc><cmd>m.-2<cr>==]])
+-- keymap('i', '<M-j>', [[<esc><cmd>m.+1<cr>==]])
 -- Those two needs to use `:` instead of `<cmd>` because otherwise
 -- range is not inserted before the command
 keymap('v', '<M-j>', [[:m '>+1<cr>gv=gv]])
@@ -89,5 +89,5 @@ local function save_and_execute()
 end
 vim.keymap.set('n', '<leader><leader>x', save_and_execute, opts)
 
-vim.keymap.set('n', '<F5>', '<cmd>UndotreeToggle<CR>', opts)
+-- vim.keymap.set('n', '<F5>', '<cmd>UndotreeToggle<CR>', opts)
 vim.keymap.set('n', '<F6>', ToggleFugitiveGit, opts)

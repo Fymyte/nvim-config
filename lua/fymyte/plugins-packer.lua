@@ -10,25 +10,7 @@ end
 packer.reset()
 packer.startup {
   function(use)
-    -- Neorg (Note taking)
-    use {
-      'nvim-neorg/neorg',
-      run = ':Neorg sync-parsers',
-      requires = {
-        'nvim-lua/plenary.nvim',
-        'nvim-neorg/neorg-telescope',
-      },
-    }
-
     -- Utils
-    use 'wellle/targets.vim' -- Add a tone of textobjects
-    use 'windwp/nvim-autopairs' -- Auto close match pairs
-    use 'tommcdo/vim-exchange' -- Exchange two elements
-    use 'milisims/nvim-luaref'
-    use 'folke/todo-comments.nvim' -- TODOS class highlights
-    use 'klen/nvim-config-local' -- Securly source local nvim config
-    use 'gpanders/editorconfig.nvim' -- Load editorconfig
-    use 'danymat/neogen' -- Doc auto generation
     -- use 'ellisonleao/glow.nvim'
     -- use {
     --   'sidebar-nvim/sidebar.nvim',
@@ -42,27 +24,7 @@ packer.startup {
     -- }
 
     -- Telescope (Fuzzy finder)
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use 'nvim-telescope/telescope-file-browser.nvim'
-    use 'nvim-telescope/telescope-project.nvim'
-    use 'nvim-telescope/telescope-ui-select.nvim'
-    use 'nvim-telescope/telescope-packer.nvim'
-    use 'nvim-telescope/telescope-live-grep-args.nvim'
-    use {
-      'rudism/telescope-dict.nvim',
-      run = function()
-        check_system_deps({ 'dictd' }, 'telescope-dict')
-      end,
-    }
     use 'kyazdani42/nvim-web-devicons'
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = 'nvim-lua/plenary.nvim',
-      run = function()
-        check_system_deps({ 'fd', 'rg' }, 'telescope')
-      end,
-      -- branch = '0.1.x',
-    }
 
     -- Autocompletion
     use {

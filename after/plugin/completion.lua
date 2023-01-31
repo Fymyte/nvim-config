@@ -3,6 +3,10 @@ if not has_cmp then
   return
 end
 
+if has_cmp then
+  return
+end
+
 local window_style = {
   border = 'rounded',
   scrollbar = '║',

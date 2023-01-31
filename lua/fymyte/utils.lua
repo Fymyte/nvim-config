@@ -3,6 +3,49 @@ local g = vim.g
 
 local M = {}
 
+---@type SystemDep string|string[]
+
+---Check for system dependencies
+---If argument is an array, this is a `one of` type of match
+---@param ... SystemDep[]
+---@return missing dependencies
+local system_deps = function(...)
+  function table.pack(...) return { n = select("#", ...), ... } end
+  local args = table.pack(...)
+  local missing = {}
+  for i=1,args.n do
+    local dep = args[i]
+    if type(dep) == 'table' then
+      local found = false
+      for _, opt_dep in pairs(dep) do
+        if vim.fn.executable(opt_dep) == 1 then
+          found = true
+          break
+        end
+      end
+      if not found then
+        table.insert(missing, dep)
+      end
+    elseif type(dep) == 'string' then
+      if vim.fn.executable(dep) ~= 1 then
+        table.insert(missing, dep)
+      end
+    else
+      error('dependency is either a string or array of string')
+    end
+  end
+  return missing
+end
+
+local function check_system_deps(deps, name)
+  for _, dep in pairs(deps) do
+    if vim.fn.executable(dep) ~= 1 then
+      local msg = ('%q is not installed'):format(dep)
+      vim.notify(msg, 'warn', { title = name })
+    end
+  end
+end
+
 local log_levels = { ['TRACE'] = 0, ['DEBUG'] = 1, ['INFO'] = 2, ['WARN'] = 3, ['ERROR'] = 4 }
 vim.tbl_add_reverse_lookup(log_levels)
 
@@ -45,5 +88,8 @@ function M.buf_map(bufnr, key)
     api.nvim_buf_set_keymap(bufnr, m, k, c, o)
   end)
 end
+
+M.check_system_deps = check_system_deps
+M.system_deps = system_deps
 
 return M
