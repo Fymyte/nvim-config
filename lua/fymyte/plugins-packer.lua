@@ -23,27 +23,6 @@ packer.startup {
     --   run = check_system_deps({ 'himalaya' }, 'himalaya')
     -- }
 
-    -- Telescope (Fuzzy finder)
-
-    -- Autocompletion
-    use {
-      'hrsh7th/nvim-cmp',
-      requires = {
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
-        'hrsh7th/cmp-nvim-lsp-document-symbol',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-cmdline',
-        'hrsh7th/cmp-nvim-lua',
-        'f3fora/cmp-spell',
-        'saadparwaiz1/cmp_luasnip',
-        'L3MON4D3/LuaSnip',
-        { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim' },
-        'rcarriga/cmp-dap',
-      },
-    }
-
     -- LSP
     use 'neovim/nvim-lspconfig'
     use 'williamboman/mason.nvim'
@@ -68,12 +47,6 @@ packer.startup {
     --   'nvim-treesitter/nvim-treesitter-textobjects',
     --   after = 'nvim-treesitter'
     -- }
-    -- UI
-    use {
-      'onsails/lspkind-nvim',
-      requires = { 'neovim/nvim-lspconfig' },
-    }
-    -- use { 'mhinz/vim-startify' }
   end,
   config = {
     display = {
