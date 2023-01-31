@@ -24,7 +24,6 @@ packer.startup {
     -- }
 
     -- Telescope (Fuzzy finder)
-    use 'kyazdani42/nvim-web-devicons'
 
     -- Autocompletion
     use {

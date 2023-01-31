@@ -132,6 +132,7 @@ return  {
             base_dirs = { '~/.config/nvim' },
             theme = 'dropdown',
           },
+          file_browser = { theme = 'dropdown' },
           ['ui-select'] = { theme = 'dropdown' },
           live_grep_args = {
             auto_quoting = true,
