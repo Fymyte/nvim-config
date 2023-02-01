@@ -25,7 +25,6 @@ packer.startup {
 
     -- LSP
     use 'neovim/nvim-lspconfig'
-    use 'williamboman/mason.nvim'
     use 'williamboman/mason-lspconfig.nvim'
     use 'jose-elias-alvarez/null-ls.nvim'
     use 'mfussenegger/nvim-dap'

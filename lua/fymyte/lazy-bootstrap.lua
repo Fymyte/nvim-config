@@ -23,5 +23,5 @@ return {
   dev = { path = "~/Documents/dev/", },
   install = { colorscheme = { "catppuccin" }, },
   ui = { border = "rounded", },
-  change_detection = { enabled = true, },
+  change_detection = { enabled = true, notify =  false },
 }

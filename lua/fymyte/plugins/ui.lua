@@ -30,6 +30,16 @@ return {
     end
   },
 
+
+  -- Lsp notifications and progress in bottom right corner
+  {
+    'vigoux/notifier.nvim',
+    opts = {
+      components = { 'lsp' },
+      notify = { clear_time = 2000 },
+    },
+  },
+
   -- dressing.nvim -- Beautify vim.ui.input
   {
     'stevearc/dressing.nvim',

@@ -1,50 +1,50 @@
+local autocmd = require'fymyte.auto'.autocmd
+local autocmd_clr = vim.api.nvim_clear_autocmds
+
+local augroup_references = vim.api.nvim_create_augroup('lsp-document-highlight', { clear = true })
+
 local M = {}
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 
 ---@brief Use provided config when lsp opens a window
 ---@param config table: Map defining the window configuration. (See `:h nvim_open_win`)
 function M.override_open_floating_preview(config)
-  local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
   vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
     opts = vim.tbl_extend('force', opts, config)
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
   end
 end
 
-function M.setup_diagnostics_mappings()
-  -- Global keymaps to navigate vim diagnostics
-  local opts = { noremap = true, silent = true }
-  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
-  -- vim.keymap.set('n', '<leader>e', require('lspsaga.diagnostic').show_line_diagnostics, opts)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-end
-
 ---@brief Provide additional key mappings when a lsp server is attached
 ---@param client vim.lsp.client
 local function custom_attach(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  local buf_nmap = function(lhs, rhs, desc)
+    vim.keymap.set('n', lhs, rhs, vim.tbl_extend('force', bufopts, { desc = desc }))
+  end
 
-  -- vim.keymap.set('n', 'gh', require('lspsaga.finder').lsp_finder, bufopts)
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', 'ge', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  -- vim.keymap.set('n', 'K', require("lspsaga.hover").render_hover_doc, bufopts)
-  -- vim.keymap.set('n', '<C-k>', require('lspsaga.signaturehelp').signature_help, bufopts)
+  buf_nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  buf_nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  buf_nmap('gt', vim.lsp.buf.type_definition, '[G]oto [T]ype definition')
+  buf_nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  if pcall(require, 'telescope') then
+    buf_nmap('gr', require'telescope.builtin'.lsp_references, '[G]oto [R]eference')
+  else
+    buf_nmap('gr', vim.lsp.buf.references, '[G]oto [R]eference')
+  end
+  buf_nmap('K', vim.lsp.buf.hover, 'LSP hover action')
 
-  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wl', function()
+  buf_nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd folder')
+  buf_nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove folder')
+  buf_nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
+  end, '[W]orkspace [L]ist folders')
 
-  vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
+  buf_nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename')
+  buf_nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<cr>", bufopts)
 
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
   -- vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
 
   -- vim.keymap.set("n", "<leader>ca", require'lspsaga.codeaction'.code_action, bufopts)
@@ -53,7 +53,7 @@ local function custom_attach(client, bufnr)
   --     require'lspsaga.codeaction'.range_code_action()
   -- end, bufopts)
 
-  vim.keymap.set('n', '<space>f', function()
+  buf_nmap('<space>f', function()
     -- Checks if null-ls is present and able to format the buffer, otherwise allow formatting with other lsp
     local clients = vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }
     clients = vim.tbl_filter(function(client)
@@ -65,48 +65,30 @@ local function custom_attach(client, bufnr)
         return #clients <= 0 or formatting_client.name == 'null-ls'
       end,
     }
-  end, bufopts)
+  end, '[F]ormat')
 
-  if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_create_augroup('lsp_document_highlight', { clear = true })
-    vim.api.nvim_clear_autocmds { buffer = bufnr, group = 'lsp_document_highlight' }
-    vim.api.nvim_create_autocmd('CursorHold', {
-      callback = vim.lsp.buf.document_highlight,
-      buffer = bufnr,
-      group = 'lsp_document_highlight',
-      desc = 'Document Highlight',
-    })
-    vim.api.nvim_create_autocmd('CursorMoved', {
-      callback = vim.lsp.buf.clear_references,
-      buffer = bufnr,
-      group = 'lsp_document_highlight',
-      desc = 'Clear All the References',
-    })
+  local serv_caps = client.server_capabilities
+
+  if serv_caps.documentHighlightProvider then
+    autocmd_clr { buffer = bufnr, group = augroup_references }
+    autocmd { 'CursorHold', augroup_references, vim.lsp.buf.document_highlight, bufnr }
+    autocmd { 'CursorMoved', augroup_references, vim.lsp.buf.clear_references, bufnr }
   end
-
-  -- Show line diagnostic on cursor hold
-  -- vim.cmd([[autocmd CursorHold <buffer> lua vim.diagnostic.open_float()]])lsp
 
   vim.notify(('lsp %s attached'):format(client.name), 'info', { title = 'LSP' })
 end
 
-local function get_client_capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, 'cmd_nvim_lsp')
-  if has_cmp_nvim_lsp then
-    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-  end
-  return capabilities
-end
-
-require('lspconfig').util.default_config = vim.tbl_extend('force', require('lspconfig').util.default_config, {
-  on_attach = custom_attach,
-  capabilities = get_client_capabilities(),
-})
-
-require('mason-lspconfig').setup {
-  automatic_installation = true,
-}
+local updated_capabilites = vim.tbl_deep_extend('force',
+  vim.lsp.protocol.make_client_capabilities(),
+  require'cmp_nvim_lsp'.default_capabilities()
+)
+require'lspconfig'.util.default_config = vim.tbl_deep_extend('force',
+  require'lspconfig'.util.default_config,
+  {
+    on_attach = custom_attach,
+    capabilities = updated_capabilites,
+  }
+)
 
 local ltex_languages = {
   'auto',
@@ -159,10 +141,6 @@ local ltex_languages = {
   'zh-CN',
 }
 
-if require 'neodev' then
-  require('neodev').setup {}
-end
-
 ---@alias ServerConfig table|function|nil
 ---@alias ServerConfigs table<string,ServerConfig>
 ---@type ServerConfigs
@@ -172,10 +150,7 @@ M.servers = {
     local codelldb_path = extension_path .. '/adapter/codelldb'
     local liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
     require('rust-tools').setup {
-      -- tools = {
-      --   on_initialized = function(health) vim.notify(('rust analyzer ready (%s)'):format(health.health))
-      --   end,
-      -- },
+      -- server = { on_attach = custom_attach },
       dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
       },
@@ -185,7 +160,7 @@ M.servers = {
     require('clangd_extensions').setup {
       server = {
         on_attach = custom_attach,
-        capabilities = get_client_capabilities(),
+        capabilities = updated_capabilites,
       },
       extensions = {
         memory_usage = { border = 'rounded' },
@@ -277,18 +252,6 @@ M.servers = {
   end,
 }
 
-require('null-ls').setup {
-  sources = {
-    require('null-ls').builtins.formatting.stylua,
-    require('null-ls').builtins.formatting.clang_format,
-    require('null-ls').builtins.diagnostics.eslint_d,
-    require('null-ls').builtins.diagnostics.selene,
-    require('null-ls').builtins.formatting.prettier,
-    require('null-ls').builtins.formatting.shfmt,
-    require('null-ls').builtins.code_actions.shellcheck,
-  },
-}
-
 ---@param servers ServerConfigs
 M.setup_servers = function(servers)
   for server, config in pairs(servers) do
@@ -300,26 +263,6 @@ M.setup_servers = function(servers)
       config()
     elseif type(config) == 'table' then
       require('lspconfig')[server].setup(config)
-    end
-  end
-end
-
----Setup extra features
----@param extras table<string> extras  to enables
-M.setup_extras = function(extras)
-  -- local extra_autocmd = vim.api.nvim_create_augroup("lsp_extras", {})
-  local builtin_extras = {
-    ['highlight_symbol_under_cursor'] = function()
-      vim.cmd [[
-      autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      ]]
-    end,
-  }
-  for _, extra in ipairs(extras) do
-    if builtin_extras[extra] and type(builtin_extras[extra]) == 'function' then
-      builtin_extras[extra]()
     end
   end
 end

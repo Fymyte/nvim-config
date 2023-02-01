@@ -51,6 +51,11 @@ keymap('n', '<leader><leader>', '<cmd>noh<cr>')
 -- Paste without losing clipboard content
 keymap('x', '<leader>p', '"_dP')
 
+keymap('n', '<leader>do', vim.diagnostic.open_float, '[D]iagnostic [O]pen')
+keymap('n', '[d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
+keymap('n', ']d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
+keymap('n', '<leader>dq', vim.diagnostic.setloclist, '[D]iagnostic [Q]uick fix')
+
 local function showFugitiveGit()
   if vim.fn.FugitiveHead() ~= '' then
     vim.cmd [[

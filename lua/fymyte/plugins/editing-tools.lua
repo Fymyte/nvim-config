@@ -30,7 +30,7 @@ return  {
   -- Smarter jumping to searched character
   {
     'echasnovski/mini.jump',
-    even = 'VeryLazy',
+    event = 'VeryLazy',
     version = false,
     opts = { delay = { idle_stop = 1000 } },
     config = function(_, opts) require'mini.jump'.setup(opts) end,

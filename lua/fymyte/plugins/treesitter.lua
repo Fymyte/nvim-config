@@ -10,17 +10,15 @@ end
 local ensure_installed = {
   'c',
   'cpp',
-  'vim',
   'rust',
-  'query',
-  'lua',
-  'javascript',
-  'typescript',
-  'svelte',
   'css',
-  'norg',
-  'rasi',
-  'zig',
+  'vim',
+  'lua',
+  'query',
+  'regex',
+  'bash',
+  'markdown',
+  'markdown_inline',
 }
 
 return {
