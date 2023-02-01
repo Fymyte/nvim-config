@@ -47,12 +47,6 @@ local function custom_attach(client, bufnr)
 
   -- vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
 
-  -- vim.keymap.set("n", "<leader>ca", require'lspsaga.codeaction'.code_action, bufopts)
-  -- vim.keymap.set("v", "<leader>ca", function()
-  --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-U>", true, false, true))
-  --     require'lspsaga.codeaction'.range_code_action()
-  -- end, bufopts)
-
   buf_nmap('<space>f', function()
     -- Checks if null-ls is present and able to format the buffer, otherwise allow formatting with other lsp
     local clients = vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }
@@ -75,7 +69,7 @@ local function custom_attach(client, bufnr)
     autocmd { 'CursorMoved', augroup_references, vim.lsp.buf.clear_references, bufnr }
   end
 
-  vim.notify(('lsp %s attached'):format(client.name), 'info', { title = 'LSP' })
+  vim.notify(('%s attached'):format(client.name), 'info', { title = 'LSP' })
 end
 
 local updated_capabilites = vim.tbl_deep_extend('force',

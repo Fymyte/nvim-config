@@ -1,5 +1,3 @@
-local lspconfig = { 'neovim/nvim-lspconfig' }
-
 return {
   -- More icons
   'kyazdani42/nvim-web-devicons',

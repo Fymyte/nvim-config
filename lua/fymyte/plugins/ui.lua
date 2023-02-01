@@ -18,18 +18,24 @@ return {
         else
           render.compact(bufnr, notif, highlights, config)
         end
-      end
+      end,
     },
     config = function(plugin, opts)
-      local notify = require'notify'
-      render.minimal = require'notify.render.minimal'
-      render.compact = require'notify.render.compact'
-      render.simple = require'notify.render.simple'
+      local notify = require 'notify'
+      render.minimal = require 'notify.render.minimal'
+      render.compact = require 'notify.render.compact'
+      render.simple = require 'notify.render.simple'
       notify.setup(opts)
-      vim.notify = notify
-    end
-  },
+      local notify_without_offset_encoding_warning = function(msg, ...)
+        if msg:match 'warning: multiple different client offset_encodings' then
+          return
+        end
 
+        notify(msg, ...)
+      end
+      vim.notify = notify_without_offset_encoding_warning
+    end,
+  },
 
   -- Lsp notifications and progress in bottom right corner
   {
