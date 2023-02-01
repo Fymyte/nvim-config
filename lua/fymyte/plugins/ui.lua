@@ -37,14 +37,14 @@ return {
     end,
   },
 
-  -- Lsp notifications and progress in bottom right corner
-  {
-    'vigoux/notifier.nvim',
-    opts = {
-      components = { 'lsp' },
-      notify = { clear_time = 2000 },
-    },
-  },
+  -- -- Lsp notifications and progress in bottom right corner
+  -- {
+  --   'vigoux/notifier.nvim',
+  --   opts = {
+  --     components = { 'lsp' },
+  --     notify = { clear_time = 2000 },
+  --   },
+  -- },
 
   -- dressing.nvim -- Beautify vim.ui.input
   {
@@ -83,10 +83,14 @@ return {
   {
     'folke/noice.nvim',
     dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+      'hrsh7th/nvim-cmp',
     },
     opts = {
+      popupmenu = {
+        backend = 'cmp',
+      },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
