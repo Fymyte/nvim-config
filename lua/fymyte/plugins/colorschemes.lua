@@ -7,6 +7,12 @@ return {
     priority = 1000,
     opts = {
       flavour = 'frappe',
+      custom_highlights = function (colors)
+        return {
+          ['@class'] = { link = 'Type' },
+          ['@property'] = { fg = colors.teal },
+        }
+      end
     },
     config = function(_, opts)
       require'catppuccin'.setup (opts)

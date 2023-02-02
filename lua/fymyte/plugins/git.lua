@@ -17,20 +17,20 @@ return {
         local gs = require'gitsigns'
         local opts = { noremap = true, silent = true }
         local function map(mode, l, r, lopts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
+          lopts = opts or {}
+          lopts.buffer = bufnr
+          vim.keymap.set(mode, l, r, lopts)
         end
 
         -- Navigation
-        map('n', ']c', function()
-          if vim.wo.diff then return ']c' end
+        map('n', ']h', function()
+          if vim.wo.diff then return ']h' end
           vim.schedule(function() gs.next_hunk() end)
           return '<Ignore>'
         end, { expr = true })
 
-        map('n', '[c', function()
-          if vim.wo.diff then return '[c' end
+        map('n', '[h', function()
+          if vim.wo.diff then return '[h' end
           vim.schedule(function() gs.prev_hunk() end)
           return '<Ignore>'
         end, { expr = true }) -- Actions

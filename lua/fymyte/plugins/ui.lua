@@ -13,27 +13,19 @@ return {
           if #notif.title[1] > 1 then
             render.simple(bufnr, notif, highlights, config)
           else
-            render.minimal(bufnr, notif, highlights, config)
+            render.minimal(bufnr, notif, highlights)
           end
         else
-          render.compact(bufnr, notif, highlights, config)
+          render.compact(bufnr, notif, highlights)
         end
       end,
     },
-    config = function(plugin, opts)
+    config = function(_, opts)
       local notify = require 'notify'
       render.minimal = require 'notify.render.minimal'
       render.compact = require 'notify.render.compact'
       render.simple = require 'notify.render.simple'
       notify.setup(opts)
-      local notify_without_offset_encoding_warning = function(msg, ...)
-        if msg:match 'warning: multiple different client offset_encodings' then
-          return
-        end
-
-        notify(msg, ...)
-      end
-      vim.notify = notify_without_offset_encoding_warning
     end,
   },
 
@@ -88,17 +80,46 @@ return {
       'hrsh7th/nvim-cmp',
     },
     opts = {
+      cmdline = {
+        view = 'cmdline',
+      },
       popupmenu = {
         backend = 'cmp',
       },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+        progress = {
+          enabled = false,
+          format = {
+            '({data.progress.percentage}%) ',
+            { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
+            { '{data.progress.title} ', hl_group = 'NoiceLspProgressTitle' },
+            { '{data.progress.client} ', hl_group = 'NoiceLspProgressClient' },
+          },
         },
       },
+      routes = {
+        {
+          skip = true,
+          filter = {
+            any = {
+              {
+                event = 'notify',
+                warning = true,
+                find = 'multiple different client offset_encodings',
+              },
+            }
+          }
+        },
+      },
+      presets = {
+        lsp_doc_border = true,
+      }
     },
   },
 }
