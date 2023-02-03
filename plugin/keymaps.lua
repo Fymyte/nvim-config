@@ -45,7 +45,7 @@ keymap('n', '<leader>j', [[<cmd>m-2|j<cr>]])
 keymap('n', '0', '^') -- use 0 to go to first char of line
 -- map('n', '=', '+')
 -- Term
-keymap('t', '<Esc>', '<C-\\><C-n>')
+-- keymap('t', '<c-s>', '<C-\\><C-n>')
 -- Misc
 keymap('n', '<leader><leader>', '<cmd>noh<cr>')
 -- Paste without losing clipboard content
