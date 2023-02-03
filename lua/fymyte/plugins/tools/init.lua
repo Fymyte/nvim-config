@@ -29,6 +29,7 @@ return {
         'selene',
         'shfmt',
         'shellcheck',
+        'editorconfig-checker',
       },
       log_level = vim.g.log_level,
     },
@@ -58,6 +59,7 @@ return {
           require'null-ls'.builtins.formatting.prettier,
           require'null-ls'.builtins.formatting.shfmt,
           require'null-ls'.builtins.code_actions.shellcheck,
+          require'null-ls'.builtins.diagnostics.editorconfig_checker,
         },
       }
     end,
