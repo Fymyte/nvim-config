@@ -1,4 +1,4 @@
-local autocmd = require'fymyte.auto'.autocmd
+local autocmd = require('fymyte.auto').autocmd
 local autocmd_clr = vim.api.nvim_clear_autocmds
 
 local augroup_references = vim.api.nvim_create_augroup('lsp-document-highlight', { clear = true })
@@ -24,13 +24,17 @@ local function custom_attach(client, bufnr)
     vim.keymap.set('n', lhs, rhs, vim.tbl_extend('force', bufopts, { desc = desc }))
   end
 
-  buf_nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  buf_nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  buf_nmap('gt', vim.lsp.buf.type_definition, '[G]oto [T]ype definition')
-  buf_nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   if pcall(require, 'telescope') then
-    buf_nmap('gr', require'telescope.builtin'.lsp_references, '[G]oto [R]eference')
+    buf_nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+    buf_nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eference')
+    buf_nmap('gt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype definition')
+    buf_nmap('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+    buf_nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eference')
   else
+    buf_nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    buf_nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    buf_nmap('gt', vim.lsp.buf.type_definition, '[G]oto [T]ype definition')
+    buf_nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     buf_nmap('gr', vim.lsp.buf.references, '[G]oto [R]eference')
   end
   buf_nmap('K', vim.lsp.buf.hover, 'LSP hover action')
@@ -72,17 +76,15 @@ local function custom_attach(client, bufnr)
   vim.notify(('%s attached'):format(client.name), 'info', { title = 'LSP' })
 end
 
-local updated_capabilites = vim.tbl_deep_extend('force',
+local updated_capabilites = vim.tbl_deep_extend(
+  'force',
   vim.lsp.protocol.make_client_capabilities(),
-  require'cmp_nvim_lsp'.default_capabilities()
+  require('cmp_nvim_lsp').default_capabilities()
 )
-require'lspconfig'.util.default_config = vim.tbl_deep_extend('force',
-  require'lspconfig'.util.default_config,
-  {
-    on_attach = custom_attach,
-    capabilities = updated_capabilites,
-  }
-)
+require('lspconfig').util.default_config = vim.tbl_deep_extend('force', require('lspconfig').util.default_config, {
+  on_attach = custom_attach,
+  capabilities = updated_capabilites,
+})
 
 local ltex_languages = {
   'auto',
@@ -144,7 +146,6 @@ M.servers = {
     local codelldb_path = extension_path .. '/adapter/codelldb'
     local liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
     require('rust-tools').setup {
-      -- server = { on_attach = custom_attach },
       dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
       },

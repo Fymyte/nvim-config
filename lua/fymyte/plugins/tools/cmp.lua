@@ -17,7 +17,7 @@ return {
       { 'rcarriga/cmp-dap', dependencies = 'mfussenegger/nvim-dap' },
     },
     opts = function()
-      local cmp = require'cmp'
+      local cmp = require 'cmp'
       local window_style = {
         border = 'rounded',
         scrollbar = '║',
@@ -85,44 +85,44 @@ return {
       }
     end,
     config = function(_, opts)
-      local cmp = require'cmp'
+      local cmp = require 'cmp'
       cmp.setup(opts)
       require('cmp').setup.cmdline('/', {
         sources = cmp.config.sources({
           { name = 'nvim_lsp_document_symbol' },
         }, {
-            { name = 'buffer' },
-          }),
+          { name = 'buffer' },
+        }),
       })
       cmp.setup.cmdline(':', {
         sources = cmp.config.sources({
           { name = 'path' },
         }, {
-            { name = 'nvim_lsp' },
-            { name = 'cmdline' },
-            { name = 'nvim_lua' },
-          }, {
-            { name = 'buffer' },
-          }),
+          { name = 'nvim_lsp' },
+          { name = 'cmdline' },
+          { name = 'nvim_lua' },
+        }, {
+          { name = 'buffer' },
+        }),
       })
       cmp.setup.filetype('gitcommit', {
         sources = cmp.config.sources({
           { name = 'git' },
         }, {
-            { name = 'buffer' },
-          }),
+          { name = 'buffer' },
+        }),
       })
       cmp.setup.filetype('norg', {
         sources = cmp.config.sources({
           { name = 'neorg' },
         }, {
-            { name = 'buffer' },
-          }),
+          { name = 'buffer' },
+        }),
       })
       cmp.setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = 'dap' },
-        }),
+        },
       })
 
       require('cmp_git').setup {

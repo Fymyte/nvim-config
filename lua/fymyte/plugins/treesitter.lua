@@ -48,8 +48,8 @@ return {
     query_linter = { enable = true },
   },
   config = function(_, opts)
-    require'nvim-treesitter.configs'.setup(opts)
+    require('nvim-treesitter.configs').setup(opts)
   end,
 
-  dependencies = { 'nvim-treesitter/playground' }
+  dependencies = { 'nvim-treesitter/playground' },
 }

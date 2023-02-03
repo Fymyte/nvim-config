@@ -25,7 +25,7 @@ return {
   {
     'NvChad/nvim-colorizer.lua',
     config = function()
-      require'colorizer'.setup({}, { RRGGBBAA = true, css = true })
-    end
+      require('colorizer').setup({}, { RRGGBBAA = true, css = true })
+    end,
   },
 }

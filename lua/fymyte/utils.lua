@@ -3,17 +3,16 @@ local g = vim.g
 
 local M = {}
 
----@type SystemDep string|string[]
+---@alias SystemDep string|string[]
 
 ---Check for system dependencies
 ---If argument is an array, this is a `one of` type of match
 ---@param ... SystemDep[]
----@return missing dependencies
+---@return SystemDep missing dependencies
 local system_deps = function(...)
-  function table.pack(...) return { n = select("#", ...), ... } end
-  local args = table.pack(...)
+  local args = { n = select('#', ...), ... }
   local missing = {}
-  for i=1,args.n do
+  for i = 1, args.n do
     local dep = args[i]
     if type(dep) == 'table' then
       local found = false
@@ -31,7 +30,7 @@ local system_deps = function(...)
         table.insert(missing, dep)
       end
     else
-      error('dependency is either a string or array of string')
+      error 'dependency is either a string or array of string'
     end
   end
   return missing

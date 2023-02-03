@@ -7,17 +7,17 @@ return {
     priority = 1000,
     opts = {
       flavour = 'frappe',
-      custom_highlights = function (colors)
+      custom_highlights = function(colors)
         return {
           ['@class'] = { link = 'Type' },
           ['@property'] = { fg = colors.teal },
         }
-      end
+      end,
     },
     config = function(_, opts)
-      require'catppuccin'.setup (opts)
+      require('catppuccin').setup(opts)
       vim.cmd.colorscheme 'catppuccin'
-    end
+    end,
   },
 
   -- Kanagawa -- Inspired by the painting of Katsushika Hokusai

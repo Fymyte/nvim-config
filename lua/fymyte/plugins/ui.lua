@@ -113,13 +113,13 @@ return {
                 warning = true,
                 find = 'multiple different client offset_encodings',
               },
-            }
-          }
+            },
+          },
         },
       },
       presets = {
         lsp_doc_border = true,
-      }
+      },
     },
   },
 }

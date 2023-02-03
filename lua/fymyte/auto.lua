@@ -8,7 +8,9 @@ M.autocmd = function(args)
   vim.api.nvim_create_autocmd(event, {
     group = group,
     buffer = args[4],
-    callback = function() callback() end,
+    callback = function()
+      callback()
+    end,
     once = args.once,
     desc = args.desc,
   })

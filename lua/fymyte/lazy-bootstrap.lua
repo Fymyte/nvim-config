@@ -1,4 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 
 -- Clone lazy
 if not vim.loop.fs_stat(lazypath) then
@@ -7,21 +7,21 @@ if not vim.loop.fs_stat(lazypath) then
   print '     Wait until lazy finish'
   print '=================================='
 
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
-  })
+  }
 end
 
 vim.opt.rtp:prepend(lazypath)
 
 return {
-  dev = { path = "~/Documents/dev/", },
-  install = { colorscheme = { "catppuccin" }, },
-  ui = { border = "rounded", },
-  change_detection = { enabled = true, notify =  false },
+  dev = { path = '~/Documents/dev/' },
+  install = { colorscheme = { 'catppuccin' } },
+  ui = { border = 'rounded' },
+  change_detection = { enabled = true, notify = false },
 }

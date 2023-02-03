@@ -33,4 +33,4 @@ require 'fymyte.options'
 
 -- Bootstrap nvim package manager
 local lazy_opts = require 'fymyte.lazy-bootstrap'
-require 'lazy'.setup('fymyte.plugins', lazy_opts)
+require('lazy').setup('fymyte.plugins', lazy_opts)

@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 
 local keymap = function(mode, lhs, rhs, desc)
-  local local_opts = vim.tbl_extend("keep", opts, { desc = desc })
+  local local_opts = vim.tbl_extend('keep', opts, { desc = desc })
   vim.keymap.set(mode, lhs, rhs, local_opts)
 end
 
@@ -10,7 +10,7 @@ end
 -------------------
 
 -- Quick save
-keymap('n', '<leader>w', '<cmd>write!<cr>', "write buffer")
+keymap('n', '<leader>w', '<cmd>write!<cr>', 'write buffer')
 -- Do not add breakpoints when typing punctuation
 keymap('i', ',', ',<C-g>u')
 keymap('i', '.', '.<C-g>u')
@@ -18,7 +18,7 @@ keymap('i', '!', '!<C-g>u')
 keymap('i', '?', '?<C-g>u')
 keymap('i', ':', ':<C-g>u')
 -- Cycle throught buffers
-keymap('', '<C-b>p', '<cmd>bprev<cr>', "Next buffer")
+keymap('', '<C-b>p', '<cmd>bprev<cr>', 'Next buffer')
 keymap('', '<C-b><C-p>', '<cmd>bprev<cr>')
 keymap('', '<C-b>n', '<cmd>bnext<cr>')
 keymap('', '<C-b><C-n>', '<cmd>bnext<cr>')

@@ -14,13 +14,11 @@ return {
       { 'folke/neodev.nvim', config = true },
       'hrsh7th/cmp-nvim-lsp',
     },
-    opts = {
-
-    },
+    opts = {},
     config = function(_, opts)
-      local lsp = require'fymyte.tools.lsp'
+      local lsp = require 'fymyte.tools.lsp'
       lsp.override_open_floating_preview { border = 'rounded' }
       lsp.setup_servers(lsp.servers)
     end,
-  }
+  },
 }

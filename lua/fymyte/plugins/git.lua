@@ -14,7 +14,7 @@ return {
     event = 'BufReadPre',
     opts = {
       on_attach = function(bufnr)
-        local gs = require'gitsigns'
+        local gs = require 'gitsigns'
         local opts = { noremap = true, silent = true }
         local function map(mode, l, r, lopts)
           lopts = opts or {}
@@ -24,14 +24,22 @@ return {
 
         -- Navigation
         map('n', ']h', function()
-          if vim.wo.diff then return ']h' end
-          vim.schedule(function() gs.next_hunk() end)
+          if vim.wo.diff then
+            return ']h'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
           return '<Ignore>'
         end, { expr = true })
 
         map('n', '[h', function()
-          if vim.wo.diff then return '[h' end
-          vim.schedule(function() gs.prev_hunk() end)
+          if vim.wo.diff then
+            return '[h'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
           return '<Ignore>'
         end, { expr = true }) -- Actions
 
@@ -50,7 +58,6 @@ return {
           gs.diffthis '~'
         end)
         map('n', '<leader>td', gs.toggle_deleted)
-
       end,
       preview_config = {
         border = 'rounded',
