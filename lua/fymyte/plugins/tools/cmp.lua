@@ -63,8 +63,8 @@ return {
           ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
           ['<Down>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
           ['<Up>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-          ['<c-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-          ['<c-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+          ['<c-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+          ['<c-f>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
           ['<c-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
           ['<c-y>'] = cmp.mapping.confirm { select = true },
           ['<c-e>'] = cmp.mapping {
