@@ -10,6 +10,7 @@ return {
       custom_highlights = function(colors)
         return {
           ['@class'] = { link = 'Type' },
+          ['@function.macro'] = { link = 'Macro' },
           ['@property'] = { fg = colors.teal },
         }
       end,
