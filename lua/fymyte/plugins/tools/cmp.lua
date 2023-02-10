@@ -17,6 +17,7 @@ return {
       { 'rcarriga/cmp-dap', dependencies = 'mfussenegger/nvim-dap' },
     },
     opts = function()
+      require'fymyte.tools.luasnip'
       local cmp = require 'cmp'
       local window_style = {
         border = 'rounded',

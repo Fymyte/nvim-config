@@ -6,7 +6,7 @@ return {
   { 'fymyte/rasi.vim', ft = 'rasi' },
   { 'amadeus/vim-css', ft = { 'css', 'stylus', 'sass', 'scss' } },
   { 'theRealCarneiro/hyprland-vim-syntax', ft = 'hypr' },
-  { 'elkowar/yuck.vim' },
+  { 'elkowar/yuck.vim', ft = { 'yuck' } },
 
   {
     'nvim-colortils/colortils.nvim',
