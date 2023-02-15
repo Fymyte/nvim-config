@@ -81,10 +81,6 @@ local updated_capabilites = vim.tbl_deep_extend(
   vim.lsp.protocol.make_client_capabilities(),
   require('cmp_nvim_lsp').default_capabilities()
 )
-require('lspconfig').util.default_config = vim.tbl_deep_extend('force', require('lspconfig').util.default_config, {
-  on_attach = custom_attach,
-  capabilities = updated_capabilites,
-})
 
 local ltex_languages = {
   'auto',
@@ -249,6 +245,11 @@ M.servers = {
 
 ---@param servers ServerConfigs
 M.setup_servers = function(servers)
+  require('lspconfig').util.default_config = vim.tbl_deep_extend('force', require('lspconfig').util.default_config, {
+    on_attach = custom_attach,
+    capabilities = updated_capabilites,
+  })
+
   for server, config in pairs(servers) do
     if type(config) == 'boolean' then
       if config then
