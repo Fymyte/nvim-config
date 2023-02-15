@@ -37,7 +37,6 @@ local function custom_attach(client, bufnr)
     buf_nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     buf_nmap('gr', vim.lsp.buf.references, '[G]oto [R]eference')
   end
-  buf_nmap('K', vim.lsp.buf.hover, 'LSP hover action')
 
   buf_nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd folder')
   buf_nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove folder')
@@ -45,13 +44,14 @@ local function custom_attach(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist folders')
 
-  buf_nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename')
+  buf_nmap('K', vim.lsp.buf.hover, 'LSP hover action')
   buf_nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  buf_nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename')
   -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<cr>", bufopts)
 
   -- vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
 
-  buf_nmap('<space>f', function()
+  buf_nmap('<leader>f', function()
     -- Checks if null-ls is present and able to format the buffer, otherwise allow formatting with other lsp
     local clients = vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }
     clients = vim.tbl_filter(function(client)
