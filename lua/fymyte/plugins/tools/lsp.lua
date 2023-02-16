@@ -7,7 +7,7 @@ return {
       -- Lsp interaction between mason and lspconfig
       'williamboman/mason-lspconfig.nvim',
       'mfussenegger/nvim-dap',
-      'rcarriga/nvim-dap-ui',
+      -- 'rcarriga/nvim-dap-ui',
       'p00f/clangd_extensions.nvim',
       'barreiroleo/ltex_extra.nvim',
       { 'simrat39/rust-tools.nvim', dependencies = 'nvim-lua/plenary.nvim' },

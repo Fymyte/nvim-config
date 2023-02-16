@@ -4,7 +4,17 @@ return {
   ---------------
 
   -- Git on steroids
-  'tpope/vim-fugitive',
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      vim.api.nvim_create_autocmd('BufReadPost', {
+        pattern = 'fugitive://*',
+        callback = function()
+          vim.b.bufhidden = 'delete'
+        end,
+      })
+    end
+  },
   -- GitHub/GitLab in neovim
   { 'tpope/vim-rhubarb', enabled = false },
   -- Git hunks displayed inline
