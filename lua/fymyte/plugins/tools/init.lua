@@ -8,6 +8,9 @@ return {
   -- Lsp configuration
   require 'fymyte.plugins.tools.lsp',
 
+  -- Debug adapter
+  require 'fymyte.plugins.tools.dap',
+
   -- Nvim external tool manager
   {
     'williamboman/mason.nvim',
