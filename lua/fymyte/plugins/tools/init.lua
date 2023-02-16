@@ -65,4 +65,11 @@ return {
       }
     end,
   },
+
+  {
+    'saecki/crates.nvim',
+    opts = {
+      null_ls = { enabled = true, }
+    },
+  }
 }

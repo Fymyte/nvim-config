@@ -15,6 +15,7 @@ return {
       { 'onsails/lspkind-nvim', dependencies = 'neovim/nvim-lspconfig' },
       { 'saadparwaiz1/cmp_luasnip', dependencies = 'L3MON4D3/LuaSnip' },
       { 'rcarriga/cmp-dap', dependencies = 'mfussenegger/nvim-dap' },
+      { 'saecki/crates.nvim', dependencies = 'nvim-lua/plenary.nvim' },
     },
     opts = function()
       require'fymyte.tools.luasnip'
@@ -33,7 +34,7 @@ return {
         formatting = {
           format = require('lspkind').cmp_format {
             mode = 'symbol',
-            max_width = 50,
+            max_width = 40,
             menu = {
               buffer = '[buf]',
               nvim_lua = '[api]',
@@ -47,6 +48,7 @@ return {
               git = '[git]',
               dap = '[dap]',
               cmdline = '[cmd]',
+              crates = '[rust]',
             },
             preset = 'default',
           },
@@ -79,6 +81,7 @@ return {
           { name = 'luasnip' },
           { name = 'nvim_lua' },
           { name = 'spell' },
+          { name = 'crates'},
         }, {
           { name = 'path' },
           { name = 'buffer', keyword_length = 4 },

@@ -13,7 +13,6 @@ Much of the configuration can be found in either:
 
 ./plugin/*.lua
   This is where config for vim default options live.
-  - options
   - keymaps
   - diagnostics
 
