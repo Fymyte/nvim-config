@@ -7,6 +7,7 @@ return {
     'hrsh7th/nvim-cmp',
   },
   ft = 'norg',
+  command = 'Neorg',
   opts = {
     -- Tell Neorg what modules to load
     load = {
