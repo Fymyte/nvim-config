@@ -94,7 +94,7 @@ return {
           ['cmp.entry.get_documentation'] = true,
         },
         progress = {
-          enabled = false,
+          enabled = true,
           format = {
             '({data.progress.percentage}%) ',
             { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
