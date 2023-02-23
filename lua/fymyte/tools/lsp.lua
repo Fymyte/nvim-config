@@ -25,8 +25,7 @@ local function custom_attach(client, bufnr)
   end
 
   if pcall(require, 'telescope') then
-    buf_nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-    buf_nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eference')
+    buf_nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition (include Declaration)')
     buf_nmap('gt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype definition')
     buf_nmap('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
     buf_nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eference')
