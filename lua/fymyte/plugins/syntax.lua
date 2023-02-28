@@ -9,6 +9,17 @@ return {
   { 'elkowar/yuck.vim', ft = { 'yuck' } },
 
   {
+    'LhKipp/nvim-nu',
+    ft = 'nu',
+    build = ':TSInstall nu',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'jose-elias-alvarez/null-ls.nvim',
+    },
+    config = true,
+  },
+
+  {
     'nvim-colortils/colortils.nvim',
     opts = {
       register = '+',
