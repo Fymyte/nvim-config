@@ -264,4 +264,6 @@ return {
     keys = { { '<F5>', '<cmd>UndotreeToggle<cr>', desc = 'Toggle undo tree' } },
     cmd = 'UntotreeToggle',
   },
+  -- Builtin basic shell commands
+  'tpope/vim-eunuch',
 }

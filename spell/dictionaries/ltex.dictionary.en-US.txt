@@ -12,3 +12,4 @@ gpio
 Pierrick
 pingroups
 Sequans
+GPIOs
