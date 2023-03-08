@@ -75,7 +75,26 @@ return {
     keys = { 'cx' },
   },
   -- Yank also to keyboard
-  { 'ojroques/vim-oscyank', event = 'VeryLazy' },
+  {
+    'ojroques/vim-oscyank',
+    event = 'VeryLazy',
+    config = function()
+      local autocmd = require('fymyte.utils').autocmd
+      local augroup = require('fymyte.utils').augroup
+
+      autocmd('TextYankPost', {
+        group = augroup 'OSCYank',
+        desc = 'automaticaly copy the content of yanked text in the keyboard',
+        pattern = '*',
+        callback = function()
+          local event = vim.v.event
+          if event.operator == 'y' and event.regname == '' then
+            vim.cmd[[OSCYankRegister "]]
+          end
+        end,
+      })
+    end,
+  },
   -- Easily align text on symbol
   { 'junegunn/vim-easy-align', event = 'VeryLazy' },
 

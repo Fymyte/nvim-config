@@ -1,3 +1,5 @@
+local autocmd = require('fymyte.utils').autocmd
+
 return {
   ---------------
   ----- Git -----
@@ -6,13 +8,55 @@ return {
   -- Git on steroids
   {
     'tpope/vim-fugitive',
+    event = 'VeryLazy',
     config = function()
-      vim.api.nvim_create_autocmd('BufReadPost', {
+      local fugitive_grp = vim.api.nvim_create_augroup('fugitive_autocmd', { clear = true })
+      autocmd('BufReadPost', {
+        group = fugitive_grp,
+        desc = 'mark fugitive buffers as delete on quit',
         pattern = 'fugitive://*',
         callback = function()
           vim.b.bufhidden = 'delete'
         end,
       })
+
+      autocmd('BufAdd', {
+        group = fugitive_grp,
+        desc = 'open commit message in vsplit on the far left',
+        pattern = '*/.git/COMMIT_EDITMSG',
+        callback = function()
+          vim.cmd.wincmd 'H'
+          vim.cmd [[vertical resize 60]]
+          vim.cmd.setlocal 'nonumber'
+          vim.cmd.setlocal 'norelativenumber'
+          vim.cmd.setlocal 'winfixwidth'
+        end,
+      })
+
+      local function showFugitiveGit()
+        if vim.fn.FugitiveHead() ~= '' then
+          vim.cmd.Git()
+          vim.cmd.wincmd 'H'
+          vim.cmd [[vertical resize 31]]
+          vim.cmd.setlocal 'nonumber'
+          vim.cmd.setlocal 'norelativenumber'
+          vim.cmd.setlocal 'winfixwidth'
+        end
+      end
+
+      function ToggleFugitiveGit()
+        if
+          vim.fn.buflisted(
+            ---@diagnostic disable-next-line:param-type-mismatch
+            vim.fn.bufname 'fugitive:///*/.git//$'
+          ) ~= 0
+        then
+          vim.cmd [[ execute ":bdelete" bufname('fugitive:///*/.git//$') ]]
+        else
+          showFugitiveGit()
+        end
+      end
+      vim.keymap.set('n', '<F6>', ToggleFugitiveGit)
     end,
   },
   -- GitHub/GitLab in neovim

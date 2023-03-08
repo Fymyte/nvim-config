@@ -23,12 +23,15 @@ Much of the configuration can be found in either:
 --]]
 
 -- remove navigation using space
-vim.keymap.set('', '<space>', '<nop>', { noremap = true, silent = true })
+vim.keymap.set('', '<space>', '', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
+-- Load helper functions first to have them available for after
 require 'fymyte.globals'
 require 'fymyte.options'
+require 'fymyte.keymaps'
+require 'fymyte.diagnostics'
 
 -- Bootstrap nvim package manager
 local lazy_opts = require 'fymyte.lazy-bootstrap'

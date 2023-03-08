@@ -17,14 +17,15 @@ return {
       { 'rcarriga/cmp-dap', dependencies = 'mfussenegger/nvim-dap' },
       { 'saecki/crates.nvim', dependencies = 'nvim-lua/plenary.nvim' },
     },
+    event = 'VeryLazy',
     opts = function()
       require'fymyte.tools.luasnip'
       local cmp = require 'cmp'
-      local window_style = {
-        border = 'rounded',
-        scrollbar = '║',
-        winhighlight = 'Normal:Pmenu,FloatBorder:Normal,Search:None',
-      }
+      -- local window_style = {
+      --   border = 'rounded',
+      --   scrollbar = '║',
+      --   winhighlight = 'Normal:Pmenu,FloatBorder:Normal,Search:None',
+      -- }
       return {
         snippet = {
           expand = function(args)

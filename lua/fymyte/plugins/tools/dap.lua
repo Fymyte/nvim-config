@@ -25,9 +25,9 @@ return {
         desc = '[T]oggle [D]ebug',
       },
       {
-        '<leader>do',
+        '<leader>ds',
         repeat_helper 'DapStepOver',
-        desc = '[D]ebug step [O]ver',
+        desc = '[D]ebug [S]tep over',
       },
       {
         '<leader>di',

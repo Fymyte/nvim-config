@@ -1,5 +1,0 @@
-return {
-  extension = {
-    ['dtsi'] = 'dts',
-  },
-}

@@ -12,6 +12,7 @@ return {
           ['@class'] = { link = 'Type' },
           ['@function.macro'] = { link = 'Macro' },
           ['@property'] = { fg = colors.teal },
+          ['@field.lua'] = { link = '@property' },
         }
       end,
     },

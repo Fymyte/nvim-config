@@ -1,14 +1,16 @@
-local api = vim.api
 local g = vim.g
 
 local M = {}
 
----@alias SystemDep string|string[]
+---@alias SystemDependency string
+---@alias EitherSystemDep SystemDependency[] at least one of the SystemDependency is available
+---@alias SystemDep SystemDependency[]
+---@alias SystemDeps (SystemDependency|EitherSystemDep)[]
 
 ---Check for system dependencies
 ---If argument is an array, this is a `one of` type of match
----@param ... SystemDep[]
----@return SystemDep missing dependencies
+---@param ... SystemDeps
+---@return SystemDep: missing dependencies
 local system_deps = function(...)
   local args = { n = select('#', ...), ... }
   local missing = {}
@@ -36,6 +38,54 @@ local system_deps = function(...)
   return missing
 end
 
+---@alias augroup integer
+
+---Create a new autocmd group
+---@param name string
+---@return augroup
+M.augroup = function(name)
+  return vim.api.nvim_create_augroup(name, { clear = true })
+end
+
+---@alias AuCmdCallback string|function
+
+---@class AuCmdSpec
+---@field [1] string: 1 desc
+---@field [2] augroup
+---@field [3] AuCmdCallback
+---@field [4] integer|nil
+---@field once boolean whether the autocmd should be run only once
+---@field desc string autocmd description
+
+---Creates a new auto command
+---
+---```lua
+--- autocmd('BufEnter', augroup('MyAugroup'), function() print('Buffer entered')end, 0, {
+---     desc = 'My cool autocmd',
+---   })
+---```
+---@param args AuCmdSpec
+M.autocmd_s = function(args)
+  local event = args[1]
+  local group = args[2]
+  local callback = args[3]
+
+  vim.api.nvim_create_autocmd(event, {
+    group = group,
+    buffer = args[4],
+    callback = function()
+      callback()
+    end,
+    once = args.once,
+    desc = args.desc,
+  })
+end
+
+M.autocmd = vim.api.nvim_create_autocmd
+
+---Check if dependencies are installed and executable on the system
+---@param deps SystemDep
+---@param name string
 local function check_system_deps(deps, name)
   for _, dep in pairs(deps) do
     if vim.fn.executable(dep) ~= 1 then
@@ -67,26 +117,17 @@ function M.log(min_lvl, msg)
   end
 end
 
-local function generic_map(key, map_fun)
-  -- get the extra options
-  local opts = { noremap = true, silent = true }
-  for i, v in pairs(key) do
-    if type(i) == 'string' then
-      opts[i] = v
-    end
-  end
-  map_fun(key[1], key[2], key[3], opts)
-  M.log('trace', string.format('add new keymap: { mode = %q, keys: %q, cmd: %q }', key[1], key[2], key[3]))
-end
-
-function M.map(key)
-  generic_map(key, api.nvim_set_keymap)
-end
-function M.buf_map(bufnr, key)
-  generic_map(key, function(m, k, c, o)
-    api.nvim_buf_set_keymap(bufnr, m, k, c, o)
-  end)
-end
+-- local function generic_map(key, map_fun)
+--   -- get the extra options
+--   local opts = { noremap = true, silent = true }
+--   for i, v in pairs(key) do
+--     if type(i) == 'string' then
+--       opts[i] = v
+--     end
+--   end
+--   map_fun(key[1], key[2], key[3], opts)
+--   M.log('trace', string.format('add new keymap: { mode = %q, keys: %q, cmd: %q }', key[1], key[2], key[3]))
+-- end
 
 M.check_system_deps = check_system_deps
 M.system_deps = system_deps

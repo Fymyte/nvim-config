@@ -1,7 +1,24 @@
-local autocmd = require('fymyte.auto').autocmd
+local augroup = require('fymyte.utils').augroup
+local autocmd = require('fymyte.utils').autocmd
 local autocmd_clr = vim.api.nvim_clear_autocmds
 
-local augroup_references = vim.api.nvim_create_augroup('lsp-document-highlight', { clear = true })
+local autocmd_simple = function(args)
+  local event = args[1]
+  local group = args[2]
+  local callback = args[3]
+
+  autocmd(event, {
+    group = group,
+    buffer = args[4],
+    callback = function()
+      callback()
+    end,
+    once = args.once,
+    desc = args.desc,
+  })
+end
+
+local augroup_references = augroup 'lsp-document-highlight'
 
 local M = {}
 
@@ -10,14 +27,28 @@ local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 ---@brief Use provided config when lsp opens a window
 ---@param config table: Map defining the window configuration. (See `:h nvim_open_win`)
 function M.override_open_floating_preview(config)
+  ---@diagnostic disable-next-line:duplicate-set-field
   vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
     opts = vim.tbl_extend('force', opts, config)
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
   end
 end
 
+---Get the list of clients able to format the buffer.
+---If null-ls is present, prefer using null-ls to format.
+---Otherwise use the first available client able to format
+---@param formatting_client vim.lsp.client
+---@return boolean
+local function formating_client_filter(formatting_client)
+  local clients = vim.tbl_filter(function(client)
+    return client.name == 'null-ls' and client.supports_method 'textDocument/formatting'
+  end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() })
+  return #clients <= 0 or formatting_client.name == 'null-ls'
+end
+
 ---@brief Provide additional key mappings when a lsp server is attached
 ---@param client vim.lsp.client
+---@param bufnr number
 local function custom_attach(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   local buf_nmap = function(lhs, rhs, desc)
@@ -46,33 +77,20 @@ local function custom_attach(client, bufnr)
   buf_nmap('K', vim.lsp.buf.hover, 'LSP hover action')
   buf_nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   buf_nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename')
-  -- vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<cr>", bufopts)
-
-  -- vim.keymap.set('v', '<leader>ca', vim.lsp.buf.range_code_action, bufopts)
 
   buf_nmap('<leader>f', function()
-    -- Checks if null-ls is present and able to format the buffer, otherwise allow formatting with other lsp
-    local clients = vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }
-    clients = vim.tbl_filter(function(client)
-      return client.name == 'null-ls' and client.supports_method 'textDocument/formatting'
-    end, clients)
-    vim.lsp.buf.format {
-      async = true,
-      filter = function(formatting_client)
-        return #clients <= 0 or formatting_client.name == 'null-ls'
-      end,
-    }
+    vim.lsp.buf.format { async = true, filter = formating_client_filter }
   end, '[F]ormat')
 
   local serv_caps = client.server_capabilities
 
   if serv_caps.documentHighlightProvider then
     autocmd_clr { buffer = bufnr, group = augroup_references }
-    autocmd { 'CursorHold', augroup_references, vim.lsp.buf.document_highlight, bufnr }
-    autocmd { 'CursorMoved', augroup_references, vim.lsp.buf.clear_references, bufnr }
+    autocmd_simple { 'CursorHold', augroup_references, vim.lsp.buf.document_highlight, bufnr }
+    autocmd_simple { 'CursorMoved', augroup_references, vim.lsp.buf.clear_references, bufnr }
   end
 
-  vim.notify(('%s attached'):format(client.name), 'info', { title = 'LSP' })
+  vim.notify(('%s attached'):format(client.name), vim.log.levels.INFO, { title = 'LSP' })
 end
 
 local updated_capabilites = vim.tbl_deep_extend(
@@ -137,7 +155,7 @@ local ltex_languages = {
 ---@type ServerConfigs
 M.servers = {
   ['rust_analyzer'] = function()
-    local rust_analyzer_cmd = { "rustup", "run", "nightly", "rust-analyzer" }
+    local rust_analyzer_cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' }
     local extension_path = vim.fn.stdpath 'data' .. '/mason/packages/codelldb/extension'
     local codelldb_path = extension_path .. '/adapter/codelldb'
     local liblldb_path = extension_path .. '/lldb/lib/liblldb.so'
@@ -168,6 +186,7 @@ M.servers = {
     settings = {
       Lua = {
         diagnostics = { globals = { 'vim' } }, -- Get the language server to recognize the `vim` global
+        completion = { callSnippet = 'Replace' },
         telemetry = { enable = false },
         hint = { setType = true },
         IntelliSense = {

@@ -9,17 +9,17 @@ globals:
       - type: bool
       - type: string
         required: false
-  after_each:
+  P:
     args:
-      - type: function
-  before_each:
-    args:
-      - type: function
-  describe:
+      - type: any
+  R:
     args:
       - type: string
-      - type: function
-  it:
+  RELOAD:
     args:
       - type: string
-      - type: function
+      - type: bool
+        required: false
+
+
+

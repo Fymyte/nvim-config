@@ -57,7 +57,7 @@ opt.hlsearch = true -- Highlight previous search results
 opt.incsearch = true -- Highlight search restults incrementaly
 
 -- Persistent undo file
-opt.undodir = vim.fn.stdpath 'data' .. '/undodir'
+opt.undodir = vim.fn.stdpath 'data' .. '/undodir' --[[@as vim.opt.undodir]]
 opt.undofile = true
 -- Spell checking
 opt.spell = false -- Spell checking is not set by default (define per ft using ftplugin)
@@ -92,70 +92,44 @@ vim.g.loaded_python_provider = 0
 vim.filetype.add {
   extension = {
     qml = 'qmljs',
+    scm = 'query',
+    kdl = 'kdl',
   },
   filename = {
     Scratch = 'markdown',
   },
 }
 
-vim.cmd [[
-" augroup defaultFileType
-"   autocmd!
-"   autocmd BufNewFile,BufRead Scratch set filetype=markdown
-" augroup end
+local autocmd = require('fymyte.utils').autocmd
+local augroup = require('fymyte.utils').augroup
 
-" augroup enableFileTypeSpelling
-"   autocmd!
-"   " Enable spell checking in all buffers of the following filetypes.
-"   autocmd FileType gitcommit,markdown,mkd,rst,text,yaml
-"     \ setlocal spell
-"   autocmd Filetype help setlocal nospell
-" augroup END
-
-augroup OSCYankReg
-  autocmd!
-  " Copy content of the yanked text in keyboard
-  autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
-augroup end
-
-augroup LastPos
-  autocmd!
-  " Resync file from disk when gaining focus (only if current buffer is not '[Command Line]')
-  " au FocusGained,BufEnter * if expand('%') !=# '[Command Line]'| checktime | endif
-  " Return to last edit position when opening files
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-augroup end
-
-augroup AutoTermInsertMode
-  autocmd!
-  autocmd TermOpen * startinsert
-augroup end
-]]
-vim.api.nvim_create_autocmd('TextYankPost', {
-  group = vim.api.nvim_create_augroup('Highlight_Yank', { clear = true }),
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group = augroup('AutoReturnToLastPos'),
+  desc = 'automaticly return to last edition position when open a file',
   pattern = '*',
   callback = function()
-    vim.highlight.on_yank {
-      higroup = (vim.fn.hlexists 'HighlightedyankRegion' > 0 and 'HighlightedyankRegion' or 'IncSearch'),
-      timeout = 500,
-    }
-  end,
+    if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
+      vim.cmd[[normal! g'"]]
+    end
+  end
 })
 
-vim.api.nvim_create_autocmd('BufAdd', {
-  group = vim.api.nvim_create_augroup('fugitive_commit', { clear = true }),
-  pattern = '*/.git/COMMIT_EDITMSG',
+autocmd('TermOpen', {
+  group = augroup 'AutoTermInsertMode',
+  desc = 'automaticly enter insert mode when open terminal',
+  pattern = '*',
+  command = 'startinsert',
+})
+
+autocmd('TextYankPost', {
+  group = augroup 'Highlight_Yank',
+  desc = 'highlight selection on yank',
+  pattern = '*',
   callback = function()
-    vim.cmd [[
-    wincmd H
-    vertical resize 60
-    setlocal nonumber
-    setlocal norelativenumber
-    setlocal winfixwidth
-    ]]
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
   end,
 })
 
 -- TODO: re-enable when more confortable with vim
 -- Disable entering in Ex mode
-vim.cmd [[nnoremap Q <Nop>]]
+vim.keymap.set('n', 'Q', '', { noremap = true })

@@ -26,6 +26,7 @@ return {
       render.compact = require 'notify.render.compact'
       render.simple = require 'notify.render.simple'
       notify.setup(opts)
+      vim.notify = notify
     end,
   },
 
@@ -74,6 +75,7 @@ return {
   -- Noicer cmd
   {
     'folke/noice.nvim',
+    enabled = false,
     dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
