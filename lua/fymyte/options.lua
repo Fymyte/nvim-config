@@ -103,9 +103,9 @@ vim.filetype.add {
 local autocmd = require('fymyte.utils').autocmd
 local augroup = require('fymyte.utils').augroup
 
-vim.api.nvim_create_autocmd('BufReadPost', {
+autocmd('BufReadPost', {
   group = augroup('AutoReturnToLastPos'),
-  desc = 'automaticly return to last edition position when open a file',
+  desc = 'return to last edition position when open a file',
   pattern = '*',
   callback = function()
     if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 
 autocmd('TermOpen', {
   group = augroup 'AutoTermInsertMode',
-  desc = 'automaticly enter insert mode when open terminal',
+  desc = 'enter insert mode when opening a terminal',
   pattern = '*',
   command = 'startinsert',
 })

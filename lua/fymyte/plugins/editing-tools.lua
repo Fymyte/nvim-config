@@ -112,7 +112,6 @@ return {
         'nvim-telescope/telescope-file-browser.nvim',
         'nvim-telescope/telescope-project.nvim',
         'nvim-telescope/telescope-ui-select.nvim',
-        'nvim-telescope/telescope-packer.nvim',
         'nvim-telescope/telescope-live-grep-args.nvim',
         'nvim-lua/plenary.nvim',
       }
