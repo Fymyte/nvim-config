@@ -49,6 +49,7 @@ return {
   -- lualine -- Better statusline
   {
     'nvim-lualine/lualine.nvim',
+    dependencies = { 'WhoIsSethDaniel/lualine-lsp-progress.nvim' },
     opts = {
       options = {
         --    theme = theme,
@@ -67,7 +68,18 @@ return {
           },
         },
         lualine_c = { '%=%t%m', 'filetype' },
-        lualine_x = { 'encoding', 'fileformat' },
+        lualine_x = {
+          {
+            'lsp_progress',
+            hide = { 'ltex', 'null-ls' },
+            only_show_attached = true,
+            display_components = { 'lsp_client_name', 'spinner', {'percentage'} },
+            timer = { spinner = 100 },
+            spinner_symbols = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' },
+          },
+          'encoding',
+          'fileformat',
+        },
       },
     },
   },
