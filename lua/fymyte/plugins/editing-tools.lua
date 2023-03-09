@@ -89,7 +89,7 @@ return {
         callback = function()
           local event = vim.v.event
           if event.operator == 'y' and event.regname == '' then
-            vim.cmd[[OSCYankRegister "]]
+            vim.cmd [[OSCYankRegister "]]
           end
         end,
       })
@@ -209,7 +209,6 @@ return {
             theme = 'dropdown',
           },
           file_browser = { theme = 'dropdown' },
-          ['ui-select'] = { theme = 'dropdown' },
           live_grep_args = {
             auto_quoting = true,
             mappings = {
@@ -223,6 +222,7 @@ return {
       }
     end,
     config = function(_, opts)
+      opts.extensions = { ['ui-select'] = { require('telescope.themes').get_dropdown() } }
       require('telescope').setup(opts)
 
       require('telescope').load_extension 'notify'
