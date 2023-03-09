@@ -26,7 +26,20 @@ return {
       render.compact = require 'notify.render.compact'
       render.simple = require 'notify.render.simple'
       notify.setup(opts)
-      vim.notify = notify
+      ---Filter notifications
+      ---@param msg string
+      ---@param level integer
+      ---@param opts table
+      -- selene: allow(shadowing)
+      ---@diagnostic disable-next-line:redefined-local
+      local filtered_notify = function(msg, level, opts)
+        local start = 'warning: multiple different client offset_encodings detected for buffer'
+        if level == vim.log.levels.WARN and msg:sub(1, #start) == start then
+          return
+        end
+        notify(msg, level, opts)
+      end
+      vim.notify = filtered_notify
     end,
   },
 
@@ -73,7 +86,7 @@ return {
             'lsp_progress',
             hide = { 'ltex', 'null-ls' },
             only_show_attached = true,
-            display_components = { 'lsp_client_name', 'spinner', {'percentage'} },
+            display_components = { 'lsp_client_name', 'spinner', { 'percentage' } },
             timer = { spinner = 100 },
             spinner_symbols = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' },
           },
