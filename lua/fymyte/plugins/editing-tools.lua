@@ -33,7 +33,7 @@ return {
     'echasnovski/mini.jump',
     event = 'VeryLazy',
     version = false,
-    opts = { delay = { idle_stop = 1000 } },
+    opts = { delay = { idle_stop = 2000 } },
     config = function(_, opts)
       require('mini.jump').setup(opts)
     end,
