@@ -164,6 +164,11 @@ M.servers = {
       server = {
         -- `on_attach` and `capabilities` are set using default values
         cmd = rust_analyzer_cmd,
+        settings = {
+          ["rust-analyzer"] = {
+            checkOnSave = { command = 'clippy' },
+          },
+        }
       },
       dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
