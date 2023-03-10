@@ -1,4 +1,67 @@
 return {
+  -- Snippet engine
+  {
+    'L3MON4D3/LuaSnip',
+    build = 'make install_jsregexp',
+    version = 'v1',
+    event = 'VeryLazy',
+    keys = {
+      {
+        mode = { 'i', 's' },
+        '<C-k>',
+        function()
+          if require('luasnip').expand_or_jumpable() then
+            require('luasnip').expand_or_jump()
+          end
+        end,
+        desc = 'Snippet expand or jump next',
+      },
+      {
+        mode = { 'i', 's' },
+        '<C-j>',
+        function()
+          if require('luasnip').jumpable(-1) then
+            require('luasnip').jump(-1)
+          end
+        end,
+        desc = 'Snippet jump previous',
+      },
+      {
+        mode = { 'i', 's' },
+        '<C-l>',
+        function()
+          if require('luasnip').choice_active() then
+            require('luasnip').choice_active(1)
+          end
+        end,
+        desc = 'Snippet cycle choices',
+      },
+      {
+        '<leader><leader>s',
+        function()
+          vim.cmd.luafile(vim.fs.normalize(vim.fn.stdpath 'config' .. '/lua/fymyte/snippets.lua'))
+        end,
+        desc = '[S]nippet reload',
+      },
+    },
+    opts = function()
+      local types = require 'luasnip.util.types'
+      return {
+        history = true,
+        update_events = 'TextChanged,TextChangedI',
+        delete_check_events = 'InsertLeave',
+        enable_autosnippets = true,
+        ext_opts = {
+          [types.choiceNode] = {
+            active = {
+              virt_text = { { '<-', 'Error' } },
+            },
+          },
+        },
+      }
+    end,
+  },
+
   -- Completion engine
   {
     'hrsh7th/nvim-cmp',
@@ -19,7 +82,7 @@ return {
     },
     event = 'VeryLazy',
     opts = function()
-      require'fymyte.tools.luasnip'
+      require 'fymyte.tools.luasnip'
       local cmp = require 'cmp'
       -- local window_style = {
       --   border = 'rounded',
@@ -82,7 +145,7 @@ return {
           { name = 'luasnip' },
           { name = 'nvim_lua' },
           { name = 'spell' },
-          { name = 'crates'},
+          { name = 'crates' },
         }, {
           { name = 'path' },
           { name = 'buffer', keyword_length = 4 },
