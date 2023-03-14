@@ -166,7 +166,7 @@ M.servers = {
         cmd = rust_analyzer_cmd,
         settings = {
           ["rust-analyzer"] = {
-            checkOnSave = { command = 'clippy' },
+            check = { command = 'clippy' },
           },
         }
       },
