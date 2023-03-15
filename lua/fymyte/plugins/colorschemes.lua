@@ -6,7 +6,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      flavour = 'frappe',
+      flavour = 'mocha',
       custom_highlights = function(colors)
         return {
           ['@class'] = { link = 'Type' },
