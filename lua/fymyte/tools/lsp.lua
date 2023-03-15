@@ -167,6 +167,7 @@ M.servers = {
         settings = {
           ["rust-analyzer"] = {
             check = { command = 'clippy' },
+            procMacro = { enabled = true },
           },
         }
       },
