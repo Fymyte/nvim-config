@@ -96,7 +96,13 @@ return {
     end,
   },
   -- Easily align text on symbol
-  { 'junegunn/vim-easy-align', event = 'VeryLazy' },
+  {
+    'junegunn/vim-easy-align',
+    event = 'VeryLazy',
+    keys = {
+      { 'ga', '<Plug>(EasyAlign)', mode = { 'n', 'x' } },
+    },
+  },
 
   -----------------------
   ----- Fuzy finder -----

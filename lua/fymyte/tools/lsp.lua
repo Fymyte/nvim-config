@@ -54,6 +54,9 @@ local function custom_attach(client, bufnr)
   local buf_nmap = function(lhs, rhs, desc)
     vim.keymap.set('n', lhs, rhs, vim.tbl_extend('force', bufopts, { desc = desc }))
   end
+  local buf_map = function(lhs, rhs, modes, desc)
+    vim.keymap.set(modes, lhs, rhs, vim.tbl_extend('force', bufopts, { desc = desc }))
+  end
 
   if pcall(require, 'telescope') then
     buf_nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition (include Declaration)')
@@ -78,9 +81,9 @@ local function custom_attach(client, bufnr)
   buf_nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   buf_nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename')
 
-  buf_nmap('<leader>f', function()
+  buf_map('<leader>f', function()
     vim.lsp.buf.format { async = true, filter = formating_client_filter }
-  end, '[F]ormat')
+  end, { 'n', 'v' }, '[F]ormat')
 
   local serv_caps = client.server_capabilities
 
@@ -165,11 +168,11 @@ M.servers = {
         -- `on_attach` and `capabilities` are set using default values
         cmd = rust_analyzer_cmd,
         settings = {
-          ["rust-analyzer"] = {
+          ['rust-analyzer'] = {
             check = { command = 'clippy' },
             procMacro = { enabled = true },
           },
-        }
+        },
       },
       dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
