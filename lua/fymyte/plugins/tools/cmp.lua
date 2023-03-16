@@ -31,7 +31,7 @@ return {
         '<C-l>',
         function()
           if require('luasnip').choice_active() then
-            require('luasnip').choice_active(1)
+            require('luasnip').change_choice(1)
           end
         end,
         desc = 'Snippet cycle choices',
@@ -39,7 +39,7 @@ return {
       {
         '<leader><leader>s',
         function()
-          vim.cmd.luafile(vim.fs.normalize(vim.fn.stdpath 'config' .. '/lua/fymyte/snippets.lua'))
+          require('luasnip.loaders').edit_snippet_files {}
         end,
         desc = '[S]nippet reload',
       },
@@ -58,6 +58,13 @@ return {
             },
           },
         },
+      }
+    end,
+    config = function(_, opts)
+      local ls = require 'luasnip'
+      ls.setup(opts)
+      require('luasnip.loaders.from_lua').lazy_load {
+        -- paths = { './snippets' },
       }
     end,
   },

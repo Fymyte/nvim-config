@@ -28,24 +28,23 @@ local types = require 'luasnip.util.types'
 local parse = require('luasnip.util.parser').parse_snippet
 local ms = ls.multi_snippet
 
-ls.add_snippets('all', {
-  ls.parser.parse_snippet('expand', '--this is what will be expanded'),
-})
+local function get_test_result(position)
+  return d(position, function()
+    local nodes = {}
+    table.insert(nodes, t ' ')
 
-ls.add_snippets('lua', {
-  s(
-    'req',
-    fmt([[local {} = require("{}")]], {
-      f(function(import)
-        local parts = vim.split(import[1][1], '.', { plain = true })
-        return parts[#parts] or ''
-      end, { 1 }),
-      i(1),
-    })
-  ),
-})
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    for _, line in ipairs(lines) do
+      if line:match 'anyhow::{?.*Result.*}?' then
+        table.insert(nodes, t ' -> Result<()>')
+        break
+      end
+    end
+    return sn(nil, c(1, nodes))
+  end, {})
+end
 
-ls.add_snippets('rust', {
+return {
   s(
     'modtest',
     fmt(
@@ -58,9 +57,25 @@ ls.add_snippets('rust', {
       }}
     ]],
       {
-        c(1, { t '    use super::*;', t '' }),
+        c(1, { t'    use super::*;', t '' }),
         i(0),
       }
     )
   ),
-})
+  s(
+    'test',
+    fmt(
+      [[
+            #[test]
+            fn {}(){}{{
+                {}
+            }}
+    ]],
+      {
+        i(1, 'testname'),
+        get_test_result(2),
+        i(0),
+      }
+    )
+  ),
+}
