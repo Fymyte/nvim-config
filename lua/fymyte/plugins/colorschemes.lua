@@ -13,6 +13,7 @@ return {
           ['@function.macro'] = { link = 'Macro' },
           ['@property'] = { fg = colors.teal },
           ['@field.lua'] = { link = '@property' },
+          ['@lsp.type.variable'] = { link = '@variable' },
         }
       end,
     },
@@ -60,5 +61,10 @@ return {
   {
     'marko-cerovac/material.nvim',
     lazy = true,
+  },
+
+  {
+    'ellisonleao/gruvbox.nvim',
+    config = true,
   },
 }
