@@ -52,6 +52,10 @@ return {
   --   },
   -- },
 
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+  },
+
   -- dressing.nvim -- Beautify vim.ui.input
   {
     'stevearc/dressing.nvim',
