@@ -149,6 +149,41 @@ return {
         end,
         desc = 'Harpoon go to file 4',
       },
+      {
+        '<leader>5',
+        function()
+          require('harpoon.ui').nav_file(5)
+        end,
+        desc = 'Harpoon go to file 5',
+      },
+      {
+        '<leader>6',
+        function()
+          require('harpoon.ui').nav_file(6)
+        end,
+        desc = 'Harpoon go to file 6',
+      },
+      {
+        '<leader>7',
+        function()
+          require('harpoon.ui').nav_file(7)
+        end,
+        desc = 'Harpoon go to file 7',
+      },
+      {
+        '<leader>8',
+        function()
+          require('harpoon.ui').nav_file(8)
+        end,
+        desc = 'Harpoon go to file 8',
+      },
+      {
+        '<leader>9',
+        function()
+          require('harpoon.ui').nav_file(9)
+        end,
+        desc = 'Harpoon go to file 9',
+      },
     },
   },
 
@@ -288,7 +323,7 @@ return {
 
       -- Those two might no always be there
       pcall(require('telescope').load_extension, 'fzf')
-      pcall(require'telescope'.load_extension, 'harpoon')
+      pcall(require('telescope').load_extension, 'harpoon')
     end,
   },
 
