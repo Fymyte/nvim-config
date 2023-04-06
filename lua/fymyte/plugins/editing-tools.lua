@@ -115,11 +115,11 @@ return {
         desc = '[A]dd harpoon mark',
       },
       {
-        '<leader>ta',
+        '<leader>sa',
         function()
-          require('harpoon.ui').toggle_quick_menu()
+          require('telescope').extensions.harpoon.marks()
         end,
-        desc = '[T]oggle h[A]rpoon ui',
+        desc = '[S]earch h[A]rpoon mark',
       },
       {
         '<leader>1',
@@ -286,9 +286,9 @@ return {
       require('telescope').load_extension 'todo-comments'
       require('telescope').load_extension 'live_grep_args'
 
-      if require 'telescope._extensions.fzf' then
-        require('telescope').load_extension 'fzf'
-      end
+      -- Those two might no always be there
+      pcall(require('telescope').load_extension, 'fzf')
+      pcall(require'telescope'.load_extension, 'harpoon')
     end,
   },
 
