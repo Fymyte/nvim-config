@@ -1,12 +1,17 @@
 ---@meta
+--# selene:allow(unused_variable)
+---@diagnostic disable:unused-label
+---@diagnostic disable:unused-local
+---@diagnostic disable:unused-function
+---@diagnostic disable:unused-vararg
 
 ---@class vim.lsp.client
 ---@field id number The id allocated to the client.
----@field name string
----@field rpc table
----@field offset_encoding string
----@field handlers table
----@field requests table
----@field config table
----@field server_capabilities table
----@filed request function
+---@field name string If a name is specified on creation, that will be used. Otherwise it is just the client id. This is used for logs and messages.
+---@field rpc table RPC client object, for low level interaction with the client. See |vim.lsp.rpc.start()|.
+---@field offset_encoding string The encoding used for communicating with the server. You can modify this in the `config`'s `on_init` method before text is sent to the server.
+---@field handlers table The handlers used by the client as described in |lsp-handler|.
+---@field requests table The current pending requests in flight to the server. Entries are key-value pairs with the key being the request ID while the value is a table with `type`, `bufnr`, and `method` key-value pairs. `type` is either "pending" for an active request, or "cancel" for a cancel request.
+---@field config table copy of the table that was passed by the user to |vim.lsp.start_client()|.
+---@field server_capabilities table Response from the server sent on `initialize` describing the server's capabilities.
+---@field supports_method fun(method: string): boolean Returns wether the given client supports this lsp method

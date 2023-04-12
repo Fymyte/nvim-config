@@ -18,7 +18,7 @@ return {
     config = function(_, opts)
       local lsp = require 'fymyte.tools.lsp'
       lsp.override_open_floating_preview { border = 'rounded' }
-      lsp.setup_servers(lsp.servers)
+      lsp.setup()
     end,
   },
 }
