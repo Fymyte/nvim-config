@@ -6,10 +6,7 @@ return {
     'nvim-neorg/neorg-telescope',
     'hrsh7th/nvim-cmp',
   },
-  ft = 'norg',
-  command = 'Neorg',
   opts = {
-    -- Tell Neorg what modules to load
     load = {
       ['core.defaults'] = {}, -- Load all the default modules
       ['core.keybinds'] = {
@@ -22,7 +19,7 @@ return {
       },
       ['core.norg.concealer'] = {
         config = {
-          markup_preset = 'dimmed',
+          icon_preset = 'diamond',
         },
       }, -- Allows for use of icons
       ['core.norg.qol.toc'] = {},
@@ -38,6 +35,7 @@ return {
             work = '~/Documents/dev/doc/notes/',
             -- gtd = "~/Documents/notes/gtd",
           },
+          default_workspace = 'work',
         },
       },
       ['core.norg.completion'] = {
@@ -45,6 +43,8 @@ return {
           engine = 'nvim-cmp', -- We current support nvim-compe and nvim-cmp only
         },
       },
+      ['core.export'] = {},
+      ['core.export.markdown'] = {},
       ['core.presenter'] = {
         config = {
           zen_mode = 'truezen',

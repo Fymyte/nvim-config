@@ -74,6 +74,8 @@ opt.showmode = false -- Don't show current mod (already displayed in status line
 opt.foldlevelstart = 99
 opt.foldcolumn = '0'
 
+opt.conceallevel = 2
+
 -- Auto formating options (:h fo-table)
 opt.formatoptions = opt.formatoptions
   - 'a' -- Auto formatting is BAD.
