@@ -17,18 +17,18 @@ return {
           end,
         },
       },
-      ['core.norg.concealer'] = {
+      ['core.concealer'] = {
         config = {
           icon_preset = 'diamond',
         },
       }, -- Allows for use of icons
-      ['core.norg.qol.toc'] = {},
+      ['core.qol.toc'] = {},
       -- ["core.gtd.base"] = {
       --   config = {
       --     workspace = "gtd",
       --   }
       -- },
-      ['core.norg.dirman'] = { -- Manage your directories with Neorg
+      ['core.dirman'] = { -- Manage your directories with Neorg
         config = {
           workspaces = {
             notes = '~/Documents/notes/',
@@ -38,7 +38,7 @@ return {
           default_workspace = 'work',
         },
       },
-      ['core.norg.completion'] = {
+      ['core.completion'] = {
         config = {
           engine = 'nvim-cmp', -- We current support nvim-compe and nvim-cmp only
         },
