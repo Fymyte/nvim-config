@@ -60,6 +60,7 @@ return {
           require('null-ls').builtins.diagnostics.selene,
           require('null-ls').builtins.formatting.prettier,
           require('null-ls').builtins.formatting.shfmt,
+          require('null-ls').builtins.formatting.yapf,
           require('null-ls').builtins.code_actions.shellcheck,
         },
       }

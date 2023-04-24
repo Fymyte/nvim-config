@@ -161,16 +161,20 @@ local servers = {
   --     },
   --   },
   -- },
-  ['pylsp'] = {},
+  ['pylsp'] = {
+    settings = {
+      pylsp = { plugins = { pycodestyle = { maxLineLength = 120 } } },
+    },
+  },
   ['taplo'] = {},
   ['yamlls'] = {
     settings = {
       yaml = {
         schemas = {
           ['https://github.com/devicetree-org/dt-schema/blob/main/dtschema/'] = 'http://devicetree.org/',
-        }
-      }
-    }
+        },
+      },
+    },
   },
 }
 
