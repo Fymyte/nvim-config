@@ -163,7 +163,12 @@ local servers = {
   -- },
   ['pylsp'] = {
     settings = {
-      pylsp = { plugins = { pycodestyle = { maxLineLength = 120 } } },
+      pylsp = {
+        plugins = {
+          pycodestyle = { enabled = false },
+          pyflakes = { enabled = false },
+        },
+      },
     },
   },
   ['taplo'] = {},
