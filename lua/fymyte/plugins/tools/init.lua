@@ -1,6 +1,6 @@
 return {
   -- More icons
-  'kyazdani42/nvim-web-devicons',
+  'nvim-tree/nvim-web-devicons',
 
   -- Completion engine
   require 'fymyte.plugins.tools.cmp',
