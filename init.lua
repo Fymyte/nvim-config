@@ -25,6 +25,7 @@ Much of the configuration can be found in either:
 -- remove navigation using space
 vim.keymap.set('', '<space>', '', { noremap = true, silent = true })
 vim.g.mapleader = ' '
+---@type integer
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
 -- Load helper functions first to have them available for after

@@ -104,7 +104,7 @@ return {
   -- Noicer cmd
   {
     'folke/noice.nvim',
-    enabled = false,
+    -- enabled = false,
     dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
@@ -117,23 +117,7 @@ return {
       popupmenu = {
         backend = 'cmp',
       },
-      lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-          ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = true,
-        },
-        progress = {
-          enabled = true,
-          format = {
-            '({data.progress.percentage}%) ',
-            { '{spinner} ', hl_group = 'NoiceLspProgressSpinner' },
-            { '{data.progress.title} ', hl_group = 'NoiceLspProgressTitle' },
-            { '{data.progress.client} ', hl_group = 'NoiceLspProgressClient' },
-          },
-        },
-      },
+      lsp = { progress = { enabled = false } },
       routes = {
         {
           skip = true,
