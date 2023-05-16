@@ -2,3 +2,4 @@ my_plugins/
 
 queries/vim
 
+.luarc.json

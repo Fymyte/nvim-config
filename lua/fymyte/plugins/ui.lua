@@ -104,7 +104,7 @@ return {
   -- Noicer cmd
   {
     'folke/noice.nvim',
-    -- enabled = false,
+    enabled = false,
     dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
