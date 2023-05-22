@@ -13,3 +13,5 @@ Pierrick
 pingroups
 Sequans
 GPIOs
+UART
+mypy

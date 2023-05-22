@@ -45,8 +45,9 @@ return {
         end
         if is_git_dir() then
           vim.cmd.Git()
-          vim.cmd.wincmd 'H'
-          vim.cmd [[vertical resize 31]]
+          vim.cmd.resize(20)
+          -- vim.cmd.wincmd 'H'
+          -- vim.cmd [[vertical resize 31]]
           vim.cmd.setlocal 'nonumber'
           vim.cmd.setlocal 'norelativenumber'
           vim.cmd.setlocal 'winfixwidth'

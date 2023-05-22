@@ -287,6 +287,7 @@ return {
           prompt_prefix = '   ',
           selection_caret = '  ',
           entry_prefix = '  ',
+          initial_mode = 'normal',
         },
         pickers = {
           buffers = { theme = 'dropdown' },
@@ -324,6 +325,7 @@ return {
       -- Those two might no always be there
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'harpoon')
+      pcall(require('telescope').load_extension, 'himalaya')
     end,
   },
 

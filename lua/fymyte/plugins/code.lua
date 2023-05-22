@@ -1,4 +1,4 @@
 return {
-  'milisims/nvim-luaref',
-  'danymat/neogen',
+  { 'milisims/nvim-luaref', ft = 'lua' },
+  { 'danymat/neogen', ft = 'lua' },
 }
