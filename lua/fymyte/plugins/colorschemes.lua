@@ -5,6 +5,9 @@ return {
     name = 'catppuccin',
     lazy = false,
     priority = 1000,
+    build = function()
+      require('catppuccin').compile()
+    end,
     opts = {
       flavour = 'mocha',
       custom_highlights = function(colors)
@@ -26,6 +29,7 @@ return {
   -- Kanagawa -- Inspired by the painting of Katsushika Hokusai
   {
     'rebelot/kanagawa.nvim',
+    enabled = false,
     name = 'kanagawa',
     lazy = true,
     opts = {
@@ -60,11 +64,13 @@ return {
 
   {
     'marko-cerovac/material.nvim',
+    enabled = false,
     lazy = true,
   },
 
   {
     'ellisonleao/gruvbox.nvim',
+    enabled = false,
     config = true,
   },
 }

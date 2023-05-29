@@ -36,8 +36,8 @@ return {
       local function showFugitiveGit()
         local is_git_dir = function()
           if pcall(require, 'lualine.components.branch.git_branch') then
-              print('using lualine get_branch')
-              return require('lualine.components.branch.git_branch').get_branch() ~= ''
+            print 'using lualine get_branch'
+            return require('lualine.components.branch.git_branch').get_branch() ~= ''
           else
             local ok, head = pcall(vim.fn.FugitiveHead)
             return ok and head ~= ''
@@ -45,12 +45,10 @@ return {
         end
         if is_git_dir() then
           vim.cmd.Git()
-          vim.cmd.resize(20)
-          -- vim.cmd.wincmd 'H'
-          -- vim.cmd [[vertical resize 31]]
+          vim.cmd.resize(10)
           vim.cmd.setlocal 'nonumber'
           vim.cmd.setlocal 'norelativenumber'
-          vim.cmd.setlocal 'winfixwidth'
+          vim.cmd.setlocal 'winfixheight'
         end
       end
 
