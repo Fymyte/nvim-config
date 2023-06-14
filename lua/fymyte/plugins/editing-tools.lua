@@ -6,10 +6,6 @@ return {
   ----- Editor configuration -----
   --------------------------------
 
-  -- Automaticaly set tabstop/shiftwith (also use EditorConfig)
-  { 'tpope/vim-sleuth', enabled = false },
-  -- Load configuration from .editorconfig
-  { 'gpanders/editorconfig.nvim', enabled = false },
   -- Securly source local nvim config
   'klen/nvim-config-local',
 
