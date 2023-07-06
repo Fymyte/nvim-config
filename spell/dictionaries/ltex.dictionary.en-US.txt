@@ -15,3 +15,7 @@ Sequans
 GPIOs
 UART
 mypy
+sequans
+CoSim
+Yocto
+scriptKit
