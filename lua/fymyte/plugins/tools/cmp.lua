@@ -103,27 +103,41 @@ return {
           end,
         },
         formatting = {
-          format = require('lspkind').cmp_format {
-            mode = 'symbol',
-            max_width = 40,
-            menu = {
-              buffer = '[buf]',
-              nvim_lua = '[api]',
-              nvim_lsp = '[LSP]',
-              nvim_lsp_signature_help = '[LSP]',
-              nvim_lsp_document_symbol = '[LSP]',
-              path = '[path]',
-              lua_snip = '[snip]',
-              neorg = '[neorg]',
-              spell = '[spell]',
-              git = '[git]',
-              dap = '[dap]',
-              cmdline = '[cmd]',
-              crates = '[rust]',
-            },
-            preset = 'default',
-          },
+          fields = { "kind", "abbr", "menu" },
+          format = function(entry, vim_item)
+            local kind = require('lspkind').cmp_format({
+              mode = "symbol_text",
+              maxwidth = 40,
+            })(entry, vim_item)
+            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            kind.kind = "" .. strings[1] .. " "
+            kind.menu = "    (" .. strings[2] .. ")"
+
+            return kind
+          end,
         },
+        -- formatting = {
+        --   format = require('lspkind').cmp_format {
+        --     mode = 'symbol',
+        --     max_width = 40,
+        --     menu = {
+        --       buffer = '[buf]',
+        --       nvim_lua = '[api]',
+        --       nvim_lsp = '[LSP]',
+        --       nvim_lsp_signature_help = '[LSP]',
+        --       nvim_lsp_document_symbol = '[LSP]',
+        --       path = '[path]',
+        --       lua_snip = '[snip]',
+        --       neorg = '[neorg]',
+        --       spell = '[spell]',
+        --       git = '[git]',
+        --       dap = '[dap]',
+        --       cmdline = '[cmd]',
+        --       crates = '[rust]',
+        --     },
+        --     preset = 'default',
+        --   },
+        -- },
         -- window = {
         --   documentation = window_style,
         --   completion = window_style,
