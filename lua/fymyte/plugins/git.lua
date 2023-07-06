@@ -64,7 +64,7 @@ return {
           showFugitiveGit()
         end
       end
-      vim.keymap.set('n', '<F6>', ToggleFugitiveGit)
+      vim.keymap.set('n', '<leader>tg', ToggleFugitiveGit)
     end,
   },
   -- GitHub/GitLab in neovim
