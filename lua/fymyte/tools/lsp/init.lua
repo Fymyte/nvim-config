@@ -111,23 +111,25 @@ local updated_capabilites = vim.tbl_deep_extend(
 local servers = {
   ['clangd'] = function()
     require('clangd_extensions').setup {
-      server = {
-        on_attach = custom_attach,
-        capabilities = updated_capabilites,
-      },
-      extensions = {
-        memory_usage = { border = 'rounded' },
-        symbol_info = { border = 'rounded' },
-      },
+      memory_usage = { border = 'rounded' },
+      symbol_info = { border = 'rounded' },
+    }
+    require('lspconfig')['clangd'].setup {
+      on_attach = function (client, bufnr)
+        custom_attach(client, bufnr)
+        require("clangd_extensions.inlay_hints").setup_autocmd()
+        require("clangd_extensions.inlay_hints").set_inlay_hints()
+      end
     }
   end,
   ['lua_ls'] = {
     settings = {
       Lua = {
         diagnostics = { globals = { 'vim' } }, -- Get the language server to recognize the `vim` global
+        format = { enable = false }, -- Use stylua for that
         completion = { callSnippet = 'Replace' },
         telemetry = { enable = false },
-        hint = { setType = true },
+        hint = { enable = true, setType = true },
         IntelliSense = {
           traceLocalSet = true,
           traceReturn = true,
