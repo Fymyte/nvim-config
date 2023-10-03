@@ -33,6 +33,7 @@ return {
           workspaces = {
             notes = '~/Documents/notes/',
             work = '~/Documents/dev/doc/notes/',
+            mails = '~/.cache/neorg/mails'
             -- gtd = "~/Documents/notes/gtd",
           },
           default_workspace = 'work',

@@ -140,7 +140,6 @@ local servers = {
     },
   },
   ['eslint'] = nil,
-  -- ['denols'] = {},
   ['tsserver'] = {},
   ['zls'] = {},
   ['vimls'] = nil,
