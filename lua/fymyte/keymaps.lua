@@ -36,11 +36,21 @@ keymap('n', '<leader>f', function() vim.lsp.buf.format { async = true } end)
 keymap('n', '<leader><leader>', '<cmd>noh<cr>', 'Clear search highlighting')
 -- Paste without losing clipboard content
 keymap('x', '<leader>p', '"_dP', '[P]aste without loosing clipboard content')
+-- Linewise text object
+keymap('x', 'il', 'g_o^')
+keymap('o', 'il', '<cmd>normal vil<cr>')
+keymap('x', 'al', '$o^')
+keymap('o', 'al', '<cmd>normal val<cr>')
+-- Buffer text object
+keymap('x', 'i%', 'GoggV')
+keymap('o', 'i%', '<cmd>normal vi%<cr>')
 
 keymap('n', '<leader>do', vim.diagnostic.open_float, '[D]iagnostic [O]pen')
 keymap('n', '[d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
 keymap('n', ']d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
 keymap('n', '<leader>dq', vim.diagnostic.setloclist, '[D]iagnostic [Q]uick fix')
+
+keymap('t', '<S-esc>', '<C-\\><C-n>', 'Terminal normal mode')
 
 local function executor()
   if vim.bo.filetype == 'lua' then
