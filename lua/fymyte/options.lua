@@ -106,14 +106,14 @@ local autocmd = require('fymyte.utils').autocmd
 local augroup = require('fymyte.utils').augroup
 
 autocmd('BufReadPost', {
-  group = augroup('AutoReturnToLastPos'),
+  group = augroup 'AutoReturnToLastPos',
   desc = 'return to last edition position when open a file',
   pattern = '*',
   callback = function()
-    if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then
-      vim.cmd[[normal! g'"]]
+    if vim.fn.line '\'"' > 1 and vim.fn.line '\'"' <= vim.fn.line '$' then
+      vim.cmd [[normal! g'"]]
     end
-  end
+  end,
 })
 
 autocmd('TermOpen', {
