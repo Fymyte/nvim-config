@@ -76,6 +76,9 @@ opt.foldcolumn = '0'
 
 opt.conceallevel = 2
 
+-- Vertical diffs
+opt.diffopt:append 'vertical'
+
 -- Auto formating options (:h fo-table)
 opt.formatoptions = opt.formatoptions
   - 'a' -- Auto formatting is BAD.
