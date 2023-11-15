@@ -43,7 +43,7 @@ local function formating_client_filter(formatting_client)
   ---@param client vim.lsp.client
   local clients = vim.tbl_filter(function(client)
     return client.name == 'null-ls' and client.supports_method 'textDocument/formatting'
-  end, vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() })
+  end, vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() })
   return #clients <= 0 or formatting_client.name == 'null-ls'
 end
 
@@ -115,11 +115,11 @@ local servers = {
       symbol_info = { border = 'rounded' },
     }
     require('lspconfig')['clangd'].setup {
-      on_attach = function (client, bufnr)
+      on_attach = function(client, bufnr)
         custom_attach(client, bufnr)
-        require("clangd_extensions.inlay_hints").setup_autocmd()
-        require("clangd_extensions.inlay_hints").set_inlay_hints()
-      end
+        require('clangd_extensions.inlay_hints').setup_autocmd()
+        require('clangd_extensions.inlay_hints').set_inlay_hints()
+      end,
     }
   end,
   ['lua_ls'] = {
@@ -144,7 +144,7 @@ local servers = {
   ['zls'] = {},
   ['vimls'] = nil,
   ['bashls'] = {},
-  ['cmake'] = nil,
+  ['neocmake'] = {},
   ['pylsp'] = {
     settings = {
       pylsp = {
@@ -168,14 +168,15 @@ local servers = {
 }
 
 M.setup = function()
-  ---@type string, string
   local me = vim.fs.dirname(debug.getinfo(1, 'S').source:sub(2))
   local server_path = vim.fs.normalize(me .. '/' .. 'servers')
   local server_files = require('plenary.scandir').scan_dir(server_path, { depth = 1 })
   for _, server in ipairs(server_files) do
     server = vim.fn.fnamemodify(server, ':p')
     local server_name = vim.fn.fnamemodify(server, ':t:r')
-    servers[server_name] = dofile(server)
+    if server_name ~= nil then
+      servers[server_name] = dofile(server)
+    end
   end
 
   require('lspconfig').util.default_config = vim.tbl_deep_extend('force', require('lspconfig').util.default_config, {
