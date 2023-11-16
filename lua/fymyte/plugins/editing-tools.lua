@@ -347,21 +347,24 @@ return {
   ----- Misc -----
   ----------------
 
-  -- Fterm.nvim | Floating terminal in nvim
+  -- Toggleable terminal
   {
-    'numtostr/fterm.nvim',
-    opts = { border = 'rounded' },
-    keys = {
-      -- Add a wrapping function to work even when FTerm is not already installed
-      {
-        '<A-i>',
-        function()
-          require('FTerm').toggle()
-        end,
-        desc = 'Floating terminal toggle',
-      },
-      { '<A-i>', '<C-\\><C-n><cmd>lua require("FTerm").toggle()<CR>', mode = 't', desc = 'Floating terminal toggle' },
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    opts = {
+      size = function(term)
+        if term.direction == 'horizontal' then
+          return 15
+        elseif term.direction == 'vertical' then
+          return vim.o.columns * 0.4
+        end
+      end,
+      open_mapping = [[<m-i>]],
+      direction = 'vertical',
+      shading_factor = -20,
+      float_opts = { border = 'rounded' },
     },
+    keys = { { [[<m-i>]] }, { '<c-w>', [[<c-\><c-n><c-w>]], mode = 't' } },
   },
   -- Show an undotree window
   {
