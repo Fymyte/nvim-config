@@ -153,4 +153,38 @@ return {
       },
     },
   },
+
+  -- Toggleable terminal
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    opts = {
+      size = function(term)
+        if term.direction == 'horizontal' then
+          return 15
+        elseif term.direction == 'vertical' then
+          return vim.o.columns * 0.4
+        end
+      end,
+      open_mapping = [[<m-i>]],
+      direction = 'vertical',
+      shading_factor = -20,
+      float_opts = { border = 'rounded' },
+    },
+    keys = {
+      { [[<m-i>]] },
+      { '<c-w>', [[<c-\><c-n><c-w>]], mode = 't' },
+      { [[<c-'><c-'>]], [[<c-\><c-n>]], mode = 't' },
+    },
+  },
+
+  -- Show an undotree window
+  {
+    'mbbill/undotree',
+    keys = { { '<F5>', '<cmd>UndotreeToggle<cr>', desc = 'Toggle undo tree' } },
+    cmd = 'UntotreeToggle',
+  },
+
+  -- Builtin basic shell commands
+  'tpope/vim-eunuch',
 }

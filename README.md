@@ -63,7 +63,7 @@ Config for nvim's default options lives in
     - [vim-easy-align](https://github.com/junegunn/vim-easy-align.git)
     - [neogen](https://github.com/danymat/neogen.git)
 - UI:
-    - [fterm.nvim](https://github.com/numtostr/fterm.nvim.git) floating terminal
+    - [toggleterm](https://github.com/akinsho/toggleterm.nvim) floating terminal
     - [dressing.nvim](https://github.com/stevearc/dressing.nvim.git)
     - [nvim-notify](https://github.com/rcarriga/nvim-notify.git)
 - Syntax:
