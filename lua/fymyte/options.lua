@@ -91,6 +91,19 @@ opt.formatoptions = opt.formatoptions
   + 'j' -- Auto-remove comments if possible.
   + '1'
 
+-- 1gg    " jump to line 1
+-- 3gg    " jump to line 3
+-- 5gg    " jump to line 5
+-- 7gg    " jump to line 7
+-- ctrl+O " back to line 5
+-- ctrl+O " back to line 3
+-- 20gg   " jump to line 20
+-- ctrl+O " back to line 3
+-- ctrl+O " back to line 7!!!! But what I expected is back to line 1
+opt.jumpoptions = opt.jumpoptions
+  + 'stack' -- Makes jump list behave like tag stack
+  + 'view' -- Also restore scroll offset when jumping back
+
 vim.g.python3_host_prog = 'python3'
 vim.g.loaded_python_provider = 0
 
