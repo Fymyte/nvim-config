@@ -19,3 +19,5 @@ sequans
 CoSim
 Yocto
 scriptKit
+cosim
+evx
