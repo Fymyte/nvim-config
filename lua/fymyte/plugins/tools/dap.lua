@@ -1,7 +1,7 @@
 local repeat_helper = function(command)
   return function()
-    vim.cmd 'silent! call repeat#set("@@", v:count)'
     vim.cmd(':' .. command)
+    vim.cmd 'silent! call repeat#set("@:", v:count)'
   end
 end
 
@@ -21,7 +21,9 @@ return {
       },
       {
         '<leader>td',
-        function() require('dapui').toggle() end,
+        function()
+          require('dapui').toggle()
+        end,
         desc = '[T]oggle [D]ebug',
       },
       {
@@ -40,5 +42,8 @@ return {
         desc = '[D]ebug [C]ontinue',
       },
     },
+    config = function(_, opts)
+      require 'fymyte.tools.dap'
+    end,
   },
 }
