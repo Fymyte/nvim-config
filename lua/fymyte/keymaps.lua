@@ -11,6 +11,8 @@ end
 
 -- Quick save
 keymap('n', '<leader>w', '<cmd>write!<cr>', '[W]rite buffer')
+-- Overload open
+keymap('n', 'gx', ':!open <c-r><c-a><cr>', 'Open content under cursor')
 -- Do not add breakpoints when typing punctuation
 keymap('i', ',', ',<C-g>u')
 keymap('i', '.', '.<C-g>u')
@@ -24,6 +26,7 @@ keymap('', '<leader>bn', '<cmd>bnext<cr>', '[B]uffer [N]ext')
 keymap('n', '<leader>tn', '<cmd>tabnext<cr>', '[T]ab [N]ext')
 keymap('n', '<leader>tp', '<cmd>tabprev<cr>', '[T]ab [P]rev')
 keymap('n', '<leader>te', '<cmd>tabedit<cr>', '[T]ab [E]dit')
+keymap('n', '<leader>ts', '<cmd>tab split<cr>', '[T]ab [S]plit')
 -- Dont move cursor when joining lines
 keymap('n', 'J', 'mzJ`z')
 -- Join line above at the end of the current line
