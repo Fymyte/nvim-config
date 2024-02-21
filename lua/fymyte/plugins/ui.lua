@@ -152,6 +152,13 @@ return {
         'icon',
       },
     },
+    config = function(_, opts)
+      require('oil').setup(opts)
+      vim.keymap.set('n', '<leader>o', require('oil').open, {
+        silent = true,
+        desc = "[O]il open current file's directory",
+      })
+    end,
   },
 
   -- Toggleable terminal
