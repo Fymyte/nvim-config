@@ -89,7 +89,6 @@ return {
     },
     event = 'VeryLazy',
     opts = function()
-      require 'fymyte.tools.luasnip'
       local cmp = require 'cmp'
       -- local window_style = {
       --   border = 'rounded',
