@@ -115,6 +115,11 @@ local servers = {
       symbol_info = { border = 'rounded' },
     }
     require('lspconfig')['clangd'].setup {
+      cmd = {
+        'clangd',
+        '--background-index',
+        '--clang-tidy',
+      },
       on_attach = function(client, bufnr)
         custom_attach(client, bufnr)
         require('clangd_extensions.inlay_hints').setup_autocmd()
