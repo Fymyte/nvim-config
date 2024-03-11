@@ -49,6 +49,7 @@ keymap('x', 'i%', 'GoggV')
 keymap('o', 'i%', '<cmd>normal vi%<cr>')
 
 keymap('n', '<leader>do', vim.diagnostic.open_float, '[D]iagnostic [O]pen')
+keymap('n', '<leader>dr', vim.diagnostic.reset, '[D]iagnostic [O]pen')
 keymap('n', '[d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
 keymap('n', ']d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
 keymap('n', '<leader>dq', vim.diagnostic.setloclist, '[D]iagnostic [Q]uick fix')

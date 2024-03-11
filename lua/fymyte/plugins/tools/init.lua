@@ -1,3 +1,12 @@
+function mason_ensure_install(tools)
+  local mr = require 'mason-registry'
+  for _, tool in ipairs(tools) do
+    local p = mr.get_package(tool)
+    if not p:is_installed() then
+      p:install()
+    end
+  end
+end
 return {
   -- More icons
   'nvim-tree/nvim-web-devicons',
@@ -27,43 +36,58 @@ return {
           package_uninstalled = '✗',
         },
       },
-      ensure_installed = {
-        'stylua',
-        'selene',
-        'shfmt',
-        'shellcheck',
-      },
       log_level = vim.g.log_level,
     },
     config = function(_, opts)
       require('mason').setup(opts)
-      local mr = require 'mason-registry'
-      for _, tool in ipairs(opts.ensure_installed) do
-        local p = mr.get_package(tool)
-        if not p:is_installed() then
-          p:install()
-        end
-      end
     end,
   },
 
-  -- External tools integration into neovim ecosystem
   {
-    'jose-elias-alvarez/null-ls.nvim',
-    dependencies = 'williamboman/mason.nvim',
-    opts = function()
-      return {
-        sources = {
-          require('null-ls').builtins.formatting.stylua,
-          require('null-ls').builtins.formatting.clang_format,
-          require('null-ls').builtins.diagnostics.selene,
-          require('null-ls').builtins.formatting.prettier,
-          require('null-ls').builtins.formatting.shfmt,
-          require('null-ls').builtins.formatting.yapf,
-          require('null-ls').builtins.code_actions.shellcheck,
-        },
+    [1] = 'mfussenegger/nvim-lint',
+    dependencies = { 'williamboman/mason.nvim' },
+    config = function(_, _)
+      mason_ensure_install { 'vale', 'stylua' }
+      require('lint').linters_by_ft = {
+        markdown = { 'vale' },
+        c = { 'checkpatch' },
+        lua = { 'stylua' },
+        fish = { 'fish' },
       }
+
+      table.insert(require('lint').linters.checkpatch.args, '--no-show-types')
+      vim.keymap.set('n', '<leader>l', require('lint').try_lint, { silent = true })
+      -- vim.api.nvim_create_autocmd({ 'BufWritePost', 'InsertLeave', 'BufReadPost' }, {
+      --   callback = function()
+      --     -- print 'linting'
+      --     require('lint').try_lint()
+      --   end,
+      -- })
+
+      -- -- External tools integration into neovim ecosystem
+      -- {
+      --   'jose-elias-alvarez/null-ls.nvim',
+      --   dependencies = 'williamboman/mason.nvim',
+      --   opts = function()
+      --     return {
+      --       sources = {
+      --         require('null-ls').builtins.formatting.stylua,
+      --         require('null-ls').builtins.formatting.clang_format,
+      --         require('null-ls').builtins.diagnostics.selene,
+      --         require('null-ls').builtins.formatting.prettier,
+      --         require('null-ls').builtins.formatting.shfmt,
+      --         require('null-ls').builtins.formatting.yapf,
+      --         require('null-ls').builtins.code_actions.shellcheck,
+      --       },
+      --     }
+      --   end,
+      -- },
     end,
+  },
+
+  {
+    [1] = 'mhartington/formatter.nvim',
+    opts = {},
   },
 
   {
