@@ -5,8 +5,6 @@ return {
   { 'Fymyte/mbsync.vim', ft = 'mbsync' },
   { 'fymyte/rasi.vim', ft = 'rasi' },
   { 'amadeus/vim-css', ft = { 'css', 'stylus', 'sass', 'scss' } },
-  { 'theRealCarneiro/hyprland-vim-syntax', ft = 'hypr' },
-  { 'elkowar/yuck.vim', ft = { 'yuck' } },
 
   {
     'LhKipp/nvim-nu',
@@ -36,7 +34,7 @@ return {
   {
     'NvChad/nvim-colorizer.lua',
     config = function()
-      require('colorizer').setup({}, { RRGGBBAA = true, css = true })
+      require('colorizer').setup({ RRGGBBAA = true, css = true })
     end,
   },
 }
