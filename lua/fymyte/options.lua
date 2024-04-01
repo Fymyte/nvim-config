@@ -107,14 +107,16 @@ opt.jumpoptions = opt.jumpoptions
 vim.g.python3_host_prog = 'python3'
 vim.g.loaded_python_provider = 0
 
+-- Additional detected filetypes
 vim.filetype.add {
+  pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
   extension = {
     qml = 'qmljs',
     scm = 'query',
     kdl = 'kdl',
   },
   filename = {
-    Scratch = 'markdown',
+    Scratch = 'norg', -- Allow typing norg syntax in empty Scratch buffer
   },
 }
 
