@@ -22,7 +22,7 @@ Much of the configuration can be found in either:
 
 --]]
 
--- remove navigation using space
+-- Remove navigation using space
 vim.keymap.set('', '<space>', '', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 ---@type integer
@@ -34,6 +34,14 @@ require 'fymyte.options'
 require 'fymyte.keymaps'
 require 'fymyte.diagnostics'
 
+-- Load rocks package manager
+require 'fymyte.rocks'
+
+-- Eearly setup for colorscheme
+require 'rocks'.packadd 'catppuccin'
+vim.cmd.colorscheme 'catppuccin'
+
+
 -- Bootstrap nvim package manager
-local lazy_opts = require 'fymyte.lazy-bootstrap'
-require('lazy').setup('fymyte.plugins', lazy_opts)
+-- local lazy_opts = require 'fymyte.lazy-bootstrap'
+-- require('lazy').setup('fymyte.plugins', lazy_opts)
