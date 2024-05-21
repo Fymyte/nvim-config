@@ -22,3 +22,7 @@ scriptKit
 cosim
 evx
 CABA
+yaffs
+YAFFS
+caba
+OpenOCD
