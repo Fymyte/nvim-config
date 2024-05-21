@@ -51,6 +51,7 @@ return {
       require('lint').linters_by_ft = {
         markdown = { 'vale' },
         c = { 'checkpatch' },
+        cpp = { 'checkpatch' },
         lua = { 'stylua' },
         fish = { 'fish' },
       }
