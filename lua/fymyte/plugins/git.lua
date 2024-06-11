@@ -26,7 +26,7 @@ return {
         pattern = '*/.git/COMMIT_EDITMSG',
         callback = function()
           vim.cmd.wincmd 'H'
-          vim.cmd [[vertical resize 60]]
+          vim.cmd [[vertical resize 80]]
           vim.cmd.setlocal 'nonumber'
           vim.cmd.setlocal 'norelativenumber'
           vim.cmd.setlocal 'winfixwidth'
