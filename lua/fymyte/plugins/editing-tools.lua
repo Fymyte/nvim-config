@@ -27,6 +27,7 @@ return {
   -- Smarter jumping to searched character
   {
     'echasnovski/mini.jump',
+    enabled = false,
     event = 'VeryLazy',
     version = false,
     opts = { delay = { idle_stop = 2000 } },
