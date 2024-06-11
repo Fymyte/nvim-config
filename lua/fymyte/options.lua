@@ -114,6 +114,7 @@ vim.filetype.add {
     qml = 'qmljs',
     scm = 'query',
     kdl = 'kdl',
+    rasi = 'rasi',
   },
   filename = {
     Scratch = 'norg', -- Allow typing norg syntax in empty Scratch buffer
