@@ -133,4 +133,37 @@ return {
       },
     },
   },
+
+  {
+    'harrisoncramer/gitlab.nvim',
+    -- Only if we have go installed, to not have error on startup
+    cond = function()
+      return vim.fn.executable 'go' == 1
+    end,
+    enabled = false,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim',
+      'stevearc/dressing.nvim', -- Recommended but not required. Better UI for pickers.
+    },
+    build = function () require("gitlab.server").build(true) end,
+    opts = {
+      reviewer_settings = {
+        diffview = {
+          imply_local = true,
+        },
+      },
+      popup = {
+        exit = 'q',
+        perform_action = '<leader>w',
+        border = 'solid',
+      },
+      discussion_tree = {
+        toggle_node = '<cr>',
+        size = '15%',
+      },
+    },
+    config = true,
+  },
 }
