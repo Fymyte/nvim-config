@@ -66,7 +66,21 @@ return {
   -- lualine -- Better statusline
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'WhoIsSethDaniel/lualine-lsp-progress.nvim' },
+    dependencies = { 
+      'linrongbin16/lsp-progress.nvim',
+      opts = {
+        spinner = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' },
+        client_format = function(client, spinner, _)
+          return ("[" .. client .. "] " .. spinner)
+        end,
+        format = function(msgs)
+          if #msgs > 0 then
+            return table.concat(msgs, " ")
+          end
+          return ""
+        end,
+      },
+    },
     opts = {
       options = {
         --    theme = theme,
@@ -84,16 +98,9 @@ return {
             symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' },
           },
         },
-        lualine_c = { '%=%t%m', 'filetype' },
+        lualine_c = { '%=%f', 'filetype' },
         lualine_x = {
-          {
-            'lsp_progress',
-            hide = { 'ltex', 'null-ls' },
-            only_show_attached = true,
-            display_components = { 'lsp_client_name', 'spinner', { 'percentage' } },
-            timer = { spinner = 100 },
-            spinner_symbols = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' },
-          },
+          function() return require('lsp-progress').progress() end,
           'encoding',
           'fileformat',
         },
@@ -151,6 +158,10 @@ return {
         'size',
         'icon',
       },
+      lsp_file_methods = {
+        autosave_changes = true,
+      },
+      experimental_watch_for_changes = true,
     },
     config = function(_, opts)
       require('oil').setup(opts)
