@@ -11,7 +11,7 @@ return {
       'p00f/clangd_extensions.nvim',
       'barreiroleo/ltex_extra.nvim',
       { 'simrat39/rust-tools.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-      { 'folke/neodev.nvim', config = true },
+      { 'folke/lazydev.nvim', ft = 'lua', config = true },
       'hrsh7th/cmp-nvim-lsp',
     },
     opts = {},
