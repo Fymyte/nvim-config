@@ -3,7 +3,6 @@ local opt = vim.opt
 opt.mouse = 'nv' -- Enable mouse in normal and visual mode only
 opt.autoread = true -- Auto read when a file is changed from the outside
 opt.history = 500 -- Set how many commands to remember
-opt.foldcolumn = '1' -- Set maximun unfolded column to 1
 opt.scrolloff = 4 -- Always show 4 lines of the buffer when moving up/down
 opt.number = true -- Show line numbers
 opt.relativenumber = true -- Enalble relative numbers
@@ -70,26 +69,27 @@ opt.shortmess:append 'c'
 opt.laststatus = 3 -- Always show a status line
 opt.showmode = false -- Don't show current mod (already displayed in status line)
 
--- Folds
-opt.foldlevelstart = 99
-opt.foldcolumn = '0'
+-- Folds (no folds for me)
+opt.foldlevelstart = 99 -- All folds are openned by default
+opt.foldcolumn = '0' -- No need for fold column if there is none
 
-opt.conceallevel = 2
+opt.conceallevel = 2 -- Don't show concealed text
+opt.concealcursor = 'nc' -- Keep conceal until insert mode
 
 -- Vertical diffs
 opt.diffopt:append 'vertical'
 
 -- Auto formating options (:h fo-table)
 opt.formatoptions = opt.formatoptions
-  - 'a' -- Auto formatting is BAD.
-  - 't' -- Don't auto format my code. I got linters for that.
-  + 'c' -- In general, I like it when comments respect textwidth
+  + 't' -- Don't auto wrap at textwidth
+  + 'c' -- Comments also wrap at textwidth
+  + 'r' -- Continue comment leader after enter
+  - 'o' -- Howerver O and o don't continue comments
   + 'q' -- Allow formatting comments w/ gq
-  - 'o' -- O and o, don't continue comments
-  + 'r' -- But do continue when pressing enter.
+  - 'a' -- Don't auto-format paragraph
   + 'n' -- Indent past the formatlistpat, not underneath it.
-  + 'j' -- Auto-remove comments if possible.
-  + '1'
+  + '1' -- Don't break line after single word letter
+  + 'j' -- Auto-remove comments when joining lines
 
 -- 1gg    " jump to line 1
 -- 3gg    " jump to line 3
