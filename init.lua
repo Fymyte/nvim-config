@@ -7,19 +7,26 @@
 
 Much of the configuration can be found in either:
 
-./after/plugin/*
+./lua/fymyte/plugins/*
   This is where configuration for most plugins is located.
   Configurations are sourced automatically at startup
 
-./plugin/*.lua
-  This is where config for vim default options live.
-  - keymaps
-  - diagnostics
+./lua/fymyte/tools/*
+  Lsp/Editing tools configuration
 
-./lua/fymyte/*.lua
-  This is where added functionalities are located.
-  Utils functions, or plugins extensions are also in this directory
+./lua/fymyte/globals.lua
+  Globally available functions/variables accros my config files
 
+./lua/fymyte/options.lua
+  Preference for vim builtin options
+./lua/fymyte/keymaps.lua
+  My custom keymaps
+
+./lua/fymyte/diagnostics.lua
+  Neovim builtin diagnostics configuration
+
+./luasnippets/*
+  LuaSnip snippets
 --]]
 
 -- remove navigation using space
