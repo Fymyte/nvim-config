@@ -1,4 +1,3 @@
-NERDTreeToggle
 clangd
 sumneko
 lua
@@ -26,3 +25,5 @@ comunicate/!
 gflow/!
 gflow
 javascript
+skb
+Sequans
