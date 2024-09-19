@@ -84,7 +84,6 @@ return {
       { 'onsails/lspkind-nvim', dependencies = 'neovim/nvim-lspconfig' },
       { 'saadparwaiz1/cmp_luasnip', dependencies = 'L3MON4D3/LuaSnip' },
       { 'rcarriga/cmp-dap', dependencies = 'mfussenegger/nvim-dap' },
-      { 'saecki/crates.nvim', dependencies = 'nvim-lua/plenary.nvim' },
     },
     event = 'VeryLazy',
     opts = function()
@@ -108,7 +107,7 @@ return {
               maxwidth = 40,
             })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
-            kind.kind = "" .. strings[1] .. " "
+            kind.kind = strings[1] .. " "
             kind.menu = "    (" .. strings[2] .. ")"
 
             return kind
@@ -137,7 +136,6 @@ return {
           { name = 'luasnip' },
           { name = "lazydev", group_index = 0 },
           { name = 'spell' },
-          { name = 'crates' },
         }, {
           { name = 'path' },
           { name = 'buffer', keyword_length = 4 },
