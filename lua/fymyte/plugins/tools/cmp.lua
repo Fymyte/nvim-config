@@ -64,7 +64,7 @@ return {
       local ls = require 'luasnip'
       ls.setup(opts)
       require('luasnip.loaders.from_lua').lazy_load {
-        -- paths = { './snippets' },
+        -- paths = { './luasnippets' },
       }
     end,
   },
@@ -115,32 +115,6 @@ return {
             return kind
           end,
         },
-        -- formatting = {
-        --   format = require('lspkind').cmp_format {
-        --     mode = 'symbol',
-        --     max_width = 40,
-        --     menu = {
-        --       buffer = '[buf]',
-        --       nvim_lua = '[api]',
-        --       nvim_lsp = '[LSP]',
-        --       nvim_lsp_signature_help = '[LSP]',
-        --       nvim_lsp_document_symbol = '[LSP]',
-        --       path = '[path]',
-        --       lua_snip = '[snip]',
-        --       neorg = '[neorg]',
-        --       spell = '[spell]',
-        --       git = '[git]',
-        --       dap = '[dap]',
-        --       cmdline = '[cmd]',
-        --       crates = '[rust]',
-        --     },
-        --     preset = 'default',
-        --   },
-        -- },
-        -- window = {
-        --   documentation = window_style,
-        --   completion = window_style,
-        -- },
         experimental = {
           ghost_text = {},
           native_menu = false,
@@ -207,7 +181,7 @@ return {
         }),
       })
       cmp.setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
-        sources = cmp.config.sources {
+        sources = {
           { name = 'dap' },
         },
       })
