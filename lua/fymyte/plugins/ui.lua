@@ -200,7 +200,7 @@ return {
   {
     'mbbill/undotree',
     keys = { { '<F5>', '<cmd>UndotreeToggle<cr>', desc = 'Toggle undo tree' } },
-    cmd = 'UntotreeToggle',
+    cmd = 'UndotreeToggle',
   },
 
   -- Builtin basic shell commands
