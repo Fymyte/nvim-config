@@ -57,7 +57,7 @@ return {
       }
 
       table.insert(require('lint').linters.checkpatch.args, '--no-show-types')
-      vim.keymap.set('n', '<leader>l', require('lint').try_lint, { silent = true })
+      vim.keymap.set('n', '<leader>l', require('lint').try_lint)
       -- vim.api.nvim_create_autocmd({ 'BufWritePost', 'InsertLeave', 'BufReadPost' }, {
       --   callback = function()
       --     -- print 'linting'
@@ -88,7 +88,14 @@ return {
 
   {
     [1] = 'mhartington/formatter.nvim',
-    opts = {},
+    config = function(_, _)
+      require('formatter').setup {
+        filetype = {
+          lua = { require('formatter.filetypes.lua').stylua },
+          c = { require('formatter.filetypes.c').clangformat },
+        },
+      }
+    end,
   },
 
   {
