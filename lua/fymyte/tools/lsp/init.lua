@@ -109,6 +109,7 @@ local updated_capabilites = vim.tbl_deep_extend(
 ---@alias ServerConfigs table<string,ServerConfig>
 ---@type ServerConfigs
 local servers = {
+  ['asm_lsp'] = {},
   ['clangd'] = function()
     require('clangd_extensions').setup {
       memory_usage = { border = 'rounded' },
