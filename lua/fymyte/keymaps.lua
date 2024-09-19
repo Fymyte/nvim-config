@@ -54,6 +54,10 @@ keymap('n', '[d', vim.diagnostic.goto_prev, 'Prev [D]iagnostic')
 keymap('n', ']d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
 keymap('n', '<leader>dq', vim.diagnostic.setloclist, '[D]iagnostic [Q]uick fix')
 
+-- Common yanking ops
+keymap('n', '<leader>yf', function() vim.fn.setreg('@', vim.fn.expand('%:t')) end, '[Y]ank [F]ilename of current file')
+keymap('n', '<leader>yp', function() vim.fn.setreg('@', vim.fn.expand('%:p')) end, '[Y]ank [P]ath to current file')
+
 keymap('t', '<S-esc>', '<C-\\><C-n>', 'Terminal normal mode')
 
 local function executor()
