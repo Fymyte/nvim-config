@@ -146,7 +146,7 @@ local servers = {
     },
   },
   ['eslint'] = nil,
-  ['tsserver'] = {},
+  ['ts_ls'] = {},
   ['zls'] = {},
   ['vimls'] = nil,
   ['bashls'] = {},
