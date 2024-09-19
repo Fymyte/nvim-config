@@ -3,7 +3,7 @@ return {
   {
     'L3MON4D3/LuaSnip',
     build = 'make install_jsregexp',
-    version = 'v1',
+    version = '*',
     event = 'VeryLazy',
     keys = {
       {
@@ -63,9 +63,8 @@ return {
     config = function(_, opts)
       local ls = require 'luasnip'
       ls.setup(opts)
-      require('luasnip.loaders.from_lua').lazy_load {
-        -- paths = { './luasnippets' },
-      }
+      require('luasnip.loaders.from_lua').lazy_load { paths = { './snippets/lua' } }
+      require('luasnip.loaders.from_vscode').lazy_load { paths = { './snippets/vscode' }, }
     end,
   },
 

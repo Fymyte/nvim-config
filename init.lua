@@ -25,8 +25,8 @@ Much of the configuration can be found in either:
 ./lua/fymyte/diagnostics.lua
   Neovim builtin diagnostics configuration
 
-./luasnippets/*
-  LuaSnip snippets
+./snippets/*
+  My own snippets
 --]]
 
 -- remove navigation using space
