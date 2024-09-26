@@ -161,6 +161,7 @@ local servers = {
       },
     },
   },
+  ['nil_ls'] = {},
   ['taplo'] = {},
   ['yamlls'] = {
     settings = {
