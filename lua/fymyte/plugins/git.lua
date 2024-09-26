@@ -137,7 +137,7 @@ return {
     cond = function()
       return vim.fn.executable 'go' == 1
     end,
-    enabled = false,
+    enabled = true,
     dependencies = {
       'MunifTanjim/nui.nvim',
       'nvim-lua/plenary.nvim',
@@ -146,18 +146,25 @@ return {
     },
     build = function () require("gitlab.server").build(true) end,
     opts = {
+      keymaps = {
+        discussion_tree = {
+          toggle_node = "<cr>",
+        },
+        popup = {
+          perform_action = '<leader>w',
+          discard_changes = "q",
+        },
+      },
       reviewer_settings = {
         diffview = {
           imply_local = true,
         },
       },
       popup = {
-        exit = 'q',
-        perform_action = '<leader>w',
         border = 'solid',
+        temp_registers = {'"', '+', 'g'},
       },
       discussion_tree = {
-        toggle_node = '<cr>',
         size = '15%',
       },
     },
