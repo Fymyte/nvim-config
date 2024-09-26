@@ -4,6 +4,7 @@ return {
     dependencies = { "pocco81/true-zen.nvim" },
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = "*", -- Pin Neorg to the latest stable release
+    enabled = false,
     opts = {
       load = {
         ['core.defaults'] = {}, -- Load all the default modules
