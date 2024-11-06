@@ -209,7 +209,7 @@ return {
       if #missing_deps == 0 then
         table.insert(telescope_deps, { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' })
       else
-        vim.notify('missing deps for fzf: ' .. vim.inspect(missing_deps), 'warn', { title = 'Telescope' })
+        vim.notify('missing deps for fzf: ' .. vim.inspect(missing_deps), vim.log.levels.WARN, { title = 'Telescope' })
       end
 
       return telescope_deps
