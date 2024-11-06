@@ -58,43 +58,20 @@ return {
 
       table.insert(require('lint').linters.checkpatch.args, '--no-show-types')
       vim.keymap.set('n', '<leader>l', require('lint').try_lint)
-      -- vim.api.nvim_create_autocmd({ 'BufWritePost', 'InsertLeave', 'BufReadPost' }, {
-      --   callback = function()
-      --     -- print 'linting'
-      --     require('lint').try_lint()
-      --   end,
-      -- })
-
-      -- -- External tools integration into neovim ecosystem
-      -- {
-      --   'jose-elias-alvarez/null-ls.nvim',
-      --   dependencies = 'williamboman/mason.nvim',
-      --   opts = function()
-      --     return {
-      --       sources = {
-      --         require('null-ls').builtins.formatting.stylua,
-      --         require('null-ls').builtins.formatting.clang_format,
-      --         require('null-ls').builtins.diagnostics.selene,
-      --         require('null-ls').builtins.formatting.prettier,
-      --         require('null-ls').builtins.formatting.shfmt,
-      --         require('null-ls').builtins.formatting.yapf,
-      --         require('null-ls').builtins.code_actions.shellcheck,
-      --       },
-      --     }
-      --   end,
-      -- },
     end,
   },
 
   {
-    [1] = 'mhartington/formatter.nvim',
+    'stevearc/conform.nvim',
     config = function(_, _)
-      require('formatter').setup {
-        filetype = {
-          lua = { require('formatter.filetypes.lua').stylua },
-          c = { require('formatter.filetypes.c').clangformat },
+      require('conform').setup {
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          c = { 'clang-format' },
+          nix = { 'alejandra' },
         },
       }
+      vim.keymap.set({ 'n', 'v' }, '<leader>f', require('conform').format, { desc = '[F]ormat' })
     end,
   },
 
