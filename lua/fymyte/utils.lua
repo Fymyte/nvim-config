@@ -5,7 +5,7 @@ local M = {}
 ---@alias SystemDependency string
 ---@alias EitherSystemDep SystemDependency[] at least one of the SystemDependency is available
 ---@alias SystemDep SystemDependency[]
----@alias SystemDeps (SystemDependency|EitherSystemDep)[]
+---@alias SystemDeps (SystemDependency|EitherSystemDep)
 
 ---Check for system dependencies
 ---If argument is an array, this is a `one of` type of match
