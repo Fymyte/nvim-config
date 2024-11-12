@@ -86,9 +86,7 @@ local function custom_attach(client, bufnr)
     vim.lsp.buf.format { async = true, filter = formating_client_filter }
   end, { 'n', 'v' }, '[F]ormat')
 
-  local serv_caps = client.server_capabilities
-
-  if serv_caps.documentHighlightProvider then
+  if client.server_capabilities.documentHighlightProvider then
     autocmd_clr { buffer = bufnr, group = augroup_references }
     autocmd_simple { 'CursorHold', augroup_references, vim.lsp.buf.document_highlight, bufnr }
     autocmd_simple { 'CursorMoved', augroup_references, vim.lsp.buf.clear_references, bufnr }
