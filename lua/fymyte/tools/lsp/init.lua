@@ -34,19 +34,6 @@ function M.override_open_floating_preview(config)
   end
 end
 
----Get the list of clients able to format the buffer.
----If null-ls is present, prefer using null-ls to format.
----Otherwise use the first available client able to format
----@param formatting_client vim.lsp.client
----@return boolean
-local function formating_client_filter(formatting_client)
-  ---@param client vim.lsp.client
-  local clients = vim.tbl_filter(function(client)
-    return client.name == 'null-ls' and client.supports_method 'textDocument/formatting'
-  end, vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() })
-  return #clients <= 0 or formatting_client.name == 'null-ls'
-end
-
 ---@brief Provide additional key mappings when a lsp server is attached
 ---@param client vim.lsp.client
 ---@param bufnr number
@@ -101,6 +88,7 @@ local updated_capabilites = vim.tbl_deep_extend(
 
 ---@alias ServerConfig table|function|nil
 ---@alias ServerConfigs table<string,ServerConfig>
+
 ---@type ServerConfigs
 local servers = {
   ['asm_lsp'] = {},
