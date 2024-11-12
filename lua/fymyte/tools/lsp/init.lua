@@ -82,10 +82,6 @@ local function custom_attach(client, bufnr)
   buf_nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   buf_nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename')
 
-  buf_map('<leader>f', function()
-    vim.lsp.buf.format { async = true, filter = formating_client_filter }
-  end, { 'n', 'v' }, '[F]ormat')
-
   if client.server_capabilities.documentHighlightProvider then
     autocmd_clr { buffer = bufnr, group = augroup_references }
     autocmd_simple { 'CursorHold', augroup_references, vim.lsp.buf.document_highlight, bufnr }
