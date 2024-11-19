@@ -26,3 +26,5 @@ yaffs
 YAFFS
 caba
 OpenOCD
+nixpkgs
+YOCTO
