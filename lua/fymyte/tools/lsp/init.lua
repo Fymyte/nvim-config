@@ -86,10 +86,9 @@ local updated_capabilites = vim.tbl_deep_extend(
   require('cmp_nvim_lsp').default_capabilities()
 )
 
----@alias ServerConfig table|function|nil
----@alias ServerConfigs table<string,ServerConfig>
+---@alias ServerConfig lspconfig.Config|function|nil
 
----@type ServerConfigs
+---@type table<string, ServerConfig>
 local servers = {
   ['asm_lsp'] = {},
   ['clangd'] = function()
