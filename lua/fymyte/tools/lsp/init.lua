@@ -86,7 +86,8 @@ local updated_capabilites = vim.tbl_deep_extend(
   require('cmp_nvim_lsp').default_capabilities()
 )
 
----@alias ServerConfig lspconfig.Config|function|nil
+---
+---@alias ServerConfig lspconfig.Config|fun(default_config: lspconfig.Config)|nil
 
 ---@type table<string, ServerConfig>
 local servers = {
@@ -178,7 +179,7 @@ M.setup = function()
         require('lspconfig')[server].setup {}
       end
     elseif type(config) == 'function' then
-      config()
+      config(require'lspconfig'.util.default_config)
     elseif type(config) == 'table' then
       require('lspconfig')[server].setup(config)
     end
