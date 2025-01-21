@@ -160,18 +160,25 @@ M.setup = function()
   local me = vim.fs.dirname(debug.getinfo(1, 'S').source:sub(2))
   local server_path = vim.fs.normalize(me .. '/' .. 'servers')
   local server_files = require('plenary.scandir').scan_dir(server_path, { depth = 1 })
+
+  local default_config = vim.tbl_deep_extend('force', require('lspconfig').util.default_config, {
+    on_attach = custom_attach,
+    capabilities = updated_capabilites,
+  })
+  require('lspconfig').util.default_config = default_config
+
   for _, server in ipairs(server_files) do
     server = vim.fn.fnamemodify(server, ':p')
     local server_name = vim.fn.fnamemodify(server, ':t:r')
     if server_name ~= nil then
-      servers[server_name] = dofile(server)
+      local server_config = dofile(server)
+      if (type(server_config) == 'function') then
+        server_config = server_config(default_config)
+      end
+      servers[server_name] = server_config
     end
   end
 
-  require('lspconfig').util.default_config = vim.tbl_deep_extend('force', require('lspconfig').util.default_config, {
-    on_attach = custom_attach,
-    capabilities = updated_capabilites,
-  })
 
   for server, config in pairs(servers) do
     if type(config) == 'boolean' then
