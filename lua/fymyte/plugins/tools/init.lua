@@ -70,6 +70,10 @@ return {
           c = { 'clang-format' },
           nix = { 'alejandra' },
         },
+
+        default_format_opts = {
+          lsp_format = 'fallback',
+        },
       }
       vim.keymap.set({ 'n', 'v' }, '<leader>f', require('conform').format, { desc = '[F]ormat' })
     end,
