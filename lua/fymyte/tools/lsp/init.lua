@@ -132,7 +132,6 @@ local servers = {
   ['zls'] = {},
   ['vimls'] = nil,
   ['bashls'] = {},
-  ['neocmake'] = {},
   ['pylsp'] = {
     settings = {
       pylsp = {
