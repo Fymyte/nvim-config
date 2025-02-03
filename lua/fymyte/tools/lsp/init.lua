@@ -75,6 +75,10 @@ local function custom_attach(client, bufnr)
     autocmd_simple { 'CursorMoved', augroup_references, vim.lsp.buf.clear_references, bufnr }
   end
 
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable()
+  end
+
   vim.notify(('%s attached'):format(client.name), vim.log.levels.INFO, { title = 'LSP' })
 end
 
@@ -103,11 +107,7 @@ local servers = {
         '--background-index',
         '--clang-tidy',
       },
-      on_attach = function(client, bufnr)
-        custom_attach(client, bufnr)
-        require('clangd_extensions.inlay_hints').setup_autocmd()
-        require('clangd_extensions.inlay_hints').set_inlay_hints()
-      end,
+      on_attach = custom_attach,
     }
   end,
   ['lua_ls'] = {
