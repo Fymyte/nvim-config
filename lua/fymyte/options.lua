@@ -4,6 +4,7 @@ opt.mouse = 'nv' -- Enable mouse in normal and visual mode only
 opt.autoread = true -- Auto read when a file is changed from the outside
 opt.history = 500 -- Set how many commands to remember
 opt.scrolloff = 4 -- Always show 4 lines of the buffer when moving up/down
+opt.scrollback = 100000 -- Use max scrollback in term buffers
 opt.number = true -- Show line numbers
 opt.relativenumber = true -- Enalble relative numbers
 opt.cmdheight = 1 -- Set command window height
@@ -56,7 +57,7 @@ opt.hlsearch = true -- Highlight previous search results
 opt.incsearch = true -- Highlight search restults incrementaly
 
 -- Persistent undo file
-opt.undodir = vim.fn.stdpath 'data' .. '/undodir' --[[@as vim.opt.undodir]]
+opt.undodir = vim.fn.stdpath 'data' .. '/undodir'
 opt.undofile = true
 -- Spell checking
 opt.spell = false -- Spell checking is not set by default (define per ft using ftplugin)
