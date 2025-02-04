@@ -67,6 +67,27 @@ return {
       vim.keymap.set('n', '<leader>tg', ToggleFugitiveGit)
     end,
   },
+  -- Easy worktree management
+  {
+    'polarmutex/git-worktree.nvim',
+    config = function(_, _)
+      local hooks = require 'git-worktree.hooks'
+      local config = require 'git-worktree.config'
+
+      if pcall(require, 'telescope') then
+        require('telescope').load_extension 'git_worktree'
+        vim.keymap.set(
+          'n',
+          '<leader>sw',
+          require('telescope').extensions.git_worktree.git_worktree,
+          { noremap = true, silent = true, desc = '[S]earch Git [W]orktree' }
+        )
+      end
+
+      hooks.register(hooks.type.SWITCH, hooks.builtins.update_current_buffer_on_switch)
+      hooks.register(hooks.type.DELETE, config.update_on_change_command)
+    end,
+  },
   -- GitHub/GitLab in neovim
   { 'tpope/vim-rhubarb', enabled = false },
   -- Git hunks displayed inline
@@ -89,9 +110,7 @@ return {
           if vim.wo.diff then
             return ']h'
           end
-          vim.schedule(function()
-            gs.next_hunk()
-          end)
+          gs.nav_hunk 'next'
           return '<Ignore>'
         end, { expr = true, desc = 'Next [H]unk' })
 
@@ -99,9 +118,7 @@ return {
           if vim.wo.diff then
             return '[h'
           end
-          vim.schedule(function()
-            gs.prev_hunk()
-          end)
+          gs.nav_hunk 'prev'
           return '<Ignore>'
         end, { expr = true, desc = 'Prev [H]unk' }) -- Actions
 
@@ -144,15 +161,17 @@ return {
       'sindrets/diffview.nvim',
       'stevearc/dressing.nvim', -- Recommended but not required. Better UI for pickers.
     },
-    build = function () require("gitlab.server").build(true) end,
+    build = function()
+      require('gitlab.server').build(true)
+    end,
     opts = {
       keymaps = {
         discussion_tree = {
-          toggle_node = "<cr>",
+          toggle_node = '<cr>',
         },
         popup = {
           perform_action = '<leader>w',
-          discard_changes = "q",
+          discard_changes = 'q',
         },
       },
       reviewer_settings = {
@@ -162,7 +181,7 @@ return {
       },
       popup = {
         border = 'solid',
-        temp_registers = {'"', '+', 'g'},
+        temp_registers = { '"', '+', 'g' },
       },
       discussion_tree = {
         size = '15%',
