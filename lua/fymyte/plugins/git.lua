@@ -20,10 +20,10 @@ return {
         end,
       })
 
-      autocmd('BufAdd', {
+      autocmd('User', {
         group = fugitive_grp,
         desc = 'open commit message in vsplit on the far left',
-        pattern = '*/.git/COMMIT_EDITMSG',
+        pattern = 'FugitiveEditor',
         callback = function()
           vim.cmd.wincmd 'H'
           vim.cmd [[vertical resize 80]]
@@ -33,10 +33,21 @@ return {
         end,
       })
 
+      autocmd('User', {
+        group = fugitive_grp,
+        pattern = 'FugitiveIndex',
+        desc = 'Resize fugigive index window',
+        callback = function()
+          vim.cmd.resize(10)
+          vim.cmd.setlocal 'nonumber'
+          vim.cmd.setlocal 'norelativenumber'
+          vim.cmd.setlocal 'winfixheight'
+        end,
+      })
+
       local function showFugitiveGit()
         local is_git_dir = function()
           if pcall(require, 'lualine.components.branch.git_branch') then
-            print 'using lualine get_branch'
             return require('lualine.components.branch.git_branch').get_branch() ~= ''
           else
             local ok, head = pcall(vim.fn.FugitiveHead)
@@ -45,10 +56,6 @@ return {
         end
         if is_git_dir() then
           vim.cmd.Git()
-          vim.cmd.resize(10)
-          vim.cmd.setlocal 'nonumber'
-          vim.cmd.setlocal 'norelativenumber'
-          vim.cmd.setlocal 'winfixheight'
         end
       end
 
