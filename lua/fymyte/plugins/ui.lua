@@ -100,7 +100,10 @@ return {
         },
         lualine_c = { '%=%f', 'filetype' },
         lualine_x = {
-          function() return require('lsp-progress').progress() end,
+          '%{ObsessionStatus("session:  ","session: ")}',
+          function()
+            return require('lsp-progress').progress()
+          end,
           'encoding',
           'fileformat',
         },
