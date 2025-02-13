@@ -171,13 +171,12 @@ M.setup = function()
     local server_name = vim.fn.fnamemodify(server, ':t:r')
     if server_name ~= nil then
       local server_config = dofile(server)
-      if (type(server_config) == 'function') then
+      if type(server_config) == 'function' then
         server_config = server_config(default_config)
       end
       servers[server_name] = server_config
     end
   end
-
 
   for server, config in pairs(servers) do
     if type(config) == 'boolean' then
@@ -185,7 +184,7 @@ M.setup = function()
         require('lspconfig')[server].setup {}
       end
     elseif type(config) == 'function' then
-      config(require'lspconfig'.util.default_config)
+      config(require('lspconfig').util.default_config)
     elseif type(config) == 'table' then
       require('lspconfig')[server].setup(config)
     end
