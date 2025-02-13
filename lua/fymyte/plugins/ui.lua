@@ -4,42 +4,28 @@ return {
   -- nvim notify -- Beautify vim.notify
   {
     'rcarriga/nvim-notify',
-    opts = {
-      stages = 'fade',
-      fps = 60,
-      timeout = 3000,
-      render = function(bufnr, notif, highlights, config)
-        if #notif.message > 1 then
-          if #notif.title[1] > 1 then
-            render.simple(bufnr, notif, highlights, config)
-          else
-            render.minimal(bufnr, notif, highlights)
-          end
-        else
-          render.compact(bufnr, notif, highlights)
-        end
-      end,
-    },
     config = function(_, opts)
       local notify = require 'notify'
       render.minimal = require 'notify.render.minimal'
       render.compact = require 'notify.render.compact'
       render.simple = require 'notify.render.simple'
-      notify.setup(opts)
-      ---Filter notifications
-      ---@param msg string
-      ---@param level integer
-      ---@param opts table
-      -- selene: allow(shadowing)
-      ---@diagnostic disable-next-line:redefined-local
-      local filtered_notify = function(msg, level, opts)
-        local start = 'warning: multiple different client offset_encodings detected for buffer'
-        if level == vim.log.levels.WARN and msg:sub(1, #start) == start then
-          return
-        end
-        notify(msg, level, opts)
-      end
-      vim.notify = filtered_notify
+      notify.setup {
+        stages = 'fade',
+        fps = 60,
+        timeout = 3000,
+        render = function(bufnr, notif, highlights, config)
+          if #notif.message > 1 then
+            if #notif.title[1] > 1 then
+              render.simple(bufnr, notif, highlights, config)
+            else
+              render.minimal(bufnr, notif, highlights)
+            end
+          else
+            render.compact(bufnr, notif, highlights)
+          end
+        end,
+      }
+      vim.notify = notify
     end,
   },
 
