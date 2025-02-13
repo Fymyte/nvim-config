@@ -59,6 +59,7 @@ keymap('n', '<leader>yf', function() vim.fn.setreg('@', vim.fn.expand('%:t')) en
 keymap('n', '<leader>yp', function() vim.fn.setreg('@', vim.fn.expand('%:p')) end, '[Y]ank [P]ath to current file')
 
 keymap('t', '<S-esc>', '<C-\\><C-n>', 'Terminal normal mode')
+keymap('t', "<C-;><C-;>", '<C-\\><C-n>', 'Terminal normal mode')
 
 local function executor()
   if vim.bo.filetype == 'lua' then
