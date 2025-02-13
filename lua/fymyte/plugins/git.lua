@@ -109,30 +109,36 @@ return {
         local function map(mode, l, r, lopts)
           lopts = vim.tbl_extend('force', opts, lopts or {})
           lopts.buffer = bufnr
-          vim.keymap.set(mode, l, r, lopts)
+         vim.keymap.set(mode, l, r, lopts)
         end
 
         -- Navigation
-        map('n', ']h', function()
+        map('n', ']c', function()
           if vim.wo.diff then
-            return ']h'
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gs.nav_hunk 'next'
           end
-          gs.nav_hunk 'next'
-          return '<Ignore>'
-        end, { expr = true, desc = 'Next [H]unk' })
+        end, { expr = true, desc = 'Next [C]hange' })
 
-        map('n', '[h', function()
+        map('n', '[c', function()
           if vim.wo.diff then
-            return '[h'
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gs.nav_hunk 'prev'
           end
-          gs.nav_hunk 'prev'
-          return '<Ignore>'
-        end, { expr = true, desc = 'Prev [H]unk' }) -- Actions
+        end, { expr = true, desc = 'Prev [C]hange' }) -- Actions
 
-        map({ 'n', 'v' }, '<leader>hs', gs.stage_hunk, { desc = '[H]unk [S]tage' })
-        map({ 'n', 'v' }, '<leader>hr', gs.reset_hunk, { desc = '[H]unk [R]eset' })
+        map('n', '<leader>hs', gs.stage_hunk, { desc = '[H]unk [S]tage/Un[S]tage' })
+        map('v', '<leader>hs', function()
+          gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = '[H]unk [R]eset' })
+        map('v', '<leader>hr', gs.reset_hunk, { desc = '[H]unk [R]eset' })
+        map('v', '<leader>hr', function()
+          gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+        end, { desc = '[H]unk [R]eset' })
+
         map('n', '<leader>hS', gs.stage_buffer, { desc = '[H]unk [S]tage buffer' })
-        map('n', '<leader>hu', gs.undo_stage_hunk, { desc = '[H]unk [U]ndo stage' })
         map('n', '<leader>hR', gs.reset_buffer, { desc = '[H]unk [R]eset buffer' })
         map('n', '<leader>hp', gs.preview_hunk, { desc = '[H]unk [P]review' })
         map('n', '<leader>hb', function()
@@ -143,7 +149,7 @@ return {
         map('n', '<leader>hD', function()
           gs.diffthis '~'
         end, { desc = '[H]unk [D]iff last commit' })
-        map('n', '<leader>thd', gs.toggle_deleted, { desc = '[T]oggle [H]unk [D]eleted lines' })
+        map('n', '<leader>thd', gs.preview_hunk_inline, { desc = '[T]oggle [H]unk [D]eleted lines' })
       end,
       preview_config = {
         border = 'rounded',
