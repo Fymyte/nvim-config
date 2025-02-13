@@ -52,18 +52,18 @@ return {
   -- lualine -- Better statusline
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 
+    dependencies = {
       'linrongbin16/lsp-progress.nvim',
       opts = {
         spinner = { '🌑 ', '🌒 ', '🌓 ', '🌔 ', '🌕 ', '🌖 ', '🌗 ', '🌘 ' },
         client_format = function(client, spinner, _)
-          return ("[" .. client .. "] " .. spinner)
+          return ('[' .. client .. '] ' .. spinner)
         end,
         format = function(msgs)
           if #msgs > 0 then
-            return table.concat(msgs, " ")
+            return table.concat(msgs, ' ')
           end
-          return ""
+          return ''
         end,
       },
     },
