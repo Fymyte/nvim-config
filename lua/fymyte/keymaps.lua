@@ -2,11 +2,8 @@
 --- Keymaps associated with plugins should be located with the plugins
 --- declaration itself in `lua/fymyte/plugins/<file>`
 
-local opts = { noremap = true, silent = true }
-
 local keymap = function(mode, lhs, rhs, desc)
-  local local_opts = vim.tbl_extend('keep', opts, { desc = desc })
-  vim.keymap.set(mode, lhs, rhs, local_opts)
+  vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
 end
 
 -- Quick save
@@ -34,7 +31,9 @@ keymap('n', '<leader>j', [[<cmd>m-2|j<cr>]], '[J]oin line above after this line'
 -- Motions
 keymap('n', '0', '^') -- use 0 to go to first char of line
 -- Formatting
-keymap('n', '<leader>f', function() vim.lsp.buf.format { async = true } end)
+keymap('n', '<leader>f', function()
+  vim.lsp.buf.format { async = true }
+end, '[F]ormat buffer')
 -- Misc
 keymap('n', '<leader><leader>', '<cmd>noh<cr>', 'Clear search highlighting')
 -- Paste without losing clipboard content
@@ -55,8 +54,12 @@ keymap('n', ']d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
 keymap('n', '<leader>dq', vim.diagnostic.setloclist, '[D]iagnostic [Q]uick fix')
 
 -- Common yanking ops
-keymap('n', '<leader>yf', function() vim.fn.setreg('@', vim.fn.expand('%:t')) end, '[Y]ank [F]ilename of current file')
-keymap('n', '<leader>yp', function() vim.fn.setreg('@', vim.fn.expand('%:p')) end, '[Y]ank [P]ath to current file')
+keymap('n', '<leader>yf', function()
+  vim.fn.setreg('@', vim.fn.expand '%:t')
+end, '[Y]ank [F]ilename of current file')
+keymap('n', '<leader>yp', function()
+  vim.fn.setreg('@', vim.fn.expand '%:p')
+end, '[Y]ank [P]ath to current file')
 
 keymap('t', '<S-esc>', '<C-\\><C-n>', 'Terminal normal mode')
 keymap('t', "<C-;><C-;>", '<C-\\><C-n>', 'Terminal normal mode')
