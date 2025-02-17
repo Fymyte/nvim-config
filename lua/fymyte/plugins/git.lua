@@ -66,7 +66,7 @@ return {
             vim.fn.bufname 'fugitive:///*/.git//$'
           ) ~= 0
         then
-          vim.cmd [[ execute ":bdelete" bufname('fugitive:///*/.git//$') ]]
+          vim.cmd [[ execute ":bdelete" bufname('fugitive:///*/.git\(/worktrees/*\)?//$') ]]
         else
           showFugitiveGit()
         end
