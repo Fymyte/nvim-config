@@ -109,7 +109,7 @@ return {
         local function map(mode, l, r, lopts)
           lopts = vim.tbl_extend('force', opts, lopts or {})
           lopts.buffer = bufnr
-         vim.keymap.set(mode, l, r, lopts)
+          vim.keymap.set(mode, l, r, lopts)
         end
 
         -- Navigation
@@ -119,7 +119,7 @@ return {
           else
             gs.nav_hunk 'next'
           end
-        end, { expr = true, desc = 'Next [C]hange' })
+        end, {  desc = 'Next [C]hange' })
 
         map('n', '[c', function()
           if vim.wo.diff then
@@ -127,13 +127,13 @@ return {
           else
             gs.nav_hunk 'prev'
           end
-        end, { expr = true, desc = 'Prev [C]hange' }) -- Actions
+        end, {  desc = 'Prev [C]hange' }) -- Actions
 
         map('n', '<leader>hs', gs.stage_hunk, { desc = '[H]unk [S]tage/Un[S]tage' })
         map('v', '<leader>hs', function()
           gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = '[H]unk [R]eset' })
-        map('v', '<leader>hr', gs.reset_hunk, { desc = '[H]unk [R]eset' })
+        end, { desc = '[H]unk [S]tage/Un[S]tage' })
+        map('n', '<leader>hr', gs.reset_hunk, { desc = '[H]unk [R]eset' })
         map('v', '<leader>hr', function()
           gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
         end, { desc = '[H]unk [R]eset' })
