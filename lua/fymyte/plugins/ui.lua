@@ -76,7 +76,12 @@ return {
       },
       sections = {
         lualine_b = {
-          { 'branch', icon = '' },
+          {
+            function()
+              return vim.fn.FugitiveHead()
+            end,
+            icon = '',
+          },
           'diff',
           {
             'diagnostics',
