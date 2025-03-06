@@ -10,6 +10,33 @@ return {
     'tpope/vim-fugitive',
     event = 'VeryLazy',
     config = function()
+      local function open_fugitive_buf()
+        local ok, head = pcall(vim.fn.FugitiveHead)
+        if ok and head ~= '' then
+          vim.cmd.Git()
+        end
+      end
+
+      local function get_fugitive_buf()
+        return vim.fn.bufnr 'fugitive:///*/.git/{worktrees/*}\\\\\\{0,1\\}/$'
+      end
+
+      local function close_fugitive_buf()
+        local fugitive_buf = get_fugitive_buf()
+        if fugitive_buf ~= -1 then
+          vim.api.nvim_buf_delete(fugitive_buf, {})
+        end
+      end
+
+      function ToggleFugitiveGit()
+        local fugitive_buf = get_fugitive_buf()
+        if fugitive_buf ~= -1 then
+          close_fugitive_buf()
+        else
+          open_fugitive_buf()
+        end
+      end
+
       local fugitive_grp = vim.api.nvim_create_augroup('fugitive_autocmd', { clear = true })
       autocmd('BufReadPost', {
         group = fugitive_grp,
@@ -17,6 +44,16 @@ return {
         pattern = 'fugitive://*',
         callback = function()
           vim.b.bufhidden = 'delete'
+        end,
+      })
+
+      autocmd('DirChanged', {
+        group = fugitive_grp,
+        desc = 'Update fugitive status when changing cwd',
+        callback = function()
+          close_fugitive_buf()
+
+          -- TODO: currently, opening fugitive buf right here actually make the closing of the previous buffer fail.
         end,
       })
 
@@ -44,33 +81,6 @@ return {
           vim.cmd.setlocal 'winfixheight'
         end,
       })
-
-      local function showFugitiveGit()
-        local is_git_dir = function()
-          if pcall(require, 'lualine.components.branch.git_branch') then
-            return require('lualine.components.branch.git_branch').get_branch() ~= ''
-          else
-            local ok, head = pcall(vim.fn.FugitiveHead)
-            return ok and head ~= ''
-          end
-        end
-        if is_git_dir() then
-          vim.cmd.Git()
-        end
-      end
-
-      function ToggleFugitiveGit()
-        if
-          vim.fn.buflisted(
-            ---@diagnostic disable-next-line:param-type-mismatch
-            vim.fn.bufname 'fugitive:///*/.git//$'
-          ) ~= 0
-        then
-          vim.cmd [[ execute ":bdelete" bufname('fugitive:///*/.git\(/worktrees/*\)?//$') ]]
-        else
-          showFugitiveGit()
-        end
-      end
       vim.keymap.set('n', '<leader>tg', ToggleFugitiveGit)
     end,
   },
@@ -119,7 +129,7 @@ return {
           else
             gs.nav_hunk 'next'
           end
-        end, {  desc = 'Next [C]hange' })
+        end, { desc = 'Next [C]hange' })
 
         map('n', '[c', function()
           if vim.wo.diff then
@@ -127,7 +137,7 @@ return {
           else
             gs.nav_hunk 'prev'
           end
-        end, {  desc = 'Prev [C]hange' }) -- Actions
+        end, { desc = 'Prev [C]hange' }) -- Actions
 
         map('n', '<leader>hs', gs.stage_hunk, { desc = '[H]unk [S]tage/Un[S]tage' })
         map('v', '<leader>hs', function()
