@@ -132,16 +132,6 @@ local servers = {
   ['zls'] = {},
   ['vimls'] = nil,
   ['bashls'] = {},
-  ['pylsp'] = {
-    settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = { enabled = false },
-          pyflakes = { enabled = false },
-        },
-      },
-    },
-  },
   ['nil_ls'] = {},
   ['taplo'] = {},
   ['yamlls'] = {
