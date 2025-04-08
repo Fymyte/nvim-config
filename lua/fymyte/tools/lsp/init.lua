@@ -149,7 +149,18 @@ local servers = {
       yaml = {
         schemas = {
           ['https://github.com/devicetree-org/dt-schema/blob/main/dtschema/'] = 'http://devicetree.org/',
-          ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json'] = '/*compose.y*ml'
+          ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json'] = '/*compose.y*ml',
+        },
+      },
+    },
+  },
+  ['harper_ls'] = {
+    settings = {
+      ['harper-ls'] = {
+        userDictPath = vim.fn.stdpath 'config' .. '/spell/dictionaries/harper',
+        fileDictPath = vim.fn.stdpath 'config' .. '/spell/dictionaries/harper/local',
+        linters = {
+          SentenceCapitalization = false,
         },
       },
     },
