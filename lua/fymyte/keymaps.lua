@@ -28,8 +28,6 @@ keymap('n', '<leader>ts', '<cmd>tab split<cr>', '[T]ab [S]plit')
 keymap('n', 'J', 'mzJ`z')
 -- Join line above at the end of the current line
 keymap('n', '<leader>j', [[<cmd>m-2|j<cr>]], '[J]oin line above after this line')
--- Motions
-keymap('n', '0', '^') -- use 0 to go to first char of line
 -- Formatting
 keymap('n', '<leader>f', function()
   vim.lsp.buf.format { async = true }
