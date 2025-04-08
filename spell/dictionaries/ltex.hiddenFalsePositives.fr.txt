@@ -1,1 +1,0 @@
-{"rule":"HEURES","sentence":"^\\QJe suis actuellement au Canada, j'ai donc 6h de décalage par rapport à la France\\E$"}
