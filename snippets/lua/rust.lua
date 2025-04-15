@@ -57,7 +57,7 @@ return {
       }}
     ]],
       {
-        c(1, { t'    use super::*;', t '' }),
+        c(1, { t '    use super::*;', t '' }),
         i(0),
       }
     )

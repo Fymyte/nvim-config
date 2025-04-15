@@ -8,10 +8,14 @@ local fmt = require('luasnip.extras.fmt').fmt
 local fmta = require('luasnip.extras.fmt').fmta
 
 return {
-  s('macro',
-    fmt([[
+  s(
+    'macro',
+    fmt(
+      [[
     .macro {}
     	{}
-    .endm]], { i(1), i(0) })
+    .endm]],
+      { i(1), i(0) }
+    )
   ),
 }

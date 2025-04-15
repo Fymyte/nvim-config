@@ -28,7 +28,6 @@ local types = require 'luasnip.util.types'
 local parse = require('luasnip.util.parser').parse_snippet
 local ms = ls.multi_snippet
 
-
 return {
   s(
     'req',

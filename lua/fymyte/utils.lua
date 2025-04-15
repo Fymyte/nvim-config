@@ -88,10 +88,16 @@ M.autocmd = vim.api.nvim_create_autocmd
 ---@param name string
 local function check_system_deps(deps, name)
   local missing = system_deps(deps)
-  if #missing == 0 then return end
+  if #missing == 0 then
+    return
+  end
 
   local msg
-  if #missing > 1 then msg = 'are' else msg = 'is' end
+  if #missing > 1 then
+    msg = 'are'
+  else
+    msg = 'is'
+  end
 
   msg = ('%q %s not installed'):format(missing, msg)
   vim.notify(msg, vim.log.levels.WARN, { title = name })
