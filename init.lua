@@ -7,15 +7,8 @@
 
 Much of the configuration can be found in either:
 
-./lua/fymyte/plugins/*
-  This is where configuration for most plugins is located.
-  Configurations are sourced automatically at startup
-
-./lua/fymyte/tools/*
-  Lsp/Editing tools configuration
-
 ./lua/fymyte/globals.lua
-  Globally available functions/variables accros my config files
+  Globally available functions/variables across my config files
 
 ./lua/fymyte/options.lua
   Preference for vim builtin options
@@ -32,15 +25,23 @@ Much of the configuration can be found in either:
 -- remove navigation using space
 vim.keymap.set('', '<space>', '', { noremap = true, silent = true })
 vim.g.mapleader = ' '
----@type integer
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
 -- Load helper functions first to have them available for after
 require 'fymyte.globals'
+
+-- Custom vim.opt configuration
 require 'fymyte.options'
+-- Additional keymaps
 require 'fymyte.keymaps'
+-- Builtin diagnostics configuration
 require 'fymyte.diagnostics'
 
--- Bootstrap nvim package manager
+-- Builtin lsp configuration
+require 'fymyte.lsp'
+-- Builtin treesitter configuration
+require 'fymyte.treesitter'
+
+-- Bootstrap Neovim package manager
 local lazy_opts = require 'fymyte.lazy-bootstrap'
 require('lazy').setup('fymyte.plugins', lazy_opts)
