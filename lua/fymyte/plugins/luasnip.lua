@@ -1,0 +1,69 @@
+---@type LazyPluginSpec
+return {
+  -- 'L3MON4D3/LuaSnip',
+  -- build = 'make install_jsregexp',
+  -- enabled = false,
+  -- version = '*',
+  -- event = 'VeryLazy',
+  -- keys = {
+  --   {
+  --     mode = { 'i', 's' },
+  --     '<C-k>',
+  --     function()
+  --       if require('luasnip').expand_or_jumpable() then
+  --         require('luasnip').expand_or_jump()
+  --       end
+  --     end,
+  --     desc = 'Snippet expand or jump next',
+  --   },
+  --   {
+  --     mode = { 'i', 's' },
+  --     '<C-j>',
+  --     function()
+  --       if require('luasnip').jumpable(-1) then
+  --         require('luasnip').jump(-1)
+  --       end
+  --     end,
+  --     desc = 'Snippet jump previous',
+  --   },
+  --   {
+  --     mode = { 'i', 's' },
+  --     '<C-l>',
+  --     function()
+  --       if require('luasnip').choice_active() then
+  --         require('luasnip').change_choice(1)
+  --       end
+  --     end,
+  --     desc = 'Snippet cycle choices',
+  --   },
+  --   {
+  --     '<leader><leader>s',
+  --     function()
+  --       require('luasnip.loaders').edit_snippet_files {}
+  --     end,
+  --     desc = '[S]nippet reload',
+  --   },
+  -- },
+  -- opts = function()
+  --   local types = require 'luasnip.util.types'
+  --   return {
+  --     history = true,
+  --     update_events = 'TextChanged,TextChangedI',
+  --     delete_check_events = 'InsertLeave',
+  --     enable_autosnippets = true,
+  --     ext_opts = {
+  --       [types.choiceNode] = {
+  --         active = {
+  --           virt_text = { { '<-', 'Error' } },
+  --         },
+  --       },
+  --     },
+  --   }
+  -- end,
+  -- config = function(_, opts)
+  --   local ls = require 'luasnip'
+  --   ls.setup(opts)
+  --   require('luasnip.loaders.from_lua').lazy_load { paths = { './snippets/lua' } }
+  --   require('luasnip.loaders.from_vscode').lazy_load { paths = { './snippets/vscode' } }
+  -- end,
+}
