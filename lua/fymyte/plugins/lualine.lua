@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 return {
   'nvim-lualine/lualine.nvim',
+  event = 'VeryLazy',
   dependencies = {
     'linrongbin16/lsp-progress.nvim',
     opts = {

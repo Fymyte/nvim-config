@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 return {
-  'echasnovski/mini.nvim',
+  'echasnovski/mini.align',
   version = '*',
   config = true,
 }
