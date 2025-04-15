@@ -1,5 +1,5 @@
 ---
-base: lua51
+base: luaJIT
 
 globals:
   vim:
