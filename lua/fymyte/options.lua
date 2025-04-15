@@ -110,15 +110,8 @@ vim.g.loaded_python_provider = 0
 
 -- Additional detected filetypes
 vim.filetype.add {
-  pattern = { ['.*/hypr/.*%.conf'] = 'hyprlang' },
-  extension = {
-    qml = 'qmljs',
-    scm = 'query',
-    kdl = 'kdl',
-    rasi = 'rasi',
-  },
   filename = {
-    Scratch = 'norg', -- Allow typing norg syntax in empty Scratch buffer
+    Scratch = 'markdown', -- Allow typing norg syntax in empty Scratch buffer
   },
 }
 
@@ -149,6 +142,21 @@ autocmd('TextYankPost', {
   pattern = '*',
   callback = function()
     vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+  end,
+})
+
+autocmd('QuitPre', {
+  group = augroup 'TerminalForceClose',
+  desc = 'force close all terminal buffer on quit',
+  pattern = '*',
+  callback = function()
+    local term_bufs = vim.fn.filter(vim.fn.range(1, vim.fn.bufnr '$'), function(idx, val)
+      return vim.fn.getbufvar(val, '&buftype') == 'terminal'
+    end)
+
+    for _, t in ipairs(term_bufs) do
+      vim.api.nvim_buf_delete(t, { force = true })
+    end
   end,
 })
 
