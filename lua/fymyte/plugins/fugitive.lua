@@ -3,9 +3,8 @@ local autocmd = vim.api.nvim_create_autocmd
 
 ---@type LazyPluginSpec
 return {
-
   'tpope/vim-fugitive',
-  cmd = 'Git',
+  cmd = { 'Git', 'G' },
   keys = '<leader>tg',
   config = function()
     local function open_fugitive_buf()
