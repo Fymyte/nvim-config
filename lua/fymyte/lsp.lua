@@ -34,17 +34,6 @@ function on_attach(client, bufnr)
   if client.server_capabilities.inlayHintProvider then
     vim.lsp.inlay_hint.enable()
   end
-
-  -- Override the default bindings with telescope
-  -- if pcall(require, 'telescope') then
-  --   vim.keymap.set('n', '<C-]>', function()
-  --     require('telescope.builtin').lsp_definitions { include_declaration = false }
-  --   end, { desc = '[G]oto [D]efinition' })
-  --   vim.keymap.set('n', 'grr', function()
-  --     require('telescope.builtin').lsp_references { include_declaration = false }
-  --   end, { desc = '[G]oto [R]eferences' })
-  --   vim.keymap.set('n', 'gri', require('telescope.builtin').lsp_implementations, { desc = '[G]oto [I]mpltementation' })
-  -- end
 end
 
 function on_exit(_, _, client_id)
