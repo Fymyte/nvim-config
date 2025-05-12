@@ -145,7 +145,7 @@ autocmd('TextYankPost', {
   end,
 })
 
-autocmd('QuitPre', {
+autocmd('VimLeavePre', {
   group = augroup 'TerminalForceClose',
   desc = 'force close all terminal buffer on quit',
   pattern = '*',
