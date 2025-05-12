@@ -12,6 +12,8 @@ return {
     yaml = {
       schemaStore = { enable = false, url = '' },
       schemas = schemas,
+
+      customTags = { "!reference sequence"}
     },
   },
 }
