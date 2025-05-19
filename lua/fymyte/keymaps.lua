@@ -23,12 +23,9 @@ keymap('i', '!', '!<C-g>u')
 keymap('i', '?', '?<C-g>u')
 keymap('i', ':', ':<C-g>u')
 
--- Cycle through buffers
-keymap('', '<leader>bp', '<cmd>bprev<cr>', '[B]uffer [P]rev')
-keymap('', '<leader>bn', '<cmd>bnext<cr>', '[B]uffer [N]ext')
--- Cycle through tabs
-keymap('n', '<leader>tn', '<cmd>tabnext<cr>', '[T]ab [N]ext')
-keymap('n', '<leader>tp', '<cmd>tabprev<cr>', '[T]ab [P]rev')
+-- Cycle through tabs (I don't use tags, so use ][t for tabs instead)
+keymap('n', ']t', '<cmd>tabnext<cr>', '[T]ab [N]ext')
+keymap('n', '[t', '<cmd>tabprev<cr>', '[T]ab [P]rev')
 keymap('n', '<leader>te', '<cmd>tabedit<cr>', '[T]ab [E]dit')
 keymap('n', '<leader>ts', '<cmd>tab split<cr>', '[T]ab [S]plit')
 -- Don't move cursor when joining lines
