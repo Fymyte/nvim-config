@@ -67,11 +67,13 @@ vim.lsp.enable {
   'jsonls',
   'nil-ls',
   'nixd',
+  'gopls',
   'clangd',
   'ruff',
   'pylsp',
   'neocmakelsp',
   'bashls',
+  'ltex_plus',
 }
 
 return lsp
