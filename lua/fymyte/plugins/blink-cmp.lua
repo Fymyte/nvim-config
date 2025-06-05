@@ -13,7 +13,7 @@ return {
   ---@type blink.cmp.Config
   opts = {
     keymap = {
-      ['<C-k>'] = { 'show_documentation', 'hide_documentation', 'snippet_forward', 'fallback' },
+      ['<C-k>'] = { 'snippet_forward', 'fallback' },
       ['<C-j>'] = { 'snippet_backward', 'fallback' },
     },
 
