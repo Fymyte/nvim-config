@@ -15,7 +15,7 @@ local lsp
 ---@brief Custom on_attach callback
 ---@param client vim.lsp.Client client
 ---@param bufnr integer
-function on_attach(client, bufnr)
+local function on_attach(client, bufnr)
   if client.server_capabilities.semanticTokensProvider == true then
     vim.lsp.semantic_tokens.start(bufnr, client.id)
   end
@@ -36,8 +36,17 @@ function on_attach(client, bufnr)
   end
 end
 
-function on_exit(_, _, client_id)
-  autocmd_clr { group = lsp.augroups[client_id] }
+-- Avoids error when trying to force close an LSP client
+local function on_exit(_, _, client_id)
+  local function clear()
+    autocmd_clr { group = lsp.augroups[client_id] }
+  end
+
+  if vim.in_fast_event() then
+    vim.schedule(clear)
+  else
+    clear()
+  end
 end
 
 lsp = {
@@ -65,7 +74,7 @@ vim.lsp.enable {
   'taplo',
   'yaml-ls',
   'jsonls',
-  'nil-ls',
+  'nil_ls',
   'nixd',
   'gopls',
   'clangd',
