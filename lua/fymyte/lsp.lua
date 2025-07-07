@@ -83,6 +83,7 @@ vim.lsp.enable {
   'neocmakelsp',
   'bashls',
   'ltex_plus',
+  'zls',
 }
 
 return lsp
