@@ -47,8 +47,12 @@ keymap('o', 'i%', '<cmd>normal vi%<cr>')
 
 keymap('n', '<leader>do', vim.diagnostic.open_float, '[D]iagnostic [O]pen')
 keymap('n', '<leader>dr', vim.diagnostic.reset, '[D]iagnostic [R]eset')
-keymap('n', '[d', function() vim.diagnostic.jump { count = -1, float = true } end, 'Prev [D]iagnostic')
-keymap('n', ']d', function() vim.diagnostic.jump { count = 1, float = true } end, 'Next [D]iagnostic')
+keymap('n', '[d', function()
+  vim.diagnostic.jump { count = -1, float = true }
+end, 'Prev [D]iagnostic')
+keymap('n', ']d', function()
+  vim.diagnostic.jump { count = 1, float = true }
+end, 'Next [D]iagnostic')
 keymap('n', '<leader>dq', vim.diagnostic.setloclist, '[D]iagnostic [Q]uick fix')
 
 keymap('n', '<leader>o', function()
