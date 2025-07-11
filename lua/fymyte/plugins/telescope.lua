@@ -9,7 +9,6 @@ return {
   end,
   dependencies = (function()
     local telescope_deps = {
-      'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-project.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
@@ -83,13 +82,6 @@ return {
       end,
       desc = '[S]earch [P]roject',
     },
-    {
-      '<leader>fb',
-      function()
-        require('telescope').extensions.file_browser.file_browser()
-      end,
-      desc = '[F]ile [B]rowser',
-    },
   },
 
   cmd = { 'Telescope' },
@@ -112,7 +104,6 @@ return {
         --   base_dirs = { '~/.config/nvim' },
         --   theme = 'dropdown',
         -- },
-        file_browser = { theme = 'dropdown' },
         live_grep_args = {
           auto_quoting = true,
           mappings = {
@@ -129,7 +120,6 @@ return {
     opts.extensions = { ['ui-select'] = { require('telescope.themes').get_dropdown() } }
     require('telescope').setup(opts)
 
-    require('telescope').load_extension 'file_browser'
     require('telescope').load_extension 'project'
     require('telescope').load_extension 'ui-select'
     require('telescope').load_extension 'live_grep_args'
