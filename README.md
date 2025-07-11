@@ -1,7 +1,7 @@
 # My Neovim config
 
 Package-manager: [lazy.nvim](https://github.com/folke/lazy.nvim)\
-Colorscheme: [catppuccin](https://github.com/catppuccin/nvim.git)\
+Colorscheme: [catppuccin](https://github.com/catppuccin/nvim.git) (mocha variant)
 
 ## Nvim configuration
 - Builtin options: [lua/fymyte/options.lua](./lua/fymyte/options.lua)
@@ -14,7 +14,6 @@ Colorscheme: [catppuccin](https://github.com/catppuccin/nvim.git)\
 - Treesitter: [lua/fymyte/treesitter.lua](./lua/fymyte/treesitter.lua)
 
 ## Plugins
-- Colorscheme: [catppuccin](https://github.com/catppuccin/nvim.git) (Pastel scheme. I use the mocha variant)
 - Statusline: [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim.git)
 - Completion: [blink.cmp](https://github.com/saghen/blink.cmp.git) (better than then builtin)
 - File explorer: [oil.nvim](https://github.com/stevearc/oil.nvim.git) (edit filesystem as a vim buffer)
