@@ -108,6 +108,10 @@ opt.jumpoptions = opt.jumpoptions
 vim.g.python3_host_prog = 'python3'
 vim.g.loaded_python_provider = 0
 
+-- Always use osc52 to copy to system clipboard.
+-- All the terminal emulators I use supports it (zellij + ghostty)
+vim.g.clipboard = 'osc52'
+
 -- Additional detected filetypes
 vim.filetype.add {
   filename = {
