@@ -12,6 +12,7 @@ IRQs
 MR
 NODELABEL
 PHANDLE
+QEMU
 RichText
 SPDX
 Sequans
