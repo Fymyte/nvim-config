@@ -23,6 +23,9 @@ keymap('i', '!', '!<C-g>u')
 keymap('i', '?', '?<C-g>u')
 keymap('i', ':', ':<C-g>u')
 
+-- Override default <C-m> behavior to act as o in insert mode instead of CR
+keymap('i', '<C-m>', '<cmd>normal o<cr>')
+
 -- Cycle through tabs (I don't use tags, so use ][t for tabs instead)
 keymap('n', ']t', '<cmd>tabnext<cr>', '[T]ab [N]ext')
 keymap('n', '[t', '<cmd>tabprev<cr>', '[T]ab [P]rev')
