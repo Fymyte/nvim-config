@@ -13,6 +13,7 @@ return {
     'javascript',
     'lua',
     'markdown',
+    'rst',
     'nix',
     'python',
     'ruby',
