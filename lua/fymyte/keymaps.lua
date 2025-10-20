@@ -42,7 +42,7 @@ keymap('x', '<leader>p', '"_dP', '[P]aste without loosing clipboard content')
 -- Linewise text object
 keymap('x', 'il', 'g_o^')
 keymap('o', 'il', '<cmd>normal vil<cr>')
-keymap('x', 'al', '$o^')
+keymap('x', 'al', '$o0')
 keymap('o', 'al', '<cmd>normal val<cr>')
 -- Buffer text object
 keymap('x', 'i%', 'GoggV')

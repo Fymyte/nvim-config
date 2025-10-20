@@ -1,6 +1,12 @@
 ---@type LazyPluginSpec
 return {
-  'echasnovski/mini.ai',
+  'nvim-mini/mini.ai',
   version = '*',
-  config = true,
+  opts = {
+    mappings = {
+      around_last = '',
+      inside_last = '',
+    },
+  },
+  -- config = true,
 }
