@@ -115,7 +115,7 @@ vim.g.clipboard = 'osc52'
 -- Additional detected filetypes
 vim.filetype.add {
   filename = {
-    Scratch = 'markdown', -- Allow typing norg syntax in empty Scratch buffer
+    Scratch = 'markdown', -- Allow typing markdown syntax in empty Scratch buffer
   },
 }
 
