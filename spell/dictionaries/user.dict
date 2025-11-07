@@ -2,6 +2,7 @@ Ascii
 AsciiDoc
 CRC32
 CTRL
+DHCP
 EALREADY
 EBUSY
 EINVAL
@@ -17,6 +18,7 @@ RichText
 SPDX
 Sequans
 TODO
+VLAN
 armds
 bootloaders
 caba
@@ -29,11 +31,13 @@ hwlock
 hwlocks
 hwspinlock
 hwspinlocks
+iface
 initializer
 ipc
 isr
 lsp
 lua
+posix
 retval
 scriptkit
 spinlock
