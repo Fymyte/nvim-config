@@ -11,6 +11,10 @@ return {
         path = '~/notes',
       },
       {
+        name = 'notes',
+        path = '~/Nextcloud/notes',
+      },
+      {
         name = 'no-vault',
         path = function()
           -- alternatively use the CWD:
