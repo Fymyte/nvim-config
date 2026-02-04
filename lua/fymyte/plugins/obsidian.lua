@@ -8,11 +8,8 @@ return {
     workspaces = {
       {
         name = 'notes',
-        path = '~/notes',
-      },
-      {
-        name = 'notes',
         path = '~/Nextcloud/notes',
+        templates = { folder = '~/Nextcloud/notes/templates' },
       },
       {
         name = 'no-vault',
