@@ -60,10 +60,9 @@ return {
       pattern = 'FugitiveEditor',
       callback = function()
         vim.cmd.wincmd 'H'
-        vim.cmd [[vertical resize 80]]
-        vim.cmd.setlocal 'nonumber'
-        vim.cmd.setlocal 'norelativenumber'
-        vim.cmd.setlocal 'winfixwidth'
+        vim.cmd.resize { 85, mods = { vertical = true } }
+        vim.opt_local.winfixwidth = true
+        vim.opt_local.textwidth = 80
       end,
     })
 
@@ -73,9 +72,9 @@ return {
       desc = 'Resize fugigive index window',
       callback = function()
         vim.cmd.resize(10)
-        vim.cmd.setlocal 'nonumber'
-        vim.cmd.setlocal 'norelativenumber'
-        vim.cmd.setlocal 'winfixheight'
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.winfixheight = true
       end,
     })
 
