@@ -16,6 +16,10 @@ local lsp
 ---@param client vim.lsp.Client client
 ---@param bufnr integer
 local function on_attach(client, bufnr)
+  if not client.server_capabilities then
+    return
+  end
+
   if client.server_capabilities.semanticTokensProvider == true then
     vim.lsp.semantic_tokens.start(bufnr, client.id)
   end
@@ -70,7 +74,7 @@ vim.lsp.config('*', lsp.default_config)
 
 vim.lsp.enable {
   'harper-ls',
-  'lua-ls',
+  'emmylua_ls',
   'taplo',
   'yaml-ls',
   'jsonls',
