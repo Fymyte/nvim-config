@@ -35,7 +35,6 @@ return {
       group = augroup 'LspHandleFileRename',
       pattern = 'OilActionsPost',
       callback = function(event)
-        P(event.data.actions)
         for _, action in pairs(event.data.actions) do
           if action.type == 'move' then
             Snacks.rename.on_rename_file(action.src_url, action.dest_url)
