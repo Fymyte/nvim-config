@@ -1,8 +1,9 @@
 return {
   'jhofscheier/ltex-utils.nvim',
+  enabled = false,
   dependencies = {
     'neovim/nvim-lspconfig',
-    'nvim-telescope/telescope.nvim',
+    -- 'nvim-telescope/telescope.nvim',
   },
   opts = {
     -- your configuration comes here

@@ -7,6 +7,7 @@ return {
   build = function()
     check_system_deps({ 'fd', 'rg' }, 'telescope')
   end,
+  enabled = false,
   dependencies = (function()
     local telescope_deps = {
       'nvim-telescope/telescope-project.nvim',
