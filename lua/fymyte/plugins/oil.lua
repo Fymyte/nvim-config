@@ -22,11 +22,12 @@ return {
       ['<leader>p'] = { 'actions.paste_from_system_clipboard', mode = 'n' },
     },
   },
+  lazy = false,
   config = function(_, opts)
     require('oil').setup(opts)
-    vim.keymap.set('n', '<leader>o', require('oil').open, {
+    vim.keymap.set('n', '<leader>o', '<cmd>Oil<cr>', {
       silent = true,
-      desc = "[O]il open current file's directory",
+      desc = "[O]il open parent directory",
     })
   end,
 }
