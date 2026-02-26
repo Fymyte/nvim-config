@@ -48,8 +48,10 @@ return {
       { '<leader>sh', Snacks.picker.help, desc = '[S]earch [H]elp' },
       { '<leader>sr', Snacks.picker.registers, desc = '[S]earch [R]egister' },
       { '<leader>sb', Snacks.picker.buffers, desc = '[S]earch [B]uffer' },
-      { '<leader>sg', Snacks.picker.grep, desc = '[S]earch [S]tring' },
+      { '<leader>ss', Snacks.picker.grep_word, desc = '[S]earch [S]tring' },
+      { '<leader>sg', Snacks.picker.grep, desc = '[S]earch [G]rep' },
       { '<leader>sk', Snacks.picker.keymaps, desc = '[S]earch [K]eymap' },
+      { '<leader>sc', Snacks.picker.autocmds, desc = '[S]earch [C]ommands' },
     }
     for _, v in pairs(keys) do
       vim.keymap.set('n', v[1], v[2], { desc = v.desc })
