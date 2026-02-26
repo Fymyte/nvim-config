@@ -77,17 +77,31 @@ keymap('t', '<S-esc>', '<C-\\><C-n>', 'Terminal normal mode')
 keymap('t', '<C-;><C-;>', '<C-\\><C-n>', 'Terminal normal mode')
 keymap('t', '<C-w>', '<C-\\><C-n><C-w>')
 
-local function executor()
-  if vim.bo.filetype == 'lua' then
-    loadstring(vim.api.nvim_get_current_line())()
+---@param mode 'n'|'v'
+local function executor(mode)
+  if vim.bo.filetype ~= 'lua' then
+    return
+  end
+  if mode == 'n' then
+    assert(loadstring(vim.api.nvim_get_current_line()))()
+  else
+    local region = vim.fn.getregion(vim.fn.getpos '.', vim.fn.getpos 'v', { type = vim.fn.mode() })
+    local exe = table.concat(region, '\n')
+    loadstring(exe)()
   end
 end
-keymap('n', '<leader>x', executor, 'E[x]ecute current line in luafile')
+keymap('n', '<leader>x', function()
+  executor 'n'
+end, 'E[x]ecute current line in luafile')
+keymap('v', '<leader>x', function()
+  executor 'v'
+end, 'E[x]ecute current selection in luafile')
 
-local function save_and_execute()
-  if vim.bo.filetype == 'lua' then
-    vim.cmd [[silent! write]]
-    vim.cmd.luafile(vim.fn.expand '%')
+local function save_and_exec_file()
+  if vim.bo.filetype ~= 'lua' then
+    return
   end
+  vim.cmd [[silent! write]]
+  vim.cmd.luafile(vim.fn.expand '%')
 end
-keymap('n', '<leader><leader>x', save_and_execute, 'E[x]ecute the current lua file')
+keymap('n', '<leader><leader>x', save_and_exec_file, 'E[x]ecute the current lua file')
