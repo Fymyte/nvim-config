@@ -4,8 +4,6 @@ local autocmd = vim.api.nvim_create_autocmd
 ---@type LazyPluginSpec
 return {
   'tpope/vim-fugitive',
-  cmd = { 'Git', 'G' },
-  keys = '<leader>tg',
   config = function()
     local function open_fugitive_buf()
       local ok, head = pcall(vim.fn.FugitiveHead)
@@ -78,6 +76,6 @@ return {
       end,
     })
 
-    vim.keymap.set('n', '<leader>tg', ToggleFugitiveGit)
+    vim.keymap.set('n', '<leader>tg', ToggleFugitiveGit, {desc = '[T]oggle [G]it status'})
   end,
 }
