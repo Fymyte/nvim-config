@@ -133,6 +133,15 @@ autocmd('BufReadPost', {
   end,
 })
 
+autocmd('FileType', {
+  pattern = 'help',
+  group = augroup 'AutoHelpVerticalSplit',
+  desc = 'Open help in vertical split',
+  callback = function()
+    vim.cmd.wincmd 'L'
+  end,
+})
+
 autocmd('TermOpen', {
   group = augroup 'AutoTermInsertMode',
   desc = 'enter insert mode when opening a terminal',
