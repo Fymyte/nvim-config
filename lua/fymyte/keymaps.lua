@@ -13,7 +13,6 @@ end
 
 -- Quick save
 keymap('n', '<leader>w', '<cmd>write!<cr>', '[W]rite buffer')
-keymap('n', '<leader>q', '<cmd>quit<cr>', '[Q]uit window')
 
 -- Do not add breakpoints when typing punctuation. This allows to under writing a lua statement in a single press of `u`
 -- instead of one for every field
