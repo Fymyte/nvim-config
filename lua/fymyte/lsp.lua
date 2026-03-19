@@ -53,7 +53,7 @@ autocmd('LspDetach', {
 })
 
 vim.lsp.enable {
-  'harper-ls',
+  'harper_ls',
   'emmylua_ls',
   'taplo',
   'yaml-ls',
