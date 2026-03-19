@@ -1,23 +1,5 @@
 local augroup = require('fymyte.utils').augroup
 
----@type snacks.picker.layout.Config
-local default_reverse = {
-  reverse = true,
-  layout = {
-    box = 'horizontal',
-    width = 0.8,
-    min_width = 120,
-    height = 0.8,
-    {
-      box = 'vertical',
-      border = true,
-      title = '{title} {live} {flags}',
-      { win = 'list', border = 'none' },
-      { win = 'input', height = 1, border = 'top' },
-    },
-    { win = 'preview', title = '{preview}', border = true, width = 0.5 },
-  },
-}
 ---@type LazyPluginSpec
 return {
   'folke/snacks.nvim',
@@ -25,7 +7,30 @@ return {
   opts = {
     bigfile = { enabled = true },
     input = { prompt_pos = 'left', win = { relative = 'cursor', width = 40 } },
-    picker = { layout = default_reverse },
+    picker = {
+      layout = function(source)
+        return source == 'select' and 'select' or 'default_reverse'
+      end,
+      layouts = {
+        default_reverse = {
+          reverse = true,
+          layout = {
+            box = 'horizontal',
+            width = 0.8,
+            min_width = 120,
+            height = 0.8,
+            {
+              box = 'vertical',
+              border = true,
+              title = '{title} {live} {flags}',
+              { win = 'list', border = 'none' },
+              { win = 'input', height = 1, border = 'top' },
+            },
+            { win = 'preview', title = '{preview}', border = true, width = 0.5 },
+          },
+        },
+      },
+    },
   },
 
   config = function(_, opts)
@@ -52,6 +57,7 @@ return {
       { '<leader>sg', Snacks.picker.grep, desc = '[S]earch [G]rep' },
       { '<leader>sk', Snacks.picker.keymaps, desc = '[S]earch [K]eymap' },
       { '<leader>sc', Snacks.picker.autocmds, desc = '[S]earch [C]ommands' },
+      { '<leader>sl', Snacks.picker.lines, desc = '[S]earch [L]ines' },
     }
     for _, v in pairs(keys) do
       vim.keymap.set('n', v[1], v[2], { desc = v.desc })
