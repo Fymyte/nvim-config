@@ -58,7 +58,7 @@ return {
       pattern = 'FugitiveEditor',
       callback = function()
         vim.cmd.wincmd 'H'
-        vim.cmd.resize { 85, mods = { vertical = true } }
+        vim.cmd.resize { 86, mods = { vertical = true } }
         vim.opt_local.winfixwidth = true
         vim.opt_local.textwidth = 80
       end,
