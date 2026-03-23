@@ -33,11 +33,12 @@ opt.cursorline = true
 -- Turn bells off
 opt.errorbells = false
 opt.visualbell = false
-vim.cmd [[set t_vb=]] -- Remove terminal blinking
+vim.cmd.set('t_vb=')
 opt.belloff = 'all'
+
 opt.termguicolors = true
 
--- Linebreak
+-- Line break
 opt.linebreak = true
 opt.textwidth = 120
 
@@ -66,7 +67,7 @@ opt.undofile = true
 opt.spell = false -- Spell checking is not set by default (define per ft using ftplugin)
 opt.spelllang = { 'en_us' }
 -- Completion
-opt.completeopt = { 'menu', 'menuone', 'preview' }
+opt.completeopt = { 'fuzzy', 'menu', 'menuone', 'noinsert', 'popup' }
 opt.shortmess:append 'c'
 
 -- Status line
