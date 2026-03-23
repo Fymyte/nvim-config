@@ -27,6 +27,9 @@ opt.splitright = true -- vsplit open new window on the right
 opt.listchars = { tab = '▸ ', trail = '·' }
 opt.list = true
 
+-- Highlight cursor line
+opt.cursorline = true
+
 -- Turn bells off
 opt.errorbells = false
 opt.visualbell = false
