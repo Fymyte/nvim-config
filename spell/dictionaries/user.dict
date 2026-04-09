@@ -20,11 +20,14 @@ Sequans
 TODO
 VLAN
 armds
+baudrate
 bootloaders
 caba
 cli
 devicetree
 dt
+dts
+dtsi
 fifo
 fymyte
 hwlock
