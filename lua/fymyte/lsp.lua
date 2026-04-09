@@ -40,15 +40,15 @@ end
 
 autocmd('LspAttach', {
   callback = function(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    on_attach(client, args.buf)
+    ---@diagnostic disable-next-line: call-non-callable
+    on_attach(assert(vim.lsp.get_client_by_id(args.data.client_id)), args.buf)
   end,
 })
 
 autocmd('LspDetach', {
   callback = function(args)
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    on_exit(client)
+    ---@diagnostic disable-next-line: call-non-callable
+    on_exit(assert(vim.lsp.get_client_by_id(args.data.client_id)))
   end,
 })
 
