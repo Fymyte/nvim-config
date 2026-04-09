@@ -114,7 +114,21 @@ vim.g.loaded_python_provider = 0
 
 -- Always use osc52 to copy to system clipboard.
 -- All the terminal emulators I use supports it (zellij + ghostty)
-vim.g.clipboard = 'osc52'
+-- Disable pasting (always return nothing) because zellij does not support
+-- osc52 paste passthrough. This results in timeout when trying to paste from
+-- + and * registers. Instead, use the native paste function with <C-S-v>
+-- of the terminal emulator.
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = function() return {} end,
+    ['*'] = function() return {} end,
+  },
+}
 
 -- Additional detected filetypes
 vim.filetype.add {
