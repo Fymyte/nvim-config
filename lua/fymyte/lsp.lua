@@ -12,7 +12,7 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method(pm.textDocument_semanticTokens_full, bufnr) then
-    vim.lsp.semantic_tokens.start(bufnr, client.id)
+    vim.lsp.semantic_tokens.enable(true, { bufnr = bufnr, bufnr, client_id = client.id })
   end
 
   if client:supports_method(pm.textDocument_documentHighlight, bufnr) then
