@@ -60,7 +60,8 @@ keymap('n', '<leader>dq', vim.diagnostic.setloclist, '[D]iagnostic [Q]uick fix')
 keymap('n', '<leader>o', function()
   vim.cmd.edit(vim.fn.expand '%:p:h')
 end, "[O]pen file's directory")
-keymap('n', '<leader>f', 'gq%', '[F]ormat')
+-- Format buffer without moving the cursor
+keymap('n', '<leader>f', '<cmd>normal mfgqi%`f<cr>', '[F]ormat buffer')
 
 -- Common yanking ops
 keymap('n', '<leader>yf', function()
