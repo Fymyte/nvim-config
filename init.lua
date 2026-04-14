@@ -27,7 +27,7 @@ vim.keymap.set('', '<space>', '', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 
--- Load helper functions first to have them available for after
+-- Load helper functions first to have them available everywhere else
 require 'fymyte.globals'
 
 -- Custom vim.opt configuration

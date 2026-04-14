@@ -33,7 +33,7 @@ opt.cursorline = true
 -- Turn bells off
 opt.errorbells = false
 opt.visualbell = false
-vim.cmd.set('t_vb=')
+vim.cmd.set 't_vb='
 opt.belloff = 'all'
 
 opt.termguicolors = true
