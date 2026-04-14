@@ -118,6 +118,9 @@ vim.g.loaded_python_provider = 0
 -- osc52 paste passthrough. This results in timeout when trying to paste from
 -- + and * registers. Instead, use the native paste function with <C-S-v>
 -- of the terminal emulator.
+local function clip_noop()
+  return {}
+end
 vim.g.clipboard = {
   name = 'OSC 52',
   copy = {
@@ -125,8 +128,8 @@ vim.g.clipboard = {
     ['*'] = require('vim.ui.clipboard.osc52').copy '*',
   },
   paste = {
-    ['+'] = function() return {} end,
-    ['*'] = function() return {} end,
+    ['+'] = clip_noop,
+    ['*'] = clip_noop,
   },
 }
 
@@ -137,11 +140,11 @@ vim.filetype.add {
   },
 }
 
-local autocmd = require('fymyte.utils').autocmd
-local augroup = require('fymyte.utils').augroup
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
 autocmd('BufReadPost', {
-  group = augroup 'AutoReturnToLastPos',
+  group = augroup('AutoReturnToLastPos', { clear = true }),
   desc = 'return to last edition position when open a file',
   pattern = '*',
   callback = function()
@@ -153,7 +156,7 @@ autocmd('BufReadPost', {
 
 autocmd('FileType', {
   pattern = 'help',
-  group = augroup 'AutoHelpVerticalSplit',
+  group = augroup('AutoHelpVerticalSplit', { clear = true }),
   desc = 'Open help in vertical split',
   callback = function()
     vim.cmd.wincmd 'L'
@@ -161,14 +164,14 @@ autocmd('FileType', {
 })
 
 autocmd('TermOpen', {
-  group = augroup 'AutoTermInsertMode',
+  group = augroup('AutoTermInsertMode', { clear = true }),
   desc = 'enter insert mode when opening a terminal',
   pattern = '*',
   command = 'startinsert',
 })
 
 autocmd('TextYankPost', {
-  group = augroup 'Highlight_Yank',
+  group = augroup('Highlight_Yank', { clear = true }),
   desc = 'highlight selection on yank',
   pattern = '*',
   callback = function()
@@ -177,7 +180,7 @@ autocmd('TextYankPost', {
 })
 
 autocmd('VimLeavePre', {
-  group = augroup 'TerminalForceClose',
+  group = augroup('TerminalForceClose', { clear = true }),
   desc = 'force close all terminal buffer on quit',
   pattern = '*',
   callback = function()
@@ -191,6 +194,5 @@ autocmd('VimLeavePre', {
   end,
 })
 
--- TODO: re-enable when more confortable with vim
 -- Disable entering in Ex mode
 vim.keymap.set('n', 'Q', '', { noremap = true })
