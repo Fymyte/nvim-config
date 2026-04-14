@@ -1,4 +1,4 @@
-local augroup = require('fymyte.utils').augroup
+local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local autocmd_clr = vim.api.nvim_clear_autocmds
 local pm = vim.lsp.protocol.Methods
@@ -16,7 +16,7 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method(pm.textDocument_documentHighlight, bufnr) then
-    local gid = augroup('document-highlight-' .. client.name)
+    local gid = augroup('document-highlight-' .. client.name, { clear = true })
     autocmd({ 'CursorHold', 'CursorHoldI' }, { group = gid, callback = vim.lsp.buf.document_highlight, buffer = bufnr })
     autocmd('CursorMoved', { group = gid, callback = vim.lsp.buf.clear_references, buffer = bufnr })
   end

@@ -38,51 +38,6 @@ local system_deps = function(...)
   return missing
 end
 
----@alias augroup integer
-
----Create a new autocmd group
----@param name string
----@return augroup
-M.augroup = function(name)
-  return vim.api.nvim_create_augroup(name, { clear = true })
-end
-
----@alias AuCmdCallback string|function
-
----@class AuCmdSpec
----@field [1] string: 1 desc
----@field [2] augroup
----@field [3] AuCmdCallback
----@field [4] integer|nil
----@field once boolean whether the autocmd should be run only once
----@field desc string autocmd description
-
----Creates a new auto command
----
----```lua
---- autocmd('BufEnter', augroup('MyAugroup'), function() print('Buffer entered')end, 0, {
----     desc = 'My cool autocmd',
----   })
----```
----@param args AuCmdSpec
-M.autocmd_s = function(args)
-  local event = args[1]
-  local group = args[2]
-  local callback = args[3]
-
-  vim.api.nvim_create_autocmd(event, {
-    group = group,
-    buffer = args[4],
-    callback = function()
-      callback()
-    end,
-    once = args.once,
-    desc = args.desc,
-  })
-end
-
-M.autocmd = vim.api.nvim_create_autocmd
-
 ---Check if dependencies are installed and executable on the system
 ---@param deps SystemDeps[]
 ---@param name string
@@ -105,5 +60,7 @@ end
 
 M.check_system_deps = check_system_deps
 M.system_deps = system_deps
+
+M.gh = function(user_repo) return "https://github.com/"..user_repo end 
 
 return M
