@@ -45,3 +45,4 @@ require 'fymyte.treesitter'
 -- Bootstrap Neovim package manager
 local lazy_opts = require 'fymyte.lazy-bootstrap'
 require('lazy').setup('fymyte.plugins', lazy_opts)
+require('vim._core.ui2').enable { enable = true }
