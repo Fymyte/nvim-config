@@ -30,6 +30,13 @@ vim.g.log_level = vim.log.levels.WARN -- Use this for global debugging
 -- Load helper functions first to have them available everywhere else
 require 'fymyte.globals'
 
+-- Colorscheme
+vim.pack.add {
+  Utils.gh 'nvim-lua/plenary.nvim',
+  { src = Utils.gh 'catppuccin/nvim', name = 'catppuccin' },
+}
+vim.cmd.colorscheme 'catppuccin-mocha'
+
 -- Custom vim.opt configuration
 require 'fymyte.options'
 -- Additional keymaps
@@ -37,12 +44,7 @@ require 'fymyte.keymaps'
 -- Builtin diagnostics configuration
 require 'fymyte.diagnostics'
 
--- Builtin lsp configuration
+-- Builtin lsp configuration (include lspconfig to auto-populate vim.lsp.config)
 require 'fymyte.lsp'
--- Builtin treesitter configuration
-require 'fymyte.treesitter'
 
--- Bootstrap Neovim package manager
-local lazy_opts = require 'fymyte.lazy-bootstrap'
-require('lazy').setup('fymyte.plugins', lazy_opts)
 require('vim._core.ui2').enable { enable = true }

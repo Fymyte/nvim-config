@@ -1,16 +1,11 @@
----@type LazyPluginSpec
-return {
-  'saghen/blink.cmp',
-  enabled = true,
-  dependencies = {
-    'rafamadriz/friendly-snippets',
-    { 'L3MON4D3/LuaSnip', version = 'v2.*' },
-  },
-  version = '*',
+vim.pack.add {
+  { src = Utils.gh 'saghen/blink.cmp', version = vim.version.range('*') },
+  Utils.gh 'rafamadriz/friendly-snippets',
+  { src = Utils.gh 'L3MON4D3/LuaSnip', version = vim.version.range('2') },
+}
 
-  ---@module 'blink.cmp'
-  ---@type blink.cmp.Config
-  opts = {
+require 'blink.cmp'.setup(
+  {
     keymap = {
       ['<C-k>'] = { 'snippet_forward', 'fallback' },
       ['<C-j>'] = { 'snippet_backward', 'fallback' },
@@ -34,5 +29,5 @@ return {
         ['<C-n>'] = { 'show_and_insert', 'select_next' },
       },
     },
-  },
-}
+  }
+)

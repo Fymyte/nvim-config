@@ -3,6 +3,30 @@ local autocmd = vim.api.nvim_create_autocmd
 local autocmd_clr = vim.api.nvim_clear_autocmds
 local pm = vim.lsp.protocol.Methods
 
+vim.pack.add {
+  Utils.gh 'neovim/nvim-lspconfig',
+  Utils.gh 'b0o/SchemaStore.nvim',
+}
+
+vim.lsp.config('jsonls', {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
+
+vim.lsp.config('yaml-ls', {
+  settings = {
+    yaml = {
+      schemaStore = { enable = false, url = '' },
+      schemas = require('schemastore').yaml.schemas(),
+      customTags = { '!reference sequence' },
+    },
+  },
+})
+
 ---@brief Custom on_attach callback
 ---@param client vim.lsp.Client client
 ---@param bufnr integer
