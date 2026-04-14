@@ -52,7 +52,9 @@ end
 local function on_exit(client)
   local function clear()
     vim.lsp.buf.clear_references()
-    autocmd_clr { group = augroup('document-highlight-' .. client.name) }
+    if client:supports_method(pm.textDocument_documentHighlight) then
+      autocmd_clr { group = 'document-highlight-' .. client.name }
+    end
   end
 
   if vim.in_fast_event() then
@@ -84,12 +86,9 @@ vim.lsp.enable {
   'jsonls',
   'nil_ls',
   'nixd',
-  'gopls',
   'clangd',
   'ruff',
   'pylsp',
-  'neocmakelsp',
-  'bashls',
+  'neocmake',
   'ltex_plus',
-  'zls',
 }
