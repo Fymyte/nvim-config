@@ -35,7 +35,7 @@ require('snacks').setup {
   },
 }
 
-require('worktrees').setup()
+require('worktrees').setup {}
 
 autocmd('User', {
   group = augroup('LspHandleFileRename', { clear = true }),
@@ -59,8 +59,28 @@ local keys = {
   { '<leader>sk', Snacks.picker.keymaps, desc = '[S]earch [K]eymap' },
   { '<leader>sc', Snacks.picker.autocmds, desc = '[S]earch [C]ommands' },
   { '<leader>sl', Snacks.picker.lines, desc = '[S]earch [L]ines' },
+  ---@diagnostic disable-next-line:undefined-field
   { '<leader>sw', Snacks.picker.worktrees, desc = '[S]earch Git [W]orktrees' },
+
+  { '<leader>cb', Snacks.picker.git_branches, desc = '[C]hange Git [B]ranch' },
 }
 for _, v in pairs(keys) do
   vim.keymap.set('n', v[1], v[2], { desc = v.desc })
 end
+
+vim.api.nvim_create_user_command('Pick', function(args)
+  Snacks.picker.pick(args.args)
+end, {
+  nargs = '?',
+  desc = 'Snacks Pickers',
+  complete = function(lead, cmd, pos)
+    local res = {}
+    for k, _ in pairs(Snacks.picker) do
+      if #lead == 0 or k.sub(1, #lead) == lead then
+        table.insert(res, k)
+      end
+    end
+
+    return res
+  end,
+})
