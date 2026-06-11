@@ -65,12 +65,14 @@ keymap('n', '<leader>f', '<cmd>normal mfgqi%`f<cr>', '[F]ormat buffer')
 
 -- Common yanking ops
 keymap('n', '<leader>yf', function()
-  vim.fn.setreg('@', vim.fn.expand '%:t')
-  vim.fn.setreg('+', vim.fn.expand '%:t')
+  local filename = vim.fn.expand('%:t')
+  vim.fn.setreg('@', filename)
+  vim.fn.setreg('+', filename)
 end, '[Y]ank [F]ilename of current file')
 keymap('n', '<leader>yp', function()
-  vim.fn.setreg('@', vim.fn.expand '%:p')
-  vim.fn.setreg('+', vim.fn.expand '%:t')
+  local filepath = vim.fn.expand '%:p'
+  vim.fn.setreg('@', filepath)
+  vim.fn.setreg('+', filepath)
 end, '[Y]ank [P]ath to current file')
 
 keymap('t', '<S-esc>', '<C-\\><C-n>', 'Terminal normal mode')
