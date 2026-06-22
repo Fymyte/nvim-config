@@ -17,7 +17,7 @@ vim.lsp.config('jsonls', {
   },
 })
 
-vim.lsp.config('yaml-ls', {
+vim.lsp.config('yamlls', {
   settings = {
     yaml = {
       schemaStore = { enable = false, url = '' },
@@ -82,7 +82,7 @@ vim.lsp.enable {
   'harper_ls',
   'emmylua_ls',
   'taplo',
-  'yaml-ls',
+  'yamlls',
   'jsonls',
   'nil_ls',
   'nixd',
