@@ -91,3 +91,4 @@ autocmd('User', {
 })
 
 vim.keymap.set('n', '<leader>tg', ToggleFugitiveGit, { desc = '[T]oggle [G]it status' })
+vim.keymap.set('n', '<M-g>', ToggleFugitiveGit, { desc = '[T]oggle [G]it status' })
