@@ -33,7 +33,13 @@ require('snacks').setup {
       },
     },
   },
+  terminal = {
+    shell = 'fish',
+    win = { position = "right" }
+  },
 }
+
+vim.keymap.set({'n', 't'}, '<M-i>', Snacks.terminal.toggle)
 
 require('worktrees').setup {}
 
