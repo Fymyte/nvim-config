@@ -35,11 +35,40 @@ require('snacks').setup {
   },
   terminal = {
     shell = 'fish',
-    win = { position = "right" }
+    win = { position = 'right' },
   },
 }
 
-vim.keymap.set({'n', 't'}, '<M-i>', Snacks.terminal.toggle)
+--- @type snacks.win[]
+local last_showned = {}
+
+vim.keymap.set({ 'n', 't' }, '<M-i>', function()
+  local visible_terms = vim.tbl_filter(function(t)
+    return t:valid()
+  end, Snacks.terminal.list())
+
+  if vim.v.count ~= 0 or #Snacks.terminal.list() == 0 then
+    last_showned = visible_terms
+    -- Use default behavior if one term is selected: toggle the targeted term
+    Snacks.terminal.toggle()
+    return
+  end
+
+  if visible_terms and #visible_terms > 0 then
+    last_showned = visible_terms
+    for i, t in ipairs(visible_terms) do
+      t:hide()
+    end
+  elseif #last_showned > 0 then
+    for _, t in ipairs(last_showned) do
+      t:show()
+    end
+  else
+    for i, _ in ipairs(Snacks.terminal.list()) do
+      Snacks.terminal.focus({}, { count = i })
+    end
+  end
+end)
 
 require('worktrees').setup {}
 
