@@ -195,5 +195,13 @@ autocmd('VimLeavePre', {
   end,
 })
 
+autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  callback = function()
+    if vim.cmd.mode() ~= 'c' then
+      vim.cmd.checktime()
+    end
+  end,
+})
+
 -- Disable entering in Ex mode
 vim.keymap.set('n', 'Q', '', { noremap = true })
