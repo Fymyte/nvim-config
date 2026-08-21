@@ -1,7 +1,7 @@
 vim.pack.add {
   Utils.gh 'stevearc/oil.nvim',
   Utils.gh 'nvim-tree/nvim-web-devicons',
-  Utils.gh 'benomahony/oil-git.nvim',
+  Utils.gh 'malewicz1337/oil-git.nvim',
 }
 
 require('oil').setup {
