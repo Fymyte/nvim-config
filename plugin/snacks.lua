@@ -10,6 +10,7 @@ require('snacks').setup {
   bigfile = { enabled = true },
   input = { prompt_pos = 'left', win = { relative = 'cursor', width = 40 } },
   picker = {
+    main = { file = false },
     layout = function(source)
       return source == 'select' and 'select' or 'default_reverse'
     end,
