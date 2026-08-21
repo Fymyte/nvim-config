@@ -35,19 +35,31 @@ require('snacks').setup {
   },
   terminal = {
     shell = 'fish',
-    win = { position = 'right' },
+    win = { position = 'right', width = 0.4 },
   },
 }
 
 --- @type snacks.win[]
 local last_showned = {}
 
+--- Snacks terminals except the Claude Code one: claudecode.nvim uses the Snacks provider,
+--- so its terminal shows up in `Snacks.terminal.list()` too, and it has its own <M-o>.
+--- @return snacks.win[]
+local function shell_terminals()
+  local ok, claude_term = pcall(require, 'claudecode.terminal')
+  local claude_buf = ok and claude_term.get_active_terminal_bufnr() or nil
+  return vim.tbl_filter(function(t)
+    return t.buf ~= claude_buf
+  end, Snacks.terminal.list())
+end
+
 vim.keymap.set({ 'n', 't' }, '<M-i>', function()
+  local terms = shell_terminals()
   local visible_terms = vim.tbl_filter(function(t)
     return t:valid()
-  end, Snacks.terminal.list())
+  end, terms)
 
-  if vim.v.count ~= 0 or #Snacks.terminal.list() == 0 then
+  if vim.v.count ~= 0 or #terms == 0 then
     last_showned = visible_terms
     -- Use default behavior if one term is selected: toggle the targeted term
     Snacks.terminal.toggle()
@@ -64,7 +76,7 @@ vim.keymap.set({ 'n', 't' }, '<M-i>', function()
       t:show()
     end
   else
-    for i, _ in ipairs(Snacks.terminal.list()) do
+    for i, _ in ipairs(terms) do
       Snacks.terminal.focus({}, { count = i })
     end
   end
