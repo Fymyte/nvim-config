@@ -18,7 +18,7 @@ opt.mat = 2 -- How many tenths of a second to blink when matching brackets
 opt.fileformats = { 'unix', 'dos', 'mac' }
 opt.timeoutlen = 500 -- Time for a key map to complete
 opt.updatetime = 500 -- Time for `CursorHold` event to trigger (ms)
-opt.hidden = true -- Do not unload backgroup buffers
+opt.hidden = true -- Do not unload background buffers
 
 -- Splits
 opt.splitright = true -- vsplit open new window on the right
@@ -110,7 +110,6 @@ opt.jumpoptions = opt.jumpoptions
   + 'view' -- Also restore scroll offset when jumping back
 
 vim.g.python3_host_prog = 'python3'
-vim.g.loaded_python_provider = 0
 
 -- Always use osc52 to copy to system clipboard.
 -- All the terminal emulators I use supports it (zellij + ghostty)
@@ -197,7 +196,7 @@ autocmd('VimLeavePre', {
 
 autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
   callback = function()
-    if vim.cmd.mode() ~= 'c' then
+    if vim.api.nvim_get_mode().mode ~= 'c' then
       vim.cmd.checktime()
     end
   end,
