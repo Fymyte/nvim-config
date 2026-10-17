@@ -30,6 +30,7 @@ dt
 dts
 dtsi
 fifo
+firmwares
 fymyte
 hwlock
 hwlocks
