@@ -27,32 +27,37 @@ autocmd('PackChanged', {
   end,
 })
 
-local function try_install_parser(lang)
-  local nvimts = require 'nvim-treesitter'
-  local languages = nvimts.get_available()
-  for _, v in pairs(languages) do
-    if v == lang then
-      nvimts.install(lang):wait(5000)
-      return true
-    end
+local function start_ts_highlight(buf, lang)
+  if not pcall(vim.treesitter.start, buf, lang) then
+    vim.bo[buf].syntax = 'ON'
+    return false
   end
-
-  return false
+  return true
 end
 
 -- Automatically enable treesitter highlighting when opening a file
 autocmd('FileType', {
   group = augroup('tree-sitter-highlight', { clear = true }),
   callback = function(args)
+    local ts = require 'nvim-treesitter'
     local lang = vim.treesitter.language.get_lang(args.match)
-    -- If available in nvim-treesitter, install the parser
-    try_install_parser(lang)
 
-    -- Make sure that if it fails to activate tree-sitter highlighting, at
-    -- least there is old school regex syntax enabled
-    local ok = pcall(vim.treesitter.start, args.buf, lang)
-    if not ok then
-      vim.bo[args.buf].syntax = 'on'
+    if
+      start_ts_highlight(args.buf, lang) -- ts highlighting started
+      or not vim.list_contains(ts.get_available(), lang) -- no parser available
+      or vim.list_contains(ts.get_installed 'parsers', lang) -- parser installed but failed
+    then
+      return
     end
+
+    -- NOTE: do not wait for the install. vim.wait runs pending callbacks inside this
+    -- autocmd, where autocmds do not nest, so a scheduled :edit skips BufReadCmd
+    ts.install(lang):await(function()
+      vim.schedule(function()
+        if vim.api.nvim_buf_is_valid(args.buf) then
+          start_ts_highlight(args.buf, lang)
+        end
+      end)
+    end)
   end,
 })
