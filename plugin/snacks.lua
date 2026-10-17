@@ -1,10 +1,7 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
-vim.pack.add {
-  Utils.gh 'folke/snacks.nvim',
-  Utils.gh 'Juksuu/worktrees.nvim',
-}
+vim.pack.add { Utils.gh 'folke/snacks.nvim' }
 
 require('snacks').setup {
   bigfile = { enabled = true },
@@ -83,8 +80,6 @@ vim.keymap.set({ 'n', 't' }, '<M-i>', function()
   end
 end)
 
-require('worktrees').setup {}
-
 autocmd('User', {
   group = augroup('LspHandleFileRename', { clear = true }),
   pattern = 'OilActionsPost',
@@ -107,8 +102,6 @@ local keys = {
   { '<leader>sk', Snacks.picker.keymaps, desc = '[S]earch [K]eymap' },
   { '<leader>sc', Snacks.picker.autocmds, desc = '[S]earch [C]ommands' },
   { '<leader>sl', Snacks.picker.lines, desc = '[S]earch [L]ines' },
-  ---@diagnostic disable-next-line:undefined-field
-  { '<leader>sw', Snacks.picker.worktrees, desc = '[S]earch Git [W]orktrees' },
 
   { '<leader>cb', Snacks.picker.git_branches, desc = '[C]hange Git [B]ranch' },
 }

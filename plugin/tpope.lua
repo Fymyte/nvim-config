@@ -19,32 +19,7 @@ vim.keymap.set('n', ']q', '<cmd>try | cnext | catch | cfirst| endtry<cr>', { nor
 vim.keymap.set('n', '[l', '<cmd>try | lprev | catch | llast | endtry<cr>', { noremap = true })
 vim.keymap.set('n', ']l', '<cmd>try | lnext | catch | lfirst| endtry<cr>', { noremap = true })
 
-local function open_fugitive_buf()
-  local ok, head = pcall(vim.fn.FugitiveHead)
-  if ok and head ~= '' then
-    vim.cmd.Git()
-  end
-end
-
-local function get_fugitive_buf()
-  return vim.fn.bufnr 'fugitive:///*/.git/{worktrees/*}\\\\\\{0,1\\}/$'
-end
-
-local function close_fugitive_buf()
-  local fugitive_buf = get_fugitive_buf()
-  if fugitive_buf ~= -1 then
-    vim.api.nvim_buf_delete(fugitive_buf, {})
-  end
-end
-
-function ToggleFugitiveGit()
-  local fugitive_buf = get_fugitive_buf()
-  if fugitive_buf ~= -1 then
-    close_fugitive_buf()
-  else
-    open_fugitive_buf()
-  end
-end
+local fugitive = require 'fymyte.fugitive'
 
 local fugitive_grp = augroup('fugitive_autocmd', { clear = true })
 autocmd('BufReadPost', {
@@ -52,17 +27,22 @@ autocmd('BufReadPost', {
   desc = 'mark fugitive buffers as delete on quit',
   pattern = 'fugitive://*',
   callback = function()
-    vim.b.bufhidden = 'delete'
+    vim.bo.bufhidden = 'delete'
   end,
 })
 
 autocmd('DirChanged', {
   group = fugitive_grp,
   desc = 'Update fugitive status when changing cwd',
+  -- :Git must fire fugitive's BufReadCmd, or the status buffer stays empty
+  nested = true,
   callback = function()
-    close_fugitive_buf()
-
-    -- TODO: currently, opening fugitive buf right here actually make the closing of the previous buffer fail.
+    if fugitive.is_status_open() then
+      fugitive.close_status()
+      local win = vim.api.nvim_get_current_win()
+      fugitive.open_status()
+      vim.api.nvim_set_current_win(win)
+    end
   end,
 })
 
@@ -90,5 +70,5 @@ autocmd('User', {
   end,
 })
 
-vim.keymap.set('n', '<leader>tg', ToggleFugitiveGit, { desc = '[T]oggle [G]it status' })
-vim.keymap.set('n', '<M-g>', ToggleFugitiveGit, { desc = '[T]oggle [G]it status' })
+vim.keymap.set('n', '<leader>tg', fugitive.toggle_status, { desc = '[T]oggle [G]it status' })
+vim.keymap.set('n', '<M-g>', fugitive.toggle_status, { desc = '[T]oggle [G]it status' })
