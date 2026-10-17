@@ -20,6 +20,12 @@ require 'blink.cmp'.setup(
       },
       documentation = { auto_show = true, auto_show_delay_ms = 500 },
       accept = { auto_brackets = { enabled = false } },
+      -- The prompt Claude suggests shows as ghost text in its input
+      ghost_text = {
+        enabled = function()
+          return vim.bo.filetype == 'cc-input'
+        end,
+      },
     },
 
     signature = { enabled = true },

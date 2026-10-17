@@ -62,4 +62,4 @@ Colorscheme: [catppuccin](https://github.com/catppuccin/nvim.git) (mocha variant
 - Syntax:
     - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter.git) (Now just manage installed parsers)
 - AI:
-    - [claudecode.nvim](https://github.com/coder/claudecode.nvim.git) (Claude Code integration)
+    - [yacc.nvim](https://github.com/Fymyte/yacc.nvim) (Claude Code integration)

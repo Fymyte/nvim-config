@@ -3,11 +3,40 @@ local autocmd = vim.api.nvim_create_autocmd
 
 vim.pack.add { Utils.gh 'folke/snacks.nvim' }
 
+--- Directory each picker started in
+local start_cwd = setmetatable({}, { __mode = 'k' })
+
+--- A files query starting with '/', '~' or '../' lists the files of that directory and
+--- matches the rest of the query. The query keeps what was typed.
+---@param picker snacks.Picker
+---@param filter snacks.picker.Filter
+local function leave_root(picker, filter)
+  start_cwd[picker] = start_cwd[picker] or picker:cwd()
+  local base = start_cwd[picker]
+  local q = filter.pattern
+  local typed = (q:match '^~$' and '~/') or (q:match '^[/~]' or q:match '^%.%./') and q:match '^(.*/)'
+  local dir = base
+  if typed then
+    local full = vim.fs.normalize(typed:sub(1, 1) == '~' and vim.fn.expand(typed) or typed)
+    full = full:sub(1, 1) == '/' and full or vim.fs.joinpath(base, full)
+    if vim.fn.isdirectory(full) == 1 then
+      dir = vim.fs.normalize(vim.fn.fnamemodify(full, ':p'))
+      filter.pattern = q:sub(#typed + 1)
+    end
+  end
+  if dir ~= picker:cwd() then
+    picker:set_cwd(dir)
+    filter:set_cwd(dir)
+    return true
+  end
+end
+
 require('snacks').setup {
   bigfile = { enabled = true },
   input = { prompt_pos = 'left', win = { relative = 'cursor', width = 40 } },
   picker = {
     main = { file = false },
+    sources = { files = { filter = { transform = leave_root } } },
     layout = function(source)
       return source == 'select' and 'select' or 'default_reverse'
     end,
@@ -40,19 +69,8 @@ require('snacks').setup {
 --- @type snacks.win[]
 local last_showned = {}
 
---- Snacks terminals except the Claude Code one: claudecode.nvim uses the Snacks provider,
---- so its terminal shows up in `Snacks.terminal.list()` too, and it has its own <M-o>.
---- @return snacks.win[]
-local function shell_terminals()
-  local ok, claude_term = pcall(require, 'claudecode.terminal')
-  local claude_buf = ok and claude_term.get_active_terminal_bufnr() or nil
-  return vim.tbl_filter(function(t)
-    return t.buf ~= claude_buf
-  end, Snacks.terminal.list())
-end
-
 vim.keymap.set({ 'n', 't' }, '<M-i>', function()
-  local terms = shell_terminals()
+  local terms = Snacks.terminal.list()
   local visible_terms = vim.tbl_filter(function(t)
     return t:valid()
   end, terms)

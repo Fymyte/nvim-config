@@ -1,9 +1,5 @@
 vim.pack.add { Utils.gh 'willothy/flatten.nvim' }
 
----Data the guest sends to the host's hooks. Must stay msgpack-serializable.
----@class FlattenGuestData
----@field from_claude boolean Guest was spawned from inside the Claude Code terminal
-
 ---Terminal hidden for the duration of an edit, waiting to be put back. flatten only
 ---supports one blocking guest at a time (it recreates its `flatten_notify` augroup per
 ---edit), so a single slot is all that is meaningful.
@@ -18,7 +14,7 @@ local pending = nil
 local augroup = vim.api.nvim_create_augroup('FlattenRestoreTerm', { clear = true })
 
 ---@param buf integer
----@return snacks.win | nil
+---@return snacks.win?
 local function find_term(buf)
   for _, term in ipairs(Snacks.terminal.list()) do
     if term.buf == buf then
@@ -28,35 +24,14 @@ local function find_term(buf)
   return nil
 end
 
----The Claude Code terminal, if it currently has a window on this tabpage.
----@return snacks.win | nil
-local function claude_term()
-  local ok, claude_term = pcall(require, 'claudecode.terminal')
-  if not ok then
-    return nil
-  end
-  local buf = claude_term.get_active_terminal_bufnr()
-  local term = buf and find_term(buf)
-  if term and term:win_valid() and vim.api.nvim_win_get_tabpage(term.win) == vim.api.nvim_get_current_tabpage() then
-    return term
-  end
-  return nil
-end
-
 ---Snacks terminal shown in the focused window, if any.
----@return snacks.win | nil
+---@return snacks.win?
 local function focused_term()
   local term = find_term(vim.api.nvim_get_current_buf())
   if term and term:win_valid() then
     return term
   end
   return nil
-end
-
----@param request FlattenGuestData | nil
----@return boolean
-local function from_claude(request)
-  return type(request) == 'table' and request.from_claude
 end
 
 ---Put back the terminal we hid, if any. Idempotent: the slot is cleared first, so all the
@@ -84,7 +59,7 @@ require('flatten').setup {
       local to_focus = opts.stdin_buf or opts.files[1] or { bufnr = 0, file = nil }
 
       -- Replace the terminal window
-      local term = from_claude(opts.data) and claude_term() or focused_term()
+      local term = focused_term()
       pending = term
           and {
             term = term,
@@ -100,20 +75,6 @@ require('flatten').setup {
     end,
   },
   hooks = {
-    ---@return FlattenGuestData
-    guest_data = function()
-      return { from_claude = '1' == vim.env.NVIM_CLAUDE_TERM }
-    end,
-
-    should_block = function(argv)
-      for _, arg in ipairs(argv) do
-        if arg:find 'claude%-prompt' then
-          return true
-        end
-      end
-      return false
-    end,
-
     ---@param opts Flatten.PostOpenContext
     post_open = function(opts)
       local state = pending
