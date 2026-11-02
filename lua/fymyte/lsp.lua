@@ -88,7 +88,7 @@ vim.lsp.enable {
   'nixd',
   'clangd',
   'ruff',
-  'pylsp',
   'neocmake',
   'ltex_plus',
+  'basedpyright',
 }
