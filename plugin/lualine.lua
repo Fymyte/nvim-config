@@ -26,9 +26,13 @@ require('lualine').setup {
     lualine_b = {
       {
         function()
-          return vim.fn.FugitiveHead()
+          local mr = require('fymyte.fugitive').mr()
+          return vim.fn.FugitiveHead() .. (mr and ' !' .. mr.id or '')
         end,
         icon = '',
+        on_click = function()
+          require('fymyte.fugitive').open_mr()
+        end,
       },
       'diff',
       {
@@ -47,3 +51,11 @@ require('lualine').setup {
     },
   },
 }
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'FymyteMrChanged',
+  desc = 'Show the MR/PR id as soon as it is fetched',
+  callback = function()
+    require('lualine').refresh { place = { 'statusline' } }
+  end,
+})
