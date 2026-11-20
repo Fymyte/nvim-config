@@ -4,7 +4,10 @@ require('yacc').setup {
   -- Auto mode needs a model that supports it, the CLI falls back to default otherwise
   permission_mode = 'auto',
   suggestions = true,
-  keys = { toggle = '<M-o>' },
+  keys = {
+    toggle = '<M-o>',
+    submit_normal = { '<CR>', '<S-CR>' },
+  },
 }
 
 vim.keymap.set('n', '<leader>to', '<cmd>CCToggle<cr>', { desc = '[T]oggle Claude' })
