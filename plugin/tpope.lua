@@ -67,6 +67,20 @@ autocmd('User', {
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.winfixheight = true
+autocmd('User', {
+  group = fugitive_grp,
+  pattern = { 'FugitiveIndex', 'FugitiveChanged' },
+  desc = 'Look up the MR/PR of the push branch',
+  callback = function()
+    fugitive.refresh_mr()
+  end,
+})
+
+autocmd({ 'BufEnter', 'FocusGained' }, {
+  group = fugitive_grp,
+  desc = 'Look up the MR/PR of the push branch',
+  callback = function(args)
+    fugitive.refresh_mr(args.buf)
   end,
 })
 
