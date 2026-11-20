@@ -12,7 +12,12 @@ vim.pack.add {
   -- Builtin basic shell commands
   Utils.gh 'tpope/vim-eunuch',
   Utils.gh 'tpope/vim-fugitive',
+  -- :GBrowse providers
+  Utils.gh 'tpope/vim-rhubarb',
+  Utils.gh 'shumphrey/fugitive-gitlab.vim',
 }
+
+vim.g.fugitive_gitlab_domains = { 'https://gitlab-shared.sequans.com' }
 
 vim.keymap.set('n', '[q', '<cmd>try | cprev | catch | clast | endtry<cr>', { noremap = true })
 vim.keymap.set('n', ']q', '<cmd>try | cnext | catch | cfirst| endtry<cr>', { noremap = true })
@@ -67,6 +72,12 @@ autocmd('User', {
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
     vim.opt_local.winfixheight = true
+    vim.keymap.set('n', 'gx', fugitive.browse_mr, { buffer = true, desc = 'Open MR/PR or GBrowse object under cursor' })
+    vim.keymap.set('n', 'gb', fugitive.browse, { buffer = true, desc = 'GBrowse object under cursor' })
+    vim.keymap.set('n', 'gX', fugitive.browse, { buffer = true, desc = 'GBrowse object under cursor' })
+  end,
+})
+
 autocmd('User', {
   group = fugitive_grp,
   pattern = { 'FugitiveIndex', 'FugitiveChanged' },
@@ -84,5 +95,8 @@ autocmd({ 'BufEnter', 'FocusGained' }, {
   end,
 })
 
+vim.keymap.set('n', 'gb', '<Cmd>GBrowse<CR>', { desc = 'GBrowse current file' })
+-- A range makes GBrowse link a commit, so the line anchor stays valid
+vim.keymap.set('x', 'gb', ':GBrowse<CR>', { desc = 'GBrowse selected lines' })
 vim.keymap.set('n', '<leader>tg', fugitive.toggle_status, { desc = '[T]oggle [G]it status' })
 vim.keymap.set('n', '<M-g>', fugitive.toggle_status, { desc = '[T]oggle [G]it status' })
